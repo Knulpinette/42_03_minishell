@@ -1,6 +1,6 @@
-# -*-🦕-*- Make Philosophers -*-🦕-*- 
+# -*-🦕-*- Make Conflict -*-🦕-*- 
 
-NAME	= philosphers
+NAME	= conflict
 
 # -*- Definitions of variables -*-
 
