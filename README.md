@@ -32,6 +32,6 @@ Among characters to tokenise :
 
 ## Useful Links
 
-[Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
-[A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
-[Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
+* [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
+* [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
+* [Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
