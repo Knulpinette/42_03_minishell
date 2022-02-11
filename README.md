@@ -35,3 +35,9 @@ Among characters to tokenise :
 * [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
 * [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
 * [Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
+<br/>
+
+## Links from Maria
+* [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c)
+* [Bash parser](https://vorpaljs.github.io/bash-parser-playground/)
+* [Shell Command Langage Details](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_01)
