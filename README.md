@@ -8,7 +8,7 @@ Write a simple version of a shell.
 * Display a prompt (loop GNL). Print to stderr? (>msh)
 * Have a working history (cf [add_history function](https://linux.die.net/man/3/history))
 * Get the PATH variable (cf [pipex](https://github.com/Knulpinette/Cursus42/blob/main/02-pipex/srcs/utils.c))
-* No need to interpret \ or ; (unless required by the subject). Figure out when it is required by the subject lol
+* No need to interpret \ or ; (unless required by the subject).
 * Handle multiple pipes
 * Figure out why & when we need / have an interactive mode and a non interactive mode.
 * Do the built in functions. (echo (-n), cd (relative & absolute path), pwd, export, unset, env, exit)
