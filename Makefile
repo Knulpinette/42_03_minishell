@@ -44,17 +44,20 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 all:		${NAME} instructions
 
 # Make libft + compile minishell
-${NAME}:	${OBJS}
+${NAME}:		${OBJS}
 			@printf "\n"
 			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME)
 			@printf "	${WHITE}[${GREEN} Success. Compiled minishell.${WHITE}]\
 			${END} \n\n"
 
-instructions:		${NAME}
+instructions:	${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🦕🍭	${YELLOW}To use minishell${END}\n"
 			@printf "	./minishell ??"
-			@printf "\n\n"		
+			@printf "\n\n"
+
+test:			${NAME}
+			@bash tester/cocoshell_tester.sh		
 
 bonus:		${NAME} 
 

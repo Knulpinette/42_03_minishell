@@ -5,4 +5,7 @@ export YELLOW="\033[0;33m"
 export BLUE="\033[0;34m"
 export GREEN="\033[0;32m"
 
-tester_loop.sh
+export prog_pathname="../minishell"
+export tests_path="tests"
+
+bash tester/tester_loop.sh
