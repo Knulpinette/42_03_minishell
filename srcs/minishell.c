@@ -2,6 +2,6 @@
 
 int	main(void)
 {
-	write(1, "hey\n", 4);
+	write(1, "cocoshells", 10);
 	return (0);
 }
