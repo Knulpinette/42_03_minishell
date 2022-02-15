@@ -9,7 +9,7 @@ Write a simple version of a shell.
 * Do error handling structure // OPHELIE
 * Set up the testing (look at Michele's project) // OPHELIE
 * Get the (user) input // SARA 
-- 
+27/02
 <br/>
 * Do the parsing (tokenise, interpret, validate) // OPHELIE, SARA
 
@@ -34,17 +34,16 @@ Analyse the text and divide it into categories and sub-categories.
 
 Among characters to tokenise : 
 * | (pipe)
-* >, >>, <, << (redirections)
+* <, <<, >, >> (redirections)
 * $ (environement variable)
 * ', '' (quotes)
-* alphanumerical (text) [to delimitate with whitespaces]
+* alphanumerical (text / commands / flags) [to delimitate with whitespaces]
 
 <br/>
 
 ## Interactive / Non-interactive mode
 * Interactive mode accepts input typed from the keyboard.
 * Non-interactive mode will execute commands read from a file.
-
 <br/>
 
 ## Useful Links
