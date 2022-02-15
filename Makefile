@@ -41,7 +41,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
 
 #	Active rules
 
-all:		${NAME} test
+all:		${NAME} instructions
 
 # Make libft + compile minishell
 ${NAME}:	${OBJS}
@@ -50,11 +50,11 @@ ${NAME}:	${OBJS}
 			@printf "	${WHITE}[${GREEN} Success. Compiled minishell.${WHITE}]\
 			${END} \n\n"
 
-test:		${NAME}
+instructions:		${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🦕🍭	${YELLOW}To use minishell${END}\n"
 			@printf "	./minishell ??"
-			@printf "\n\n"
+			@printf "\n\n"		
 
 bonus:		${NAME} 
 

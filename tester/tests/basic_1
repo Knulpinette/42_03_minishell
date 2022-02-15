@@ -1,0 +1,4 @@
+wc -l ./test_files/filein_big
+tail ./test_files/filein_medium
+cat ./test_files/filein_short
+cat -e ./test_files/filein_big ./test_files/filein_medium ./test_files/filein_short
