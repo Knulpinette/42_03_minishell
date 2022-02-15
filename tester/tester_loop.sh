@@ -15,8 +15,8 @@ for TEST in $tests_path/*; do
 		OK_OUT=0
 	fi;
 
-	echo -e "\n🌴🥥-------------------------🥥🌴\n"
-	echo -e "$TEST_COLOR Test $i:$WHITE $TEST"
+	echo -e "\n 🌴🥥------------------------------🥥🌴\n"
+	echo -e "$TEST_COLOR Test	$i:$WHITE $TEST"
 	if [ $OK_OUT == 0 ]; then
 		>out_bash echo "$expected_out" 
 		>out_minishell echo "$test_out"
@@ -24,7 +24,8 @@ for TEST in $tests_path/*; do
 		diff -y -W 200 out_bash out_minishell
 		rm -f out_bash out_minishell
 		((nb_failed+=1))
-	fi;
+	fi;	
 done
+
 let nb_passed=$i-$nb_failed;
 echo -e "\n\t$BLUE PASSED: $nb_passed/$i | FAILED: $nb_failed$WHITE"
