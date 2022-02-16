@@ -6,7 +6,7 @@
 /*   By: svieira <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 11:49:00 by svieira           #+#    #+#             */
-/*   Updated: 2021/03/08 12:20:33 by svieira          ###   ########.fr       */
+/*   Updated: 2022/02/16 17:47:38 by svieira          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# define BUFFER_SIZE 10
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);

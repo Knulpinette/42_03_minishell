@@ -27,9 +27,10 @@
  */
 
 
-int	main(int ac, char *av)
+int	main(int ac, char **av)
 {
-	int	fd;
+	int		fd;
+	char	*line;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
@@ -46,14 +47,19 @@ int	main(int ac, char *av)
 	while (1)
 	{
 		if (ac == 2)
-			line = get_next_line(fd); // use new gnl
-		else
-			line = readline(prompt); // prompt???
-		// if NULL we reached the end, free line and return 0
+			get_next_line(fd, &line);
+		//else
+		//	line = readline(prompt); // prompt???
+		if (!line || !line[0])
+		{
+			free(line);
+			return (0);
+		}
 		// validate user input (line)
+		printf("%s\n", line);
 		// if not valid, free line and return 1
 		// parse(line) and turn it into a linked list of command structs
-		// free line
+		free(line);
 		// executor
 	}
 	return (0);
