@@ -27,13 +27,34 @@
  */
 
 
-int	main(void)
+int	main(int ac, char *av)
 {
+	int	fd;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
 	 *   b. parse it
 	 *   c. execute it
 	 */
+	if (ac > 2)
+	{
+		// error message ?
+		return (1);
+	}
+	if (ac == 2)
+		fd = open(av[1], O_RDONLY); // should it be created if non-existent?
+	while (1)
+	{
+		if (ac == 2)
+			line = get_next_line(fd); // use new gnl
+		else
+			line = readline(prompt); // prompt???
+		// if NULL we reached the end, free line and return 0
+		// validate user input (line)
+		// if not valid, free line and return 1
+		// parse(line) and turn it into a linked list of command structs
+		// free line
+		// executor
+	}
 	return (0);
 }
