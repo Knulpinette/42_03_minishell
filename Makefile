@@ -15,7 +15,7 @@ INCLUDES	= -Iincludes
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS 		= -Wall -Wextra -Werror
 
 # Colors
 
@@ -36,7 +36,7 @@ END			= \e[0m
 
 # Create and compile objects files in a dedicated folder
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
-			@mkdir -p objs
+			@mkdir -p ${OBJS_DIR}
 			@${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
 
 #	Active rules
@@ -75,6 +75,11 @@ fclean:		clean
 			${END}\n\n"
 
 re:			fclean all
+
+debug:		INCLUDES += -DDEBUG_MODE
+debug:		CFLAGS = -Wall -Wextra -g -fsanitize=address
+debug:		clean
+debug:		all
 
 .PHONY:		all clean fclean re
 
