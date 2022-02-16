@@ -48,8 +48,8 @@ int	main(int ac, char **av)
 	{
 		if (ac == 2)
 			get_next_line(fd, &line);
-		//else
-		//	line = readline(prompt); // prompt???
+		else
+			line = readline("> ");
 		if (!line || !line[0])
 		{
 			free(line);

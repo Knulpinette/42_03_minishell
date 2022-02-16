@@ -11,11 +11,12 @@ OBJS_DIR	= objs
 OBJS		= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
 INCLUDES	= -Iincludes
+LIBS		= -lreadline
 
 CC			= gcc
 RM			= rm -f
 MAKE		= make
-CFLAGS 		= -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS 		= -Wall -Wextra -Werror
 
 # Colors
 
@@ -46,7 +47,7 @@ all:		${NAME} test
 # Make libft + compile minishell
 ${NAME}:	${OBJS}
 			@printf "\n"
-			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME)
+			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME) $(LIBS)
 			@printf "	${WHITE}[${GREEN} Success. Compiled minishell.${WHITE}]\
 			${END} \n\n"
 
