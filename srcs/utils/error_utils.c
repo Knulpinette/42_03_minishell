@@ -13,6 +13,8 @@ int		error_and_exit(t_error code)
 
 void	error_message(t_error code)
 {
+	if (code == ERR_NO_PRINT)
+		return ;
 	// we could print the program name here
 	if (MEMORY_FAIL) //in the meantime before linking libft. 
 		printf("%s\n", strerror(errno)); // don't forget to print on STDERR_FILENO
