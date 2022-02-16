@@ -37,6 +37,7 @@ END			= \e[0m
 # Create and compile objects files in a dedicated folder
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
 			@mkdir -p ${OBJS_DIR}
+			@mkdir -p objs/utils
 			@${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
 
 #	Active rules
