@@ -1,4 +1,5 @@
-# -*-🦕-*- Make Minishell -*-🦕-*- 
+# -*-🥥-*- Make Minishell -*-🥥-*- 
+#							by the Cocoshells 🥥
 
 NAME	= minishell
 
@@ -60,7 +61,7 @@ ${NAME}:		${OBJS}
 
 instructions:	${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
-			@printf "\n🦕🍭	${YELLOW}To use minishell${END}\n"
+			@printf "\n🥥🌴	${YELLOW}To use minishell${END}\n"
 			@printf "	./minishell cmd file"
 			@printf "\n\n"
 
