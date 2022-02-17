@@ -5,10 +5,15 @@ NAME	= minishell
 # -*- Definitions of variables -*-
 
 SRCS_DIR	= srcs
-SRCS		= $(wildcard $(SRCS_DIR)/*.c)
+SRCS		:= $(shell find $(SRCS_DIR) -name *.c)
+#SRCS		:= $(wildcard $(SRCS_DIR)/*.c)
 
 OBJS_DIR	= objs
-OBJS		= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
+#OBJS		:= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+
+OBJS_SUB_DIR	:= $(shell find $(SRCS_DIR) -type d)
+OBJS_SUB_DIR	:= $(OBJS_SUB_DIR:%=$(OBJS_DIR)/%)
 
 LIBFT_DIR	= 42_00_libft
 
@@ -38,9 +43,9 @@ END			= \e[0m
 #	Implicit rules
 
 # Create and compile objects files in a dedicated folder
-${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c 
+$(OBJS_DIR)/%.o: %.c
 			@mkdir -p ${OBJS_DIR}
-			@mkdir -p objs/utils
+			@mkdir -p $(OBJS_SUB_DIR)
 			@${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
 
 #	Active rules
