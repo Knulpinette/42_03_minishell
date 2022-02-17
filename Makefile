@@ -88,5 +88,5 @@ debug:		CFLAGS = -Wall -Wextra -g -fsanitize=address
 debug:		clean
 debug:		all
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re debug
 
