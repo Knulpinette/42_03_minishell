@@ -50,7 +50,7 @@ int	main(int ac, char **av)
 			get_next_line(fd, &line);
 		else
 			line = readline("> ");
-		if (!line || !line[0])
+		if (!line || (ac == 2 && !line[0]))
 		{
 			free(line);
 			return (0);
