@@ -10,7 +10,10 @@ SRCS		= $(wildcard $(SRCS_DIR)/*.c)
 OBJS_DIR	= objs
 OBJS		= $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
+LIBFT_DIR	= 42_00_libft
+
 INCLUDES	= -Iincludes
+LIBRARIES	= -L${LIBFT_DIR} -lft -lreadline
 
 CC			= gcc
 RM			= rm -f
@@ -47,7 +50,8 @@ all:		${NAME} instructions
 # Make libft + compile minishell
 ${NAME}:		${OBJS}
 			@printf "\n"
-			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME)
+			@${MAKE} bonus -C ${LIBFT_DIR}
+			@$(CC) ${CFLAGS} ${INCLUDES} ${LIBRARIES} ${OBJS} -o $(NAME)
 			@printf "	${WHITE}[${GREEN} Success. Compiled minishell.${WHITE}]\
 			${END} \n\n"
 
@@ -65,12 +69,14 @@ bonus:		${NAME}
 #	Cleaning rules
 
 clean:
+			@${MAKE} clean -C ${LIBFT_DIR}
 			@${RM} ${OBJS} ${OBJS_BONUS}
 			@rm -rf objs
 			@printf "\n	${WHITE}[${BLUE} Cleaned minishell object files ${WHITE}]\
 			${END}\n"
 
 fclean:		clean
+			@${MAKE} fclean_no_clean -C ${LIBFT_DIR}
 			@${RM} ${NAME}
 			@printf "	${WHITE}[${BLUE} Cleaned minishell output files ${WHITE}]\
 			${END}\n\n"

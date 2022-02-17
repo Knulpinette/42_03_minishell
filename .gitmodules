@@ -1,0 +1,3 @@
+[submodule "42_00_libft"]
+	path = 42_00_libft
+	url = git@github.com:Knulpinette/42_00_libft.git

@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "../42_00_libft/libft.h"
 # include "colors.h"
 # include "types.h"
 # include "utils.h"
