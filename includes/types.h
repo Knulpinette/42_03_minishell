@@ -14,6 +14,7 @@ typedef enum 	e_error_codes
 {
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
+	WRONG_ARGC,
 }				t_error;
 
 
