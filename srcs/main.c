@@ -27,7 +27,7 @@
  */
 
 
-int	main(int ac, char **av)
+int	main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
@@ -38,17 +38,17 @@ int	main(int ac, char **av)
 	 *   b. parse it
 	 *   c. execute it
 	 */
-	if (ac > 2)
+	if (argc > 2)
 		error_and_exit(WRONG_ARGC);
-	if (ac == 2)
-		fd = open(av[1], O_RDONLY);
+	if (argc == 2)
+		fd = open(argv[1], O_RDONLY);
 	while (1)
 	{
-		if (ac == 2)
+		if (argc == 2)
 			get_next_line(fd, &line);
 		else
 			line = readline("> ");
-		if (!line || (ac == 2 && !line[0]))
+		if (!line || (argc == 2 && !line[0]))
 		{
 			free(line);
 			return (0);
