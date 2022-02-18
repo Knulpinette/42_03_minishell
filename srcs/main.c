@@ -27,13 +27,39 @@
  */
 
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	int			fd;
+	char		*line;
+	t_minishell	minishell;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
 	 *   b. parse it
 	 *   c. execute it
 	 */
+	if (argc > 2)
+		error_and_exit(WRONG_ARGC);
+	if (argc == 2)
+		fd = open(argv[1], O_RDONLY);
+	while (1)
+	{
+		if (argc == 2)
+			get_next_line(fd, &line);
+		else
+			line = readline("> ");
+		if (!line || (argc == 2 && !line[0]))
+		{
+			free(line);
+			return (0);
+		}
+		// validate user input (line)
+		minishell.coconut = line;
+		printf("%s\n", minishell.coconut);
+		// if not valid, free line and return 1
+		// parse(line) and turn it into a linked list of command structs
+		free(line);
+		// executor
+	}
 	return (0);
 }

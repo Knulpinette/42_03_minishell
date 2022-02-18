@@ -62,7 +62,7 @@ ${NAME}:		${OBJS}
 instructions:	${NAME}
 			@printf "\n	📚 [${PURPLE}INSTRUCTIONS${END}] 📚\n"
 			@printf "\n🥥🌴	${YELLOW}To use minishell${END}\n"
-			@printf "	./minishell cmd file"
+			@printf "	./minishell or ./minishell <file>"
 			@printf "\n\n"
 
 test:			${NAME}
