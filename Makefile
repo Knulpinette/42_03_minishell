@@ -55,7 +55,7 @@ all:			${NAME} instructions
 ${NAME}:		${OBJS}
 			@printf "\n"
 			@${MAKE} bonus -C ${LIBFT_DIR}
-			@$(CC) ${CFLAGS} ${INCLUDES} ${LIBRARIES} ${OBJS} -o $(NAME)
+			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME) $(LIBRARIES)
 			@printf "	${WHITE}[${GREEN} Success. Compiled minishell.${WHITE}]\
 			${END} \n\n"
 
