@@ -9,10 +9,10 @@ SRCS_DIR		= srcs
 SRCS			:= $(shell find $(SRCS_DIR) -name *.c)
 
 OBJS_DIR		= objs
-OBJS			:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
+OBJS			:= $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
-OBJS_SUB_DIR	:= $(shell find $(SRCS_DIR) -type d)
-OBJS_SUB_DIR	:= $(OBJS_SUB_DIR:%=$(OBJS_DIR)/%)
+OBJS_SUB_DIR	:= $(shell find $(SRCS_DIR) -mindepth 1 -type d)
+OBJS_SUB_DIR	:= $(OBJS_SUB_DIR:$(SRCS_DIR)/%=$(OBJS_DIR)/%)
 
 LIBFT_DIR		= 42_00_libft
 
@@ -42,7 +42,7 @@ END				= \e[0m
 #	Implicit rules
 
 # Create and compile objects files in a dedicated folder
-$(OBJS_DIR)/%.o: %.c
+$(OBJS_DIR)/%.o: ${SRCS_DIR}/%.c
 			@mkdir -p ${OBJS_DIR}
 			@mkdir -p $(OBJS_SUB_DIR)
 			@${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
@@ -55,7 +55,7 @@ all:			${NAME} instructions
 ${NAME}:		${OBJS}
 			@printf "\n"
 			@${MAKE} bonus -C ${LIBFT_DIR}
-			@$(CC) ${CFLAGS} ${INCLUDES} ${LIBRARIES} ${OBJS} -o $(NAME)
+			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME) $(LIBRARIES)
 			@printf "	${WHITE}[${GREEN} Success. Compiled minishell.${WHITE}]\
 			${END} \n\n"
 
