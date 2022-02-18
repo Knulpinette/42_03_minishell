@@ -2,6 +2,12 @@
 
 int	main(void)
 {
-	write(1, "cocoshells", 10);
+	t_minishell	minishell;
+	t_minishell *test;
+
+	minishell.coconut = "cocoshells";
+	test = get_minishell(&minishell);
+	printf("%s\n", test->coconut);
+	error_and_exit(MEMORY_FAIL);
 	return (0);
 }

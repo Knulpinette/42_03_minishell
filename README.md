@@ -6,8 +6,7 @@ Write a simple version of a shell.
 ## TO DO
 21/02 
 <br/>
-* Do error handling structure // OPHELIE
-* Set up the testing (look at Michele's project) // OPHELIE
+* Figure out the Makefile issue, set up libft // OPHELIE
 * Get the (user) input // SARA 
 27/02
 <br/>
