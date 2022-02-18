@@ -29,8 +29,9 @@
 
 int	main(int ac, char **av)
 {
-	int		fd;
-	char	*line;
+	int			fd;
+	char		*line;
+	t_minishell	minishell;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
@@ -38,12 +39,9 @@ int	main(int ac, char **av)
 	 *   c. execute it
 	 */
 	if (ac > 2)
-	{
-		// error message ?
-		return (1);
-	}
+		error_and_exit(WRONG_ARGC);
 	if (ac == 2)
-		fd = open(av[1], O_RDONLY); // should it be created if non-existent?
+		fd = open(av[1], O_RDONLY);
 	while (1)
 	{
 		if (ac == 2)
@@ -56,7 +54,8 @@ int	main(int ac, char **av)
 			return (0);
 		}
 		// validate user input (line)
-		printf("%s\n", line);
+		minishell.coconut = line;
+		printf("%s\n", minishell.coconut);
 		// if not valid, free line and return 1
 		// parse(line) and turn it into a linked list of command structs
 		free(line);

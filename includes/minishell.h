@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <limits.h>
+# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../42_00_libft/libft.h"
