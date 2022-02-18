@@ -1,0 +1,7 @@
+wc -l ${tester_filepath}/test_files/filein_big 
+echo -e "\n"
+tail ${tester_filepath}/test_files/filein_medium 
+echo -e "\n"
+cat ${tester_filepath}/test_files/filein_short 
+echo -e "\n"
+cat -e ${tester_filepath}/test_files/filein_short ${tester_filepath}/test_files/filein_big ${tester_filepath}/test_files/filein_medium 
