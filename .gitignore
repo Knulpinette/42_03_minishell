@@ -2,3 +2,9 @@ objs
 ./minishell
 minishell
 docs/git_instructions.txt
+**/.vscode/
+**/.DS_Store
+**/test-*/
+**/test-*
+**/objs/*
+
