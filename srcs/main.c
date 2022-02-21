@@ -40,15 +40,15 @@ int	main(int argc, char **argv)
 		if (argc == 2)
 			get_next_line(fd, &line);
 		else
-			line = readline("> ");
+			line = readline(PROMPT);
 		if (!line || (argc == 2 && !line[0]))
 		{
 			free(line);
 			return (0);
 		}
 		// validate user input (line)
-		minishell->prompt = line;
-		printf("%s\n", minishell->prompt);
+		minishell->coconut = line;
+		printf("%s\n", minishell->coconut);
 		// if not valid, free line and return 1
 		parse(line);
 		free(line);

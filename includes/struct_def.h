@@ -2,9 +2,10 @@
 # define STRUCT_DEF_H
 
 /* PARSING MACROS */
+# define PROMPT "> "
 # define SPACE ' '
 # define PIPE '|'
-# define ENV_VARIABLE '$'
+# define ENV_VAR '$'
 # define QUOTE '\''
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
@@ -16,7 +17,7 @@ typedef struct 	s_command_table
 {
 	char	*cmd;
 	char	**flags;
-	char	*cmd_path; // this will be the concenated "right"/correct path (or at least where we'll store the paths we want to test to see if they can be executed)
+	char	*cmd_path; /* path to be executed */
 	int		infile_fd;
 	char	*infile;
 	int		outfile_fd;
@@ -24,7 +25,7 @@ typedef struct 	s_command_table
 	bool	delimiter;
 	char	*delim_arg;
 	int		mode; /* OVERWRITE, APPEND */
-	char	**args; // * ou ** ?
+	char	*cmd_arg;
 
 }				t_cmd_table;
 
@@ -47,7 +48,7 @@ typedef enum 	e_error_codes
 
 typedef struct 	s_minishell
 {
-	char		*prompt;
+	char		*coconut; // to get rid of, but practical for testing
 	int			nb_cmd;
 	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
 	t_cmd_table	**cmd_table; // better to go with an array since we'll know how many we have?

@@ -1,8 +1,11 @@
 #include "minishell.h"
 
-char	*skip_space(t_minishell *minishell)
+char	*skip_space(char *line)
 {
-	while ((*minishell->prompt) && (*minishell->prompt) == SPACE)
-		minishell++; //faire la fonction
-	return (minishell->prompt);
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] == SPACE)
+		i++;; //faire la fonction
+	return (line + i);
 }
