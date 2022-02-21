@@ -8,6 +8,17 @@ typedef struct 	s_minishell
 
 }				t_minishell;
 
+/* PARSING MACROS */
+# define SPACE ' '
+# define PIPE '|'
+# define ENV_VARIABLE '$'
+# define QUOTE '''
+# define DBL_QUOTE '"'
+# define REDIR_IN '<'
+# define REDIR_OUT '>'
+# define DELIMITER '<<'
+# define APPEND_MODE '>>'
+
 typedef struct 	s_command_table
 {
 	char	*cmd;
@@ -17,7 +28,8 @@ typedef struct 	s_command_table
 	char	*infile;
 	int		outfile_fd;
 	char	*outfile;
-	char	*delimiter;
+	bool	delimiter;
+	char	*delim_arg;
 	int		mode; /* OVERWRITE, APPEND */
 	char	**args;
 
