@@ -16,8 +16,8 @@ typedef struct 	s_minishell
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
 # define REDIR_OUT '>'
-# define DELIMITER '<<'
-# define APPEND_MODE '>>'
+# define DELIMITER "<<"
+# define APPEND_MODE ">>"
 
 typedef struct 	s_command_table
 {
