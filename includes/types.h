@@ -1,19 +1,11 @@
 #ifndef TYPES_H
 # define TYPES_H
 
-typedef struct 	s_minishell
-{
-	char		*prompt;
-	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
-	t_cmd_table	**cmd_table;
-
-}				t_minishell;
-
 /* PARSING MACROS */
 # define SPACE ' '
 # define PIPE '|'
 # define ENV_VARIABLE '$'
-# define QUOTE '''
+# define QUOTE '\''
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
 # define REDIR_OUT '>'
@@ -53,5 +45,12 @@ typedef enum 	e_error_codes
 	WRONG_ARGC,
 }				t_error;
 
+typedef struct 	s_minishell
+{
+	char		*prompt;
+	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
+	t_cmd_table	**cmd_table;
+
+}				t_minishell;
 
 #endif
