@@ -4,13 +4,7 @@ Write a simple version of a shell.
 <br/>
 
 ## TO DO
-21/02 
-<br/>
-* Figure out the Makefile issue, set up libft // OPHELIE
-* Get the (user) input // SARA 
-27/02
-<br/>
-* Do the parsing (tokenise, interpret, validate) // OPHELIE, SARA
+* Do the parsing (tokenise, interpret, validate)
 
 <br/>
 

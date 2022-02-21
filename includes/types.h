@@ -3,8 +3,29 @@
 
 typedef struct 	s_minishell
 {
-	char* coconut;
+	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
+	t_cmd_table	**cmd_table;
+
 }				t_minishell;
+
+typedef struct 	s_command_table
+{
+	char	*cmd;
+	char	**flags;
+	char	*cmd_path; // this will be the concenated "right"/correct path (or at least where we'll store the paths we want to test to see if they can be executed)
+	int		outfile_fd;
+	int		infile_fd;
+	char	*delimiter;
+	int		mode; // OVERWRITE, APPEND
+	char	**text;
+
+}				t_cmd_table;
+
+typedef	enum	e_redir_mode // for readable instructions when you change the mode according to >>
+{
+	OVERWRITE, // default IS overwrite, right ? (here overwrite = 0)
+	APPEND,
+}				t_redir_mode;
 
 /* see https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/ */
 # define EXIT_FILE_NOT_FOUND 127
