@@ -46,8 +46,8 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		// validate user input (line)
-		minishell.coconut = line;
-		printf("%s\n", minishell.coconut);
+		minishell.prompt = line;
+		printf("%s\n", minishell.prompt);
 		// if not valid, free line and return 1
 		// parse(line) and turn it into a linked list of command structs
 		free(line);
