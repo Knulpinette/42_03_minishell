@@ -3,16 +3,8 @@
 /* Global variable: env? history? both? none? */
 
 /* Parsing
- * command struct:
- * - command
- * - flags (merged with command?)
- * - path (to be found after user input is all checked)
- * - built-in boolean ?
- * - fd_in (stdin if no redirection/infile is given)
- * - fd_out (stdout if no redirection/outfile is given)
- * - delimiter in case of <<
- * - mode (overwrite or append) in case of >>
- * - arguments -> array? what kind of arguments can we have?
+ 
+ * - built-in boolean ? // not sure it needs to be built in.
  * 1. Understand how many commands are in one line; Since we don't have to handle ;
  *    nor && nor || I think the only possible delimiter is a pipe
  * 2. Treat each command: find the path; expand variables ($); handle quotes; open infile

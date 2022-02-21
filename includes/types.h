@@ -18,8 +18,8 @@ typedef struct 	s_command_table
 	int		outfile_fd;
 	char	*outfile;
 	char	*delimiter;
-	int		mode; // OVERWRITE, APPEND
-	char	**text;
+	int		mode; /* OVERWRITE, APPEND */
+	char	**args;
 
 }				t_cmd_table;
 
