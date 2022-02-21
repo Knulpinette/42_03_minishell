@@ -22,8 +22,11 @@
 # include <readline/history.h>
 # include "../42_00_libft/libft.h"
 # include "colors.h"
-# include "types.h"
+# include "struct_def.h"
 # include "utils.h"
+
+/* PARSING */
+void	parse(char *line);
 
 #endif
 

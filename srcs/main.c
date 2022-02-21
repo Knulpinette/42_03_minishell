@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
-	t_minishell	minishell;
+	t_minishell	*minishell;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
@@ -34,7 +34,8 @@ int	main(int argc, char **argv)
 		error_and_exit(WRONG_ARGC);
 	if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
-	while (1)
+	minishell = init_minishell();
+	while (true)
 	{
 		if (argc == 2)
 			get_next_line(fd, &line);
@@ -46,12 +47,13 @@ int	main(int argc, char **argv)
 			return (0);
 		}
 		// validate user input (line)
-		minishell.prompt = line;
-		printf("%s\n", minishell.prompt);
+		minishell->prompt = line;
+		printf("%s\n", minishell->prompt);
 		// if not valid, free line and return 1
-		// parse(line) and turn it into a linked list of command structs
+		parse(line);
 		free(line);
 		// executor
 	}
+	free_minishell(minishell);
 	return (0);
 }

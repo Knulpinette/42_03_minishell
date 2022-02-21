@@ -3,6 +3,7 @@
 
 /* Main utils */
 t_minishell		*get_minishell(t_minishell *minishell);
+t_minishell		*init_minishell();
 
 /* Memory utils */
 void			free_minishell(t_minishell *minishell);
