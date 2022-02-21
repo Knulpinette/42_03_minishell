@@ -9,8 +9,8 @@
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
 # define REDIR_OUT '>'
-# define DELIMITER "<<"
-# define APPEND_MODE ">>"
+# define DELIMITER "<<" // see if that makes sense eventually
+# define APPEND_MODE ">>" // same
 
 typedef struct 	s_command_table
 {
