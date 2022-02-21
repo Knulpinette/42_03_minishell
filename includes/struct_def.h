@@ -48,8 +48,9 @@ typedef enum 	e_error_codes
 typedef struct 	s_minishell
 {
 	char		*prompt;
+	int			nb_cmd;
 	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
-	t_cmd_table	*cmd_table; // this is a list of cmd tables ?
+	t_cmd_table	**cmd_table; // better to go with an array since we'll know how many we have?
 
 }				t_minishell;
 

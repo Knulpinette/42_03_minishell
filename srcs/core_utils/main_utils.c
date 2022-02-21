@@ -15,18 +15,28 @@ t_minishell		*get_minishell(t_minishell *minishell)
 t_minishell		*init_minishell()
 {
 	t_minishell minishell;
-	t_cmd_table *init;
+	//t_cmd_table **init;
 	
-	minishell.cmd_table = ft_calloc(sizeof(char *), 1);
+	minishell.nb_cmd = 0;
+	minishell.cmd_table = ft_calloc(sizeof(t_cmd_table), 1);
 	if (!minishell.cmd_table)
 		error_and_exit(MEMORY_FAIL);
-	init = &minishell.cmd_table[0];
+	printf("Hey !\n");
+	minishell.cmd_table[0]->infile_fd = 0; // j'essaye d'accéder à quelque chose où je ne peux pas.
+	printf("Nice !\n");
+	minishell.cmd_table[0]->args = ft_calloc(sizeof(char *), 1);
+	printf("To meet you !\n");
+	if (!minishell.cmd_table[0]->args)
+		error_and_exit(MEMORY_FAIL);
+	/*
+	//init = &minishell.cmd_table[0][0];
+	init->infile_fd = 0;
 	init->infile_fd = 0;
 	init->outfile_fd = 0;
 	init->delimiter = false;
 	init->mode = OVERWRITE;
 	init->args = ft_calloc(sizeof(char *), 1);
 	if (!init->args)
-		error_and_exit(MEMORY_FAIL);
+		error_and_exit(MEMORY_FAIL);*/
 	return (get_minishell(&minishell));
 }
