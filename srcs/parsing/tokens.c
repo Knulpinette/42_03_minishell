@@ -4,6 +4,8 @@
 
 ONGOING 
 
+// go with t_tokens or t_list ? 
+
 Parsing tokens
 {
 	while (instructions)
@@ -15,11 +17,6 @@ Parsing tokens
 	}
 }
 */
-
-static char	**fill_tokens(const char *s)//, char c, int words, char **split)
-{
-	return (&s);
-}
 
 char	**tokenise(const char *s, char c)
 {
