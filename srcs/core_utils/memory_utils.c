@@ -2,7 +2,8 @@
 
 void	free_minishell(t_minishell *minishell)
 {
-	(void)minishell;
+	if (minishell)
+		free(minishell);
 	return ;
 }
 

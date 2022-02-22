@@ -14,9 +14,22 @@ t_minishell		*get_minishell(t_minishell *minishell)
 
 t_minishell		*init_minishell()
 {
-	t_minishell minishell;
-	
-	minishell.nb_cmd = 0;
-	minishell.cmd_table = NULL;
-	return (get_minishell(&minishell));
+	t_minishell *minishell;
+
+	minishell = calloc_or_exit(sizeof(t_minishell), 1);
+	get_minishell(minishell);
+	minishell->nb_cmd = 0;
+	minishell->input = NULL;
+	minishell->cmd_table = NULL;
+	return (minishell);
+}
+
+void	*calloc_or_exit(size_t size, int count)
+{
+	void	*result;
+
+	result = ft_calloc(size, count);
+	if (!result)
+		error_and_exit(MEMORY_FAIL);
+	return (result);
 }
