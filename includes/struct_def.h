@@ -13,23 +13,30 @@
 # define DELIMITER "<<" // see if that makes sense eventually
 # define APPEND_MODE ">>" // same
 
-typedef struct 	s_tokens
-{
-	int		type;
-	char	*token;
-}				t_tokens;
-
 typedef enum	e_token_type
 {
 	WORD,
 	CMD,
 	FLAG,
+	OP_REDIR_IN,
+	OP_REDIR_OUT,
+	OP_DELIMITER,
+	OP_APPEND,
+	ENV_VARIABLE,
 }				t_token_type;
+
+typedef struct 	s_token
+{
+	int				type;
+	char			*content;
+	struct	t_token *next;
+	
+}				t_token;
 
 typedef struct 	s_command_table
 {
-	t_tokens	**tokens; /* array of tokens */
-	char		*cmd;
+	t_token		**tokens; /* list of tokens */ /* do a t_list ? see how to use it */
+	char		*cmd_name;
 	char		**flags; /* list of flags */
 	char		*cmd_path; /* path to be executed */
 	int			infile_fd;

@@ -37,9 +37,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			return (0);
 		// validate user input (line)
-		parse(line);
 		// if not valid, free line and return 1
-		// parse(line) and turn it into a linked list of command structs
+		parse(line);
+		// parse(line) and turn it into an array of command structs
 		free(line);
 		// executor
 	}

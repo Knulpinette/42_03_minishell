@@ -31,7 +31,7 @@ t_cmd_table	**init_cmd_table(int nb_cmd)
 	{
 		cmd_table[i] = calloc_or_exit(sizeof(t_cmd_table), 1);
 		cmd_table[i]->tokens = NULL;
-		cmd_table[i]->cmd = NULL;
+		cmd_table[i]->cmd_name = NULL;
 		cmd_table[i]->flags = NULL;
 		cmd_table[i]->cmd_path = NULL;
 		cmd_table[i]->infile_fd = STDIN_FILENO;
