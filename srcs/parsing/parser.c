@@ -6,10 +6,9 @@ void	parse(char *line)
 
 	minishell = get_minishell(NULL);
 	minishell->input = ft_split(line, PIPE);
-	minishell->nb_cmd = get_nb_split(minishell->input);
+	minishell->nb_cmd = get_split_len(minishell->input);
 	init_cmd_table_and_tokens();
-	//divide in cmd_tables
-	// skip space
+	
 	// get command
 	// skip space
 	// until it doesn't start by '-' + alphanumerical (until stop alphanumerical, get flag

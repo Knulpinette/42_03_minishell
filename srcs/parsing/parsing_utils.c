@@ -10,7 +10,7 @@ char	*skip_space(char *line)
 	return (line + i);
 }
 
-int		get_nb_split(char **split)
+int		get_split_len(char **split)
 {
 	int	i;
 

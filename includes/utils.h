@@ -8,7 +8,7 @@ void			*calloc_or_exit(size_t size, int count);
 
 /* Parsing utils */
 void			init_cmd_table_and_tokens();
-int				get_nb_split(char **split);
+int				get_split_len(char **split);
 char			*skip_space(char *line);
 
 /* Memory utils */
