@@ -16,8 +16,11 @@ void	error_message(t_error code)
 	if (code == ERR_NO_PRINT)
 		return ;
 	// we could print the program name here
-	if (WRONG_ARGC)
-		printf("Wrong number of arguments.\n");
-	if (MEMORY_FAIL) //in the meantime before linking libft. 
-		printf("%s\n", strerror(errno)); // don't forget to print on STDERR_FILENO
+	if (code == WRONG_ARGC)
+		ft_putstr_fd("Wrong number of arguments.\n", 2);
+	if (code == MEMORY_FAIL || code == OPEN_FAIL)
+	{
+		ft_putstr_fd(strerror(errno), 2);
+		write(2, "\n", 1);
+	}
 }
