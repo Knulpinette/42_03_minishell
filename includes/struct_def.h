@@ -49,7 +49,6 @@ typedef enum 	e_error_codes
 
 typedef struct 	s_minishell
 {
-	char		*coconut; // to get rid of, but practical for testing
 	int			nb_cmd;
 	char		**input; // split made from pipes. 
 	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.

@@ -17,6 +17,6 @@ void	parse(char *line)
 	// check quote
 	// save arg
 	DEBUG(print_split(minishell->input);)
-	//free_split(minishell->input); // voir pourquoi problème.
+	free_split(minishell->input); 
 	return ;
 }
