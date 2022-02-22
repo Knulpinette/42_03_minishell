@@ -49,5 +49,5 @@ int	main(int argc, char **argv)
 		// executor
 	}
 	free_minishell(minishell);
-	return (0);
+	return (EXIT_SUCCESS);
 }

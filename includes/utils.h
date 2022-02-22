@@ -13,6 +13,7 @@ char			*skip_space(char *line);
 /* Memory utils */
 void			free_minishell(t_minishell *minishell);
 void			free_split(char **split);
+void			free_table(t_cmd_table **cmd_table);
 
 /* Error utils */
 int				error_and_exit(t_error code);
