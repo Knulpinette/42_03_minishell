@@ -34,9 +34,7 @@ int	main(int argc, char **argv)
 		error_and_exit(WRONG_ARGC);
 	fd = 0;
 	if (argc == 2)
-		fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		error_and_exit(OPEN_FAIL);
+		fd = open_or_exit(argv[1]);
 	minishell = init_minishell();
 	while (true)
 	{

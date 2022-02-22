@@ -24,3 +24,13 @@ void	error_message(t_error code)
 		write(2, "\n", 1);
 	}
 }
+
+int	open_or_exit(char *file_path)
+{
+	int	fd;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+		error_and_exit(OPEN_FAIL);
+	return (fd);
+}
