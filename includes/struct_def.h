@@ -16,7 +16,7 @@
 typedef struct 	s_command_table
 {
 	char	*cmd;
-	char	**flags;
+	char	*flags; /* list of flags */
 	char	*cmd_path; /* path to be executed */
 	int		infile_fd;
 	char	*infile;
@@ -25,7 +25,7 @@ typedef struct 	s_command_table
 	bool	delimiter;
 	char	*delim_arg;
 	int		mode; /* OVERWRITE, APPEND */
-	char	*cmd_arg;
+	char	**cmd_arg; /* array because of execve */
 
 }				t_cmd_table;
 
