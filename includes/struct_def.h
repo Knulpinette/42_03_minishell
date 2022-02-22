@@ -16,12 +16,19 @@
 typedef struct 	s_tokens
 {
 	int		type;
-	char	*word;
+	char	*token;
 }				t_tokens;
+
+typedef enum	e_token_type
+{
+	WORD,
+	CMD,
+	FLAG,
+}				t_token_type;
 
 typedef struct 	s_command_table
 {
-	t_tokens	**tokens; /* list of tokens */
+	t_tokens	**tokens; /* array of tokens */
 	char		*cmd;
 	char		**flags; /* list of flags */
 	char		*cmd_path; /* path to be executed */
