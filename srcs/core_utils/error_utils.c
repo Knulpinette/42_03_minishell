@@ -25,11 +25,11 @@ void	error_message(t_error code)
 	}
 }
 
-int	open_or_exit(char *file_path)
+int	open_or_exit(char *file_path, mode_t mode)
 {
 	int	fd;
 
-	fd = open(file_path, O_RDONLY);
+	fd = open(file_path, mode);
 	if (fd == -1)
 		error_and_exit(OPEN_FAIL);
 	return (fd);
