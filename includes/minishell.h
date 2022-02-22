@@ -26,6 +26,10 @@
 # include "utils.h"
 # include "debug.h"
 
+/* INTERFACE */
+char	*get_instructions_line(int interactive, int fd);
+
+/* PARSING */
 void	parse(char *line);
 
 #endif

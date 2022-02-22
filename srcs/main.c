@@ -27,20 +27,15 @@ int	main(int argc, char **argv)
 	 */
 	if (argc > 2)
 		error_and_exit(WRONG_ARGC);
+	fd = 0;
 	if (argc == 2)
-		fd = open(argv[1], O_RDONLY);
+		fd = open_or_exit(argv[1], O_RDONLY);
 	minishell = init_minishell();
 	while (1)
 	{
-		if (argc == 2)
-			get_next_line(fd, &line);
-		else
-			line = readline("> ");
-		if (!line || (argc == 2 && !line[0]))
-		{
-			free(line);
+		line = get_instructions_line(argc != 2, fd);
+		if (!line)
 			return (0);
-		}
 		// validate user input (line)
 		parse(line);
 		// if not valid, free line and return 1

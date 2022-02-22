@@ -45,6 +45,7 @@ typedef enum 	e_error_codes
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
 	WRONG_ARGC,
+	OPEN_FAIL,
 }				t_error;
 
 typedef struct 	s_minishell
