@@ -19,7 +19,7 @@ t_minishell		*init_minishell()
 	minishell = calloc_or_exit(sizeof(t_minishell), 1);
 	get_minishell(minishell);
 	minishell->nb_cmd = 0;
-	minishell->input = NULL;
+	minishell->instructions = NULL;
 	minishell->cmd_table = NULL;
 	return (minishell);
 }

@@ -7,7 +7,7 @@ t_minishell		*init_minishell();
 void			*calloc_or_exit(size_t size, int count);
 
 /* Parsing utils */
-void			init_cmd_table_and_tokens();
+t_cmd_table		**init_cmd_table(int nb_cmd);
 int				get_split_len(char **split);
 char			*skip_space(char *line);
 
