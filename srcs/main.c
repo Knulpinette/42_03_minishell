@@ -48,8 +48,8 @@ int	main(int argc, char **argv)
 		// if not valid, free line and return 1
 		// parse(line) and turn it into a linked list of command structs
 		free(line);
-		free_minishell(minishell);
 		// executor
 	}
+	free_minishell(minishell);
 	return (0);
 }
