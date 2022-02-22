@@ -2,8 +2,6 @@
 
 void	free_minishell(t_minishell *minishell)
 {
-	if (minishell->cmd_table)
-		free(minishell->cmd_table);
 	return ;
 }
 
