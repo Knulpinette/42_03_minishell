@@ -15,6 +15,7 @@
 
 typedef struct 	s_command_table
 {
+	char	**tokens;
 	char	*cmd;
 	char	*flags; /* list of flags */
 	char	*cmd_path; /* path to be executed */
@@ -50,6 +51,7 @@ typedef struct 	s_minishell
 {
 	char		*coconut; // to get rid of, but practical for testing
 	int			nb_cmd;
+	char		**input; // split made from pipes. 
 	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
 	t_cmd_table	**cmd_table; // better to go with an array since we'll know how many we have?
 

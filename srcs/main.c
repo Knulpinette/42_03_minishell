@@ -1,10 +1,6 @@
 #include "minishell.h"
 
-/* Global variable: env? history? both? none? */
-
 /* Parsing
- 
- * - built-in boolean ? // not sure it needs to be built in.
  * 1. Understand how many commands are in one line; Since we don't have to handle ;
  *    nor && nor || I think the only possible delimiter is a pipe
  * 2. Treat each command: find the path; expand variables ($); handle quotes; open infile
@@ -17,7 +13,6 @@
  * 2. Figure out how to use multiple pipes
  * 3. Execve or run built-in command, accordingly
  */
-
 
 int	main(int argc, char **argv)
 {
@@ -35,25 +30,25 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
 	minishell = init_minishell();
-	while (true)
+	while (1)
 	{
 		if (argc == 2)
 			get_next_line(fd, &line);
 		else
-			line = readline(PROMPT);
+			line = readline("> ");
 		if (!line || (argc == 2 && !line[0]))
 		{
 			free(line);
 			return (0);
 		}
 		// validate user input (line)
-		minishell->coconut = line;
-		printf("%s\n", minishell->coconut);
+		//minishell->coconut = line;
+		//printf("%s\n", minishell->coconut);
 		// if not valid, free line and return 1
-		parse(line);
+		// parse(line) and turn it into a linked list of command structs
 		free(line);
+		free_minishell(minishell);
 		// executor
 	}
-	free_minishell(minishell);
 	return (0);
 }

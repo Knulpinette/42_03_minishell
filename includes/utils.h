@@ -4,6 +4,11 @@
 /* Main utils */
 t_minishell		*get_minishell(t_minishell *minishell);
 t_minishell		*init_minishell();
+void			*calloc_or_exit(size_t size, int count);
+
+/* Parsing utils */
+int				get_nb_split(char **split);
+char			*skip_space(char *line);
 
 /* Memory utils */
 void			free_minishell(t_minishell *minishell);
