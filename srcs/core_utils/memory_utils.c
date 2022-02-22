@@ -29,6 +29,7 @@ void	free_table(t_cmd_table **cmd_table)
 	i = 0;
 	while (cmd_table[i])
 	{
+		free_split(cmd_table[i]->tokens);
 		free(cmd_table[i]);
 		i++;
 	}
