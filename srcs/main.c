@@ -14,7 +14,7 @@
  * 3. Execve or run built-in command, accordingly
  */
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
 	int			fd;
 	char		*line;
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	fd = 0;
 	if (argc == 2)
 		fd = open_or_exit(argv[1], O_RDONLY);
-	minishell = init_minishell();
+	minishell = init_minishell(envp);
 	while (1)
 	{
 		line = get_instructions_line(argc != 2, fd);

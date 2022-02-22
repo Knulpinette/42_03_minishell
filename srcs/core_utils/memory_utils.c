@@ -2,10 +2,12 @@
 
 void	free_minishell(t_minishell *minishell)
 {
-	if (minishell)
-		free(minishell);
 	if (minishell->cmd_table)
 		free_table(minishell->cmd_table);
+	if (minishell->envp_paths)
+		free_split(minishell->envp_paths);
+	if (minishell)
+		free(minishell);
 	return ;
 }
 

@@ -12,7 +12,7 @@ t_minishell		*get_minishell(t_minishell *minishell)
 	return (pointer_to_minishell);
 }
 
-t_minishell		*init_minishell()
+t_minishell		*init_minishell(char **envp)
 {
 	t_minishell *minishell;
 
@@ -20,6 +20,7 @@ t_minishell		*init_minishell()
 	get_minishell(minishell);
 	minishell->nb_cmd = 0;
 	minishell->instructions = NULL;
+	minishell->envp_paths = get_cmd_paths(envp);
 	minishell->cmd_table = NULL;
 	return (minishell);
 }
