@@ -3,10 +3,10 @@
 void	parse(char *line)
 {
 	t_minishell	*minishell;
-	int			i;
+	//int			i;
 	//char		**tokens;
 
-	i = 0;
+	//i = 0;
 	minishell = get_minishell(NULL);
 	minishell->input = ft_split(line, PIPE);
 	minishell->nb_cmd = get_nb_split(minishell->input);
