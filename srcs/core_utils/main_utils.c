@@ -11,3 +11,12 @@ t_minishell		*get_minishell(t_minishell *minishell)
 		pointer_to_minishell = minishell;
 	return (pointer_to_minishell);
 }
+
+t_minishell		*init_minishell()
+{
+	t_minishell minishell;
+	
+	minishell.nb_cmd = 0;
+	minishell.cmd_table = NULL;
+	return (get_minishell(&minishell));
+}

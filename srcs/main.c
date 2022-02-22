@@ -3,16 +3,8 @@
 /* Global variable: env? history? both? none? */
 
 /* Parsing
- * command struct:
- * - command
- * - flags (merged with command?)
- * - path (to be found after user input is all checked)
- * - built-in boolean ?
- * - fd_in (stdin if no redirection/infile is given)
- * - fd_out (stdout if no redirection/outfile is given)
- * - delimiter in case of <<
- * - mode (overwrite or append) in case of >>
- * - arguments -> array? what kind of arguments can we have?
+ 
+ * - built-in boolean ? // not sure it needs to be built in.
  * 1. Understand how many commands are in one line; Since we don't have to handle ;
  *    nor && nor || I think the only possible delimiter is a pipe
  * 2. Treat each command: find the path; expand variables ($); handle quotes; open infile
@@ -31,7 +23,7 @@ int	main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
-	t_minishell	minishell;
+	t_minishell	*minishell;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
@@ -42,24 +34,26 @@ int	main(int argc, char **argv)
 		error_and_exit(WRONG_ARGC);
 	if (argc == 2)
 		fd = open(argv[1], O_RDONLY);
-	while (1)
+	minishell = init_minishell();
+	while (true)
 	{
 		if (argc == 2)
 			get_next_line(fd, &line);
 		else
-			line = readline("> ");
+			line = readline(PROMPT);
 		if (!line || (argc == 2 && !line[0]))
 		{
 			free(line);
 			return (0);
 		}
 		// validate user input (line)
-		minishell.coconut = line;
-		printf("%s\n", minishell.coconut);
+		minishell->coconut = line;
+		printf("%s\n", minishell->coconut);
 		// if not valid, free line and return 1
-		// parse(line) and turn it into a linked list of command structs
+		parse(line);
 		free(line);
 		// executor
 	}
+	free_minishell(minishell);
 	return (0);
 }

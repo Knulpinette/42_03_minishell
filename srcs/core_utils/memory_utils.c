@@ -2,8 +2,8 @@
 
 void	free_minishell(t_minishell *minishell)
 {
-	printf("Theoretically, I freed minishell.\n");
 	(void)minishell;
+	return ;
 }
 
 void	free_split(char **split)

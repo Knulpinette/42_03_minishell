@@ -4,32 +4,27 @@ Write a simple version of a shell.
 <br/>
 
 ## TO DO
-21/02 
-<br/>
-* Figure out the Makefile issue, set up libft // OPHELIE
-* Get the (user) input // SARA 
-27/02
-<br/>
-* Do the parsing (tokenise, interpret, validate) // OPHELIE, SARA
+Ophélie
+* Do the parsing (tokenise, interpret, validate) <br/>
+Sara
+* for your to do list
 
 <br/>
 
 ## TO FIGURE OUT
 * Figure out how we need to parse the commands => do all commands need to be executable (even non-built-in?), so do we need to figure out how to parse the options (and see if they are executable)?
-* Display a prompt (loop GNL). Print to stderr? (>msh)
 * Have a working history (cf [add_history function](https://linux.die.net/man/3/history))
 * Get the PATH variable (cf [pipex](https://github.com/Knulpinette/Cursus42/blob/main/02-pipex/srcs/utils.c))
 * No need to interpret \ or ; (unless required by the subject).
 * Handle multiple pipes
 * Do the built in functions. (echo (-n), cd (relative & absolute path), pwd, export, unset, env, exit)
-* Figure out which is the ONE global variable we can use (environement?)
 <br/>
 
 ## Parsing
 Analyse the text and divide it into categories and sub-categories.
 * Lexer. Tokenise characters and place them in box/categories (command (+ flags), text, operators (pipe, env variable, redirections...))
 * Parser. Grammatically interprets the tokens
-* Semantics. Validate and verify the meaning of the result given by the parser (that a given name IS a name (David) and not a name that doesn't exist (Philosopher) // For example => check the flags ! (be careful with that. Most time will show error but in cases like "echo", will print as text))
+* Semantics. Validate and verify the meaning of the result given by the parser (that a given name IS a name (David) and not a name that doesn't exist (Philosopher) // For example => check the flags ! (be careful with that. Will show error, except in "echo"'s case. Unless -n, will print as text)
 
 Among characters to tokenise : 
 * | (pipe)

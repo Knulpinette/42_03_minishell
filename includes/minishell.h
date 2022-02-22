@@ -13,6 +13,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <limits.h>
@@ -21,8 +22,11 @@
 # include <readline/history.h>
 # include "../42_00_libft/libft.h"
 # include "colors.h"
-# include "types.h"
+# include "struct_def.h"
 # include "utils.h"
+
+/* PARSING */
+void	parse(char *line);
 
 #endif
 
