@@ -25,6 +25,10 @@
 # include "struct_def.h"
 # include "utils.h"
 
+/* INTERFACE */
+int		open_quotes(char *line);
+char	*get_instructions_line(int interactive, int fd);
+
 /* PARSING */
 void	parse(char *line);
 
