@@ -12,5 +12,6 @@ void			free_split(char **split);
 /* Error utils */
 int				error_and_exit(t_error code);
 void			error_message(t_error code);
+int				open_or_exit(char *file_path);
 
 #endif
