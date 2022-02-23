@@ -7,7 +7,7 @@ void	parse(char *line)
 
 	minishell = get_minishell(NULL);
 	minishell->instructions = ft_split(line, PIPE);
-	minishell->nb_cmd = get_split_len(minishell->instructions);
+	minishell->nb_cmd = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmd);
 	i = 0;
 	while (i < minishell->nb_cmd)

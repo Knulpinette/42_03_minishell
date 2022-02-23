@@ -8,7 +8,7 @@ void			*calloc_or_exit(size_t size, int count);
 
 /* Parsing utils */
 t_cmd_table		**init_cmd_table(int nb_cmd);
-int				get_split_len(char **split);
+int				get_array_len(char **split);
 char			*skip_space(char *line);
 char			**get_cmd_paths(char **envp);
 char			**finish_paths_by_slash(char **raw_paths);

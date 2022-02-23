@@ -21,9 +21,7 @@ char	**finish_paths_by_slash(char **raw_paths)
 	nb = 0;
 	while (raw_paths[nb])
 		nb++;
-	correct_paths = (char **)malloc(sizeof(char *) * (nb + 1));
-	if (!correct_paths)
-		return (NULL);
+	correct_paths = calloc_or_exit(sizeof(char *), nb + 1);
 	nb = 0;
 	while (raw_paths[nb])
 	{

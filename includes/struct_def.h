@@ -5,7 +5,7 @@
 # define PROMPT "> "
 # define SPACE ' '
 # define PIPE '|'
-# define ENV_VAR '$'
+# define DOLLAR_SIGN '$'
 # define SGL_QUOTE '\''
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
@@ -22,7 +22,7 @@ typedef enum	e_token_type
 	OP_REDIR_OUT,
 	OP_DELIMITER,
 	OP_APPEND,
-	ENV_VARIABLE,
+	ENV_VAR,
 }				t_token_type;
 
 typedef struct 	s_token
