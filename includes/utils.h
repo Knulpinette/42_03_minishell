@@ -17,6 +17,7 @@ char			**finish_paths_by_slash(char **raw_paths);
 void			free_minishell(t_minishell *minishell);
 void			free_split(char **split);
 void			free_table(t_cmd_table **cmd_table);
+void			free_tokens(t_token **tokens);
 
 /* Error utils */
 int				error_and_exit(t_error code);

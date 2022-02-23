@@ -31,8 +31,23 @@ void	free_table(t_cmd_table **cmd_table)
 	i = 0;
 	while (cmd_table[i])
 	{
+		if (cmd_table[i]->tokens)
+			free_tokens(cmd_table[i]->tokens);
 		free(cmd_table[i]);
 		i++;
 	}
 	free(cmd_table);
+}
+
+void	free_tokens(t_token **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		free(tokens[i]->text);
+		i++;
+	}
+	free(tokens);
 }
