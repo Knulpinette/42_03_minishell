@@ -6,7 +6,7 @@
 # define SPACE ' '
 # define PIPE '|'
 # define ENV_VAR '$'
-# define QUOTE '\''
+# define SGL_QUOTE '\''
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
 # define REDIR_OUT '>'
@@ -28,16 +28,16 @@ typedef enum	e_token_type
 typedef struct 	s_token
 {
 	int				type;
-	char			*content;
+	char			*text;
 	struct	t_token *next;
 	
 }				t_token;
 
 typedef struct 	s_command_table
 {
-	t_token		**tokens; /* list of tokens */ /* do a t_list ? see how to use it */
+	t_token		**tokens; /* array of tokens */ 
 	char		*cmd_name;
-	char		**flags; /* list of flags */
+	char		**flags; /* array of flags */
 	char		*cmd_path; /* path to be executed */
 	int			infile_fd;
 	char		*infile;
@@ -72,7 +72,7 @@ typedef struct 	s_minishell
 {
 	int			nb_cmd;
 	char		**instructions; /* input instructions parsed from pipes */
-	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
+	char		**envp_paths;
 	t_cmd_table	**cmd_table;
 
 }				t_minishell;

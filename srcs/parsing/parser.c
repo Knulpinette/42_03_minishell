@@ -3,11 +3,20 @@
 void	parse(char *line)
 {
 	t_minishell	*minishell;
+	int	i;
 
 	minishell = get_minishell(NULL);
 	minishell->instructions = ft_split(line, PIPE);
 	minishell->nb_cmd = get_split_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmd);
+	i = 0;
+	while (i < minishell->nb_cmd)
+	{
+		minishell->cmd_table[i]->cmd_arg = tokenise(minishell->instructions[i], SPACE);
+		DEBUG(print_tokens("%s\n", minishell->cmd_table[i]->cmd_arg);) // to test !!!
+		i++;
+	}
+
 	// make token struct with key/type etc.
 	// get command
 	// skip space

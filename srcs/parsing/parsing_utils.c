@@ -19,16 +19,3 @@ int		get_split_len(char **split)
 		i++;
 	return (i);
 }
-
-t_token	*new_token(void *token)
-{
-	t_list	*list;
-
-	list = (t_token *)malloc(sizeof(t_token));
-	if (!list)
-		return (NULL);
-	list->type = NULL;
-	list->token = token;
-	list->next = 0;
-	return (list);
-}

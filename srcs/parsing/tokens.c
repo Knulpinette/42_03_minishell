@@ -18,35 +18,74 @@ Parsing tokens
 }
 */
 
-char	**tokenise(const char *s, char c)
+static int	nb_words(const char *s, char c)
 {
-	int		words;
-	char	**tokens;
-	char	*temp;
+	int		i;
+	int		nb;
+
+	i = 0;
+	nb = 0;
+	while (s[i])
+	{
+		if (s[i] == SGL_QUOTE && ft_strchr(s, SGL_QUOTE))
+		{
+			i++;
+			while (s[i] && s[i] != SGL_QUOTE)
+				i++;
+			nb++;
+		}
+		else if (s[i] == DBL_QUOTE && ft_strchr(s, DBL_QUOTE))
+		{
+			i++;
+			while (s[i] && s[i] != DBL_QUOTE)
+				i++;
+			nb++;
+		}
+		else if (s[i] != c && (s[i + 1] == 0 || s[i + 1] == c))
+			nb++;
+		i++;
+	}
+	return (nb);
+}
+
+static char	**fill_tokens(const char *s, char c, int words, char **tokens)
+{
 	int		i;
 	int		word;
 	int		letters;
 
-	if (!s)
-		return (NULL);
-	tokens = NULL;
 	i = 0;
 	word = 0;
-	while (s[i])
+	while (word < words)
 	{
 		while (s[i] && s[i] == c)
 			i++;
 		letters = 0;
 		while (s[i + letters] && s[i + letters] != c)
 			letters++;
-		temp = calloc_or_exit(sizeof(char), (letters + 1));
+		tokens[word] = (char *)malloc(sizeof(char) * (letters + 1));
+		if (!tokens[word])
+			return (NULL);
 		letters = 0;
 		while (s[i] && s[i] != c)
-			temp[letters++] = s[i++];
-		*tokens = ft_lstnew(temp);
-		(token->next);
+			tokens[word][letters++] = s[i++];
+		tokens[word++][letters] = 0;
 	}
 	tokens[word] = 0;
+	return (tokens);
+}
 
+char	**tokenise(const char *s, char c)
+{
+	int		words;
+	char	**tokens;
+
+	if (!s)
+		return (NULL);
+	words = nb_words(s, c);
+	tokens = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!tokens)
+		return (NULL);
+	fill_tokens(s, c, words, tokens);
 	return (tokens);
 }
