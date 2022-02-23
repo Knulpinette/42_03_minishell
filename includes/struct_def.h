@@ -25,7 +25,7 @@ typedef struct 	s_command_table
 	bool	delimiter;
 	char	*delim_arg;
 	int		mode; /* OVERWRITE, APPEND */
-	char	**cmd_arg; /* array because of execve */
+	char	**cmd_args; /* array because of execve */
 
 }				t_cmd_table;
 
