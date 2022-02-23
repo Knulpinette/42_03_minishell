@@ -88,6 +88,7 @@ static char	**fill_tokens(const char *s, char c, int words, char **tokens)
 			i++;
 		letters = 0;
 		while (s[i + letters] && s[i + letters] != c)
+		// here check to get the righ number of letters for the quote
 			letters++;
 		tokens[word] = (char *)malloc(sizeof(char) * (letters + 1));
 		if (!tokens[word])
@@ -113,5 +114,6 @@ char	**tokenise(const char *s, char c)
 	if (!tokens)
 		return (NULL);
 	fill_tokens(s, c, words, tokens);
+	DEBUG(print_split(tokens);)
 	return (tokens);
 }
