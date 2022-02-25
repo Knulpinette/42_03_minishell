@@ -98,6 +98,7 @@ static char	**fill_tokens(const char *s, char c, int words, char **tokens)
 			tokens[word][letters++] = s[i++];
 		tokens[word++][letters] = 0;
 	}
+	tokens[word] = 0;
 	return (tokens);
 }
 
@@ -107,7 +108,12 @@ char	**tokenise(const char *s, char c, int words)
 
 	if (!s)
 		return (NULL);
-	tokens = (char **)malloc(sizeof(char *) * words);
+	/* from here on, need to do the function
+	// TO DO
+		Careful to remove + 1 and extra token[word] = 0 once I'm working with tokens. 
+		Also, change the "print tokens" function so it prints tokens and not a null 
+		terminated array. */
+	tokens = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!tokens)
 		return (NULL);
 	fill_tokens(s, c, words, tokens);
