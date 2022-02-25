@@ -35,13 +35,14 @@ typedef struct 	s_token
 
 typedef struct 	s_command_table
 {
-	t_token		**tokens; /* array of tokens */ 
+	int			nb_tokens;
+	t_token		*tokens; /* array of tokens */ 
 	char		*cmd_name;
 	char		**flags; /* array of flags */
 	char		*cmd_path; /* path to be executed */
-	int			infile_fd;
+	int			fd_in;
 	char		*infile;
-	int			outfile_fd;
+	int			fd_out;
 	char		*outfile;
 	bool		delimiter;
 	char		*delim_arg;
@@ -73,7 +74,7 @@ typedef struct 	s_minishell
 	int			nb_cmd;
 	char		**instructions; /* input instructions parsed from pipes */
 	char		**envp_paths;
-	t_cmd_table	**cmd_table;
+	t_cmd_table	*cmd_table;
 
 }				t_minishell;
 

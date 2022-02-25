@@ -47,7 +47,7 @@ static int	quote_len(const char *s, char c, char quote, int i)
 	return (i - i_start);
 }
 
-static int	nb_words(const char *s, char c)
+int		get_nb_tokens(const char *s, char c)
 {
 	int		i;
 	int		nb;
@@ -102,14 +102,12 @@ static char	**fill_tokens(const char *s, char c, int words, char **tokens)
 	return (tokens);
 }
 
-char	**tokenise(const char *s, char c)
+char	**tokenise(const char *s, char c, int words)
 {
-	int		words;
 	char	**tokens;
 
 	if (!s)
 		return (NULL);
-	words = nb_words(s, c);
 	tokens = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!tokens)
 		return (NULL);

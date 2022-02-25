@@ -7,7 +7,8 @@ t_minishell		*init_minishell(char **envp);
 void			*calloc_or_exit(size_t size, int count);
 
 /* Parsing utils */
-t_cmd_table		**init_cmd_table(int nb_cmd);
+t_cmd_table		*init_cmd_table(int nb_cmd);
+int				get_nb_tokens(const char *s, char c);
 int				get_array_len(char **split);
 char			*skip_space(char *line);
 char			**get_cmd_paths(char **envp);
@@ -16,8 +17,8 @@ char			**finish_paths_by_slash(char **raw_paths);
 /* Memory utils */
 void			free_minishell(t_minishell *minishell);
 void			free_split(char **split);
-void			free_table(t_cmd_table **cmd_table);
-void			free_tokens(t_token **tokens);
+void			free_table(t_cmd_table *cmd_table, int nb_cmd);
+void			free_tokens(t_token *tokens, int nb_tokens);
 
 /* Error utils */
 int				error_and_exit(t_error code);
