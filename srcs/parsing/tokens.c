@@ -108,6 +108,11 @@ char	**tokenise(const char *s, char c, int words)
 
 	if (!s)
 		return (NULL);
+	/* from here on, need to do the function
+	// TO DO
+		Careful to remove + 1 and extra token[word] = 0 once I'm working with tokens. 
+		Also, change the "print tokens" function so it prints tokens and not a null 
+		terminated array. */
 	tokens = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!tokens)
 		return (NULL);
