@@ -98,7 +98,6 @@ static char	**fill_tokens(const char *s, char c, int words, char **tokens)
 			tokens[word][letters++] = s[i++];
 		tokens[word++][letters] = 0;
 	}
-	tokens[word] = 0;
 	return (tokens);
 }
 
@@ -108,7 +107,7 @@ char	**tokenise(const char *s, char c, int words)
 
 	if (!s)
 		return (NULL);
-	tokens = (char **)malloc(sizeof(char *) * (words + 1));
+	tokens = (char **)malloc(sizeof(char *) * words);
 	if (!tokens)
 		return (NULL);
 	fill_tokens(s, c, words, tokens);

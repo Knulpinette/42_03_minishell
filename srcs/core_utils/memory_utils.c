@@ -43,7 +43,7 @@ void	free_tokens(t_token *tokens, int nb_tokens)
 	int	i;
 
 	i = 0;
-	while (i < (nb_tokens + 1))
+	while (i < nb_tokens)
 	{
 		free(tokens[i].text);
 		i++;
