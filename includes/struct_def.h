@@ -5,34 +5,56 @@
 # define PROMPT "> "
 # define SPACE ' '
 # define PIPE '|'
-# define ENV_VAR '$'
-# define QUOTE '\''
+# define DOLLAR_SIGN '$'
+# define SGL_QUOTE '\''
 # define DBL_QUOTE '"'
 # define REDIR_IN '<'
 # define REDIR_OUT '>'
 # define DELIMITER "<<" // see if that makes sense eventually
 # define APPEND_MODE ">>" // same
 
+typedef enum	e_token_type
+{
+	WORD,
+	CMD,
+	FLAG,
+	OP_REDIR_IN,
+	OP_REDIR_OUT,
+	OP_DELIMITER,
+	OP_APPEND,
+	ENV_VAR,
+}				t_token_type;
+
+typedef struct 	s_token
+{
+	int				type;
+	char			*text;
+	struct	t_token *next;
+	
+}				t_token;
+
 typedef struct 	s_command_table
 {
-	char	*cmd;
-	char	*flags; /* list of flags */
-	char	*cmd_path; /* path to be executed */
-	int		infile_fd;
-	char	*infile;
-	int		outfile_fd;
-	char	*outfile;
-	bool	delimiter;
-	char	*delim_arg;
-	int		mode; /* OVERWRITE, APPEND */
-	char	**cmd_arg; /* array because of execve */
+	int			nb_tokens;
+	t_token		*tokens; /* array of tokens */ 
+	char		*cmd_name;
+	char		**flags; /* array of flags */
+	char		*cmd_path; /* path to be executed */
+	int			fd_in;
+	char		*infile;
+	int			fd_out;
+	char		*outfile;
+	bool		delimiter;
+	char		*delim_arg;
+	int			mode; /* OVERWRITE, APPEND */
+	char		**cmd_arg; /* array because of execve */
 
 }				t_cmd_table;
 
-typedef	enum	e_redir_mode // for readable instructions when you change the mode according to >>
+typedef	enum	e_redir_mode
 {
-	OVERWRITE, // default IS overwrite, right ? (here overwrite = 0)
-	APPEND,
+	OVERWRITE,  /* Default */
+	APPEND, 	/* >> */
 }				t_redir_mode;
 
 /* see https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/ */
@@ -49,10 +71,10 @@ typedef enum 	e_error_codes
 
 typedef struct 	s_minishell
 {
-	char		*coconut; // to get rid of, but practical for testing
 	int			nb_cmd;
-	char		**envp_paths; // this is the split with all the paths from envp. We only need to get it once in the beginning. It will always be the same for the whole program.
-	t_cmd_table	**cmd_table; // better to go with an array since we'll know how many we have?
+	char		**instructions; /* input instructions parsed from pipes */
+	char		**envp_paths;
+	t_cmd_table	*cmd_table;
 
 }				t_minishell;
 
