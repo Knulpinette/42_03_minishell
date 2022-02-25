@@ -5,7 +5,9 @@ Write a simple version of a shell.
 
 ## TO DO
 Ophélie
-* Do the parsing (tokenise, interpret, validate) <br/>
+* Do the parsing (tokenise, interpret, validate)
+* Qualify the tokens
+* Put them in the right variable
 Sara
 * for your to do list
 

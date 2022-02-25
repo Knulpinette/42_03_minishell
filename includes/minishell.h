@@ -13,23 +13,25 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <stdbool.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <limits.h>
 # include <string.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../42_00_libft/libft.h"
 # include "colors.h"
 # include "struct_def.h"
 # include "utils.h"
+# include "debug.h"
 
 /* INTERFACE */
 char	*get_instructions_line(int interactive, int fd);
 
 /* PARSING */
 void	parse(char *line);
+char	**tokenise(const char *s, char c, int words);
 
 #endif
 

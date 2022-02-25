@@ -5,7 +5,7 @@ int		error_and_exit(t_error code)
 	t_minishell *minishell;
 
 	minishell = get_minishell(NULL);
-	error_message(code); // later on, maybe add the program_pathname stored in struct to print a clearer error
+	error_message(code);
 	if (minishell)
 		free_minishell(minishell);
 	exit(EXIT_FAILURE);
@@ -15,13 +15,13 @@ void	error_message(t_error code)
 {
 	if (code == ERR_NO_PRINT)
 		return ;
-	// we could print the program name here
+	ft_putstr_fd(""LIGHT_RED"Error \n"END_COLOR"", STDERR_FILENO);
 	if (code == WRONG_ARGC)
-		ft_putstr_fd("Wrong number of arguments.\n", 2);
+		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
 	if (code == MEMORY_FAIL || code == OPEN_FAIL)
 	{
-		ft_putstr_fd(strerror(errno), 2);
-		write(2, "\n", 1);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		write(STDERR_FILENO, "\n", 1);
 	}
 }
 
