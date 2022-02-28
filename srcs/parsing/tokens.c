@@ -1,17 +1,17 @@
 #include "minishell.h"
 
-static int		handle_quotes(const char *s, int i, int letters, t_token *tokens, char c)
+static int		nb_of_letters_if_quotes(const char *s, int i, int letters, t_token *tokens, char c)
 {
 	if (s[i + letters] == SGL_QUOTE && ft_strchr(s, SGL_QUOTE))
-		{
-			letters = letters + quote_len(s, c, SGL_QUOTE, (i + letters));
-			tokens->quote = SINGLE;
-		}
-		else if (s[i + letters] == DBL_QUOTE && ft_strchr(s, DBL_QUOTE))
-		{
-			letters = letters + quote_len(s, c, DBL_QUOTE, (i + letters));
-			tokens->quote = DOUBLE;
-		}
+	{
+		letters = letters + quote_len(s, c, SGL_QUOTE, (i + letters));
+		tokens->quote = SINGLE;
+	}
+	else if (s[i + letters] == DBL_QUOTE && ft_strchr(s, DBL_QUOTE))
+	{
+		letters = letters + quote_len(s, c, DBL_QUOTE, (i + letters));
+		tokens->quote = DOUBLE;
+	}
 	return (letters);
 }
 
@@ -30,7 +30,10 @@ static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 			i++;
 		letters = 0;
 		while (s[i + letters] && s[i + letters] != c)
-			letters = handle_quotes(s, i, letters, &tokens[word], c) + 1;
+		{
+			letters = nb_of_letters_if_quotes(s, i, letters, &tokens[word], c);
+			letters++;
+		}
 		tokens[word].text = calloc_or_exit(sizeof(char), letters + 1);
 		j = 0;
 		while (j < letters)
