@@ -19,9 +19,7 @@ void	parse(char *line)
 	}
 	// make token struct with key/type etc.
 	// get command
-	// skip space
 	// until it doesn't start by '-' + alphanumerical (until stop alphanumerical, get flag
-	// skip space
 	// check redir
 	// check quote
 	// save arg
