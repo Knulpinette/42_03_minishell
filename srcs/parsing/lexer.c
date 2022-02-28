@@ -18,7 +18,9 @@ void	lexer(char *line)
 			get_tokens(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
 		get_tokens_types(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
 		assign_tokens(&minishell->cmd_table[i]);
-		//DEBUG(print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);)
+		DEBUG(print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);)
+		//DEBUG(printf("cmd = %s\n", minishell->cmd_table[i].cmd_name);)
+		//DEBUG(print_split(minishell->cmd_table[i].cmd_args);)
 
 		i++;
 	}
