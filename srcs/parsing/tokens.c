@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-static int	quote_len(const char *s, char c, char quote, int i)
+int				quote_len(const char *s, char c, char quote, int i)
 {
 	int i_start;
 
@@ -31,7 +31,7 @@ static int		handle_quotes(const char *s, int i, int letters, t_token *tokens, ch
 	return (letters);
 }
 
-static t_token *fill_tokens(const char *s, char c, int words, t_token *tokens)
+static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 {
 	int		i;
 	int		j;
@@ -56,7 +56,7 @@ static t_token *fill_tokens(const char *s, char c, int words, t_token *tokens)
 	return (tokens);
 }
 
-t_token	*tokenise(const char *s, char c, int words)
+t_token			*tokenise(const char *s, char c, int words)
 {
 	t_token	*tokens;
 
