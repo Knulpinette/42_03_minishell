@@ -47,7 +47,7 @@ typedef struct 	s_command_table
 	bool		delimiter;
 	char		*delim_arg;
 	int			mode; /* OVERWRITE, APPEND */
-	char		**cmd_arg; /* array because of execve */
+	char		**cmd_args; /* array because of execve */
 }				t_cmd_table;
 
 typedef	enum	e_redir_mode
@@ -72,6 +72,7 @@ typedef struct 	s_minishell
 {
 	int			nb_cmd;
 	char		**instructions; /* input instructions parsed from pipes */
+	char		**envp;
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
 

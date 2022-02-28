@@ -13,7 +13,7 @@ void	parse(char *line)
 	while (i < minishell->nb_cmd)
 	{
 		minishell->cmd_table[i].nb_tokens = get_nb_tokens(minishell->instructions[i], SPACE);
-		minishell->cmd_table[i].cmd_arg = tokenise(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
+		minishell->cmd_table[i].cmd_args = tokenise(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
 		DEBUG(print_tokens("%s\n", minishell->cmd_table[i].cmd_arg);) // to test !!!
 		i++;
 	}
@@ -51,7 +51,7 @@ t_cmd_table	*init_cmd_table(int nb_cmd)
 		cmd_table[i].delimiter = false;
 		cmd_table[i].delim_arg = NULL;
 		cmd_table[i].mode = OVERWRITE;
-		cmd_table[i].cmd_arg = NULL;
+		cmd_table[i].cmd_args = NULL;
 		i++;
 	}
 	return (cmd_table);

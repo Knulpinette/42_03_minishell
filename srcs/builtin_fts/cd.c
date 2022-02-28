@@ -4,15 +4,18 @@ int	cd(t_cmd_table *cmd_table)
 {
 	t_minishell	*minishell;
 	char		*cwd;
+	char		*new_cwd;
 	int			i;
 
 	minishell = get_minishell(NULL);
 	cwd = NULL;
 	cwd = getcwd(cwd, 0); // or without cwd = ?
-	chdir(cmd_table->cmd_args[0]); // nops, need to think a lot about this
+	new_cwd = cmd_table->cmd_args[0];// nops, need to think a lot about this
+	chdir(new_cwd); 
 	i = 0;
 	while (minishell->envp[i] && ft_strncmp(minishell->envp[i], "PWD=", 4))
 		i++;
+	
 	// update PWD in envp with args
 	i = 0;
 	while (minishell->envp[i] && ft_strncmp(minishell->envp[i], "OLDPWD=", 7))
