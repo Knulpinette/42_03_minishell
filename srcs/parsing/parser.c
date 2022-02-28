@@ -17,12 +17,6 @@ void	parse(char *line)
 			tokenise(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
 		i++;
 	}
-	// make token struct with key/type etc.
-	// get command
-	// until it doesn't start by '-' + alphanumerical (until stop alphanumerical, get flag
-	// check redir
-	// check quote
-	// save arg
 	free_split(minishell->instructions); 
 	return ;
 }
