@@ -43,7 +43,7 @@ static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 	return (tokens);
 }
 
-t_token			*tokenise(const char *s, char c, int words)
+t_token			*get_tokens(const char *s, char c, int words)
 {
 	t_token	*tokens;
 
