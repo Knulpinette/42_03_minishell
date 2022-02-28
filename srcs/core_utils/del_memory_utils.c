@@ -33,6 +33,8 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmd)
 	{
 		if (cmd_table[i].tokens)
 			free_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);
+		/*if (cmd_table[i].cmd_args)
+			free_split(cmd_table[i].cmd_args);*/
 		i++;
 	}
 	free(cmd_table);
