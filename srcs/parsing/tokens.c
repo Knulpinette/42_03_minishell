@@ -24,18 +24,18 @@ static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 
 	i = 0;
 	word = 0;
-	while (word < words)
+	while (word < words && s[i])
 	{
 		while (s[i] && s[i] == c)
 			i++;
 		letters = 0;
 		while (s[i + letters] && s[i + letters] != c)
-			letters = handle_quotes(s, i, letters, &tokens[word], c) + 1; // here we do letters++ every time + length of quote if there's one to handle.
+			letters = handle_quotes(s, i, letters, &tokens[word], c) + 1;
 		tokens[word].text = calloc_or_exit(sizeof(char), letters + 1);
 		j = 0;
 		while (j < letters)
 			tokens[word].text[j++] = s[i++];
-		tokens[word++].text[j] = 0; // not necessary (well word++ is) but keep for redonduncy ?
+		tokens[word++].text[j] = 0;
 	}
 	return (tokens);
 }
