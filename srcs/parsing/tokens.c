@@ -1,21 +1,5 @@
 #include "minishell.h"
 
-int				quote_len(const char *s, char c, char quote, int i)
-{
-	int i_start;
-
-	i_start = i;
-	i++;
-	while (s[i] && s[i] != quote && s[i + 1])
-		i++;
-	if (s[i] != c && (s[i + 1] == 0 || s[i + 1] == c))
-	{
-		if (s[i] == quote && s[i + 1])
-			i++;
-	}
-	return (i - i_start);
-}
-
 static int		handle_quotes(const char *s, int i, int letters, t_token *tokens, char c)
 {
 	if (s[i + letters] == SGL_QUOTE && ft_strchr(s, SGL_QUOTE))

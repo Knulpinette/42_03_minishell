@@ -69,7 +69,7 @@ static int	quote_word_count(const char *s, char c, char quote, int i)
 	return (0);
 }
 
-static int	quote_len(const char *s, char c, char quote, int i)
+int		quote_len(const char *s, char c, char quote, int i)
 {
 	int i_start;
 
