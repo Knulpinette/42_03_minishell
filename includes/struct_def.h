@@ -5,31 +5,33 @@
 # define PROMPT "> "
 # define SPACE ' '
 # define PIPE '|'
-# define DOLLAR_SIGN '$'
 # define SGL_QUOTE '\''
 # define DBL_QUOTE '"'
-# define REDIR_IN '<'
-# define REDIR_OUT '>'
-# define DELIMITER "<<" // see if that makes sense eventually
-# define APPEND_MODE ">>" // same
 
 typedef enum	e_token_type
 {
 	WORD,
 	CMD,
 	FLAG,
+	ENV_VAR,
 	OP_REDIR_IN,
 	OP_REDIR_OUT,
 	OP_DELIMITER,
 	OP_APPEND,
-	ENV_VAR,
 }				t_token_type;
+
+typedef enum	e_quote_type
+{
+	NONE,
+	SINGLE,
+	DOUBLE,
+}				t_quote_type;
 
 typedef struct 	s_token
 {
-	int				type;
+	t_token_type	type;
+	t_quote_type	quote;
 	char			*text;
-	struct	t_token *next;
 	
 }				t_token;
 

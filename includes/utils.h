@@ -9,6 +9,7 @@ void			*calloc_or_exit(size_t size, int count);
 /* Parsing utils */
 t_cmd_table		*init_cmd_table(int nb_cmd);
 int				get_nb_tokens(const char *s, char c);
+int				quote_len(const char *s, char c, char quote, int i);
 int				get_array_len(char **split);
 char			*skip_space(char *line);
 char			**get_cmd_paths(char **envp);
