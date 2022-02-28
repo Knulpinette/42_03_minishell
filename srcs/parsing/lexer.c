@@ -12,10 +12,14 @@ void	lexer(char *line)
 	i = 0;
 	while (i < minishell->nb_cmd)
 	{
-		minishell->cmd_table[i].nb_tokens = get_nb_tokens(minishell->instructions[i], SPACE);
+		minishell->cmd_table[i].nb_tokens =
+			get_nb_tokens(minishell->instructions[i], SPACE);
 		minishell->cmd_table[i].tokens =
 			get_tokens(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
 		get_tokens_types(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
+		assign_tokens(&minishell->cmd_table[i]);
+		//DEBUG(print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);)
+
 		i++;
 	}
 	free_split(minishell->instructions);
@@ -30,7 +34,6 @@ t_cmd_table	*init_cmd_table(int nb_cmd)
 	i = 0;
 	while (i < nb_cmd)
 	{
-		//cmd_table[i] = calloc_or_exit(sizeof(t_cmd_table), 1);
 		cmd_table[i].tokens = NULL;
 		cmd_table[i].cmd_name = NULL;
 		cmd_table[i].flags = NULL;
@@ -42,7 +45,7 @@ t_cmd_table	*init_cmd_table(int nb_cmd)
 		cmd_table[i].delimiter = false;
 		cmd_table[i].delim_arg = NULL;
 		cmd_table[i].mode = OVERWRITE;
-		cmd_table[i].cmd_arg = NULL;
+		cmd_table[i].cmd_args = NULL;
 		i++;
 	}
 	return (cmd_table);
@@ -100,6 +103,6 @@ int		get_nb_tokens(const char *s, char c)
 				nb++;
 		i++;
 	}
-	DEBUG(printf("nb_tokens : %i\n", nb);)
+	//DEBUG(printf("nb_tokens : %i\n", nb);)
 	return (nb);
 }
