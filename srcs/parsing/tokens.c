@@ -16,6 +16,21 @@ static int	quote_len(const char *s, char c, char quote, int i)
 	return (i - i_start);
 }
 
+static int		handle_quotes(const char *s, int i, int letters, t_token *tokens, char c)
+{
+	if (s[i + letters] == SGL_QUOTE && ft_strchr(s, SGL_QUOTE))
+		{
+			letters = letters + quote_len(s, c, SGL_QUOTE, (i + letters));
+			tokens->quote = SINGLE;
+		}
+		else if (s[i + letters] == DBL_QUOTE && ft_strchr(s, DBL_QUOTE))
+		{
+			letters = letters + quote_len(s, c, DBL_QUOTE, (i + letters));
+			tokens->quote = DOUBLE;
+		}
+	return (letters);
+}
+
 static t_token *fill_tokens(const char *s, char c, int words, t_token *tokens)
 {
 	int		i;
@@ -31,19 +46,7 @@ static t_token *fill_tokens(const char *s, char c, int words, t_token *tokens)
 			i++;
 		letters = 0;
 		while (s[i + letters] && s[i + letters] != c)
-		{
-			if (s[i + letters] == SGL_QUOTE && ft_strchr(s, SGL_QUOTE))
-			{
-				letters = letters + quote_len(s, c, SGL_QUOTE, (i + letters));
-				tokens[word].quote = SINGLE;
-			}
-			else if (s[i + letters] == DBL_QUOTE && ft_strchr(s, DBL_QUOTE))
-			{
-				letters = letters + quote_len(s, c, DBL_QUOTE, (i + letters));
-				tokens[word].quote = DOUBLE;
-			}
-			letters++;
-		}
+			letters = handle_quotes(s, i, letters, &tokens[word], c) + 1; // here we do letters++ every time + length of quote if there's one to handle.
 		tokens[word].text = calloc_or_exit(sizeof(char), letters + 1);
 		j = 0;
 		while (j < letters)
