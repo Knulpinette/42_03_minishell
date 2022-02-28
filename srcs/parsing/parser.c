@@ -14,7 +14,7 @@ void	parse(char *line)
 	{
 		minishell->cmd_table[i].nb_tokens = get_nb_tokens(minishell->instructions[i], SPACE);
 		minishell->cmd_table[i].cmd_args = tokenise(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
-		DEBUG(print_tokens("%s\n", minishell->cmd_table[i].cmd_arg);) // to test !!!
+		DEBUG(print_tokens("%s\n", minishell->cmd_table[i].cmd_args);) // to test !!!
 		i++;
 	}
 

@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	int			fd;
 	char		*line;
 	t_minishell	*minishell;
+	t_cmd_table	*cmd;
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
@@ -31,6 +32,18 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2)
 		fd = open_or_exit(argv[1], O_RDONLY);
 	minishell = init_minishell(envp);
+	
+	// for cd debugging
+	cmd = init_cmd_table(1);
+	DEBUG(cmd->cmd_args = (char **)malloc(sizeof(char *) * 1));
+	DEBUG(cmd->cmd_args[0] = (char *)malloc(sizeof(char) * 2));
+	DEBUG(cmd->cmd_args[0] = ft_strdup("."));
+	DEBUG(printf("before calling cd\n"));
+	DEBUG(cd(cmd));
+	DEBUG(free(cmd->cmd_args[0]));
+	DEBUG(free(cmd->cmd_args));
+	// end
+
 	while (1)
 	{
 		line = get_instructions_line(argc != 2, fd);
