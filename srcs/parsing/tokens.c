@@ -74,7 +74,7 @@ int		get_nb_tokens(const char *s, char c)
 	return (nb);
 }
 
-static char	**fill_tokens(const char *s, char c, int words, char **tokens)
+static t_token *fill_tokens(const char *s, char c, int words, t_token *tokens)
 {
 	int		i;
 	int		word;
@@ -90,33 +90,23 @@ static char	**fill_tokens(const char *s, char c, int words, char **tokens)
 		while (s[i + letters] && s[i + letters] != c)
 		// here check to get the righ number of letters for the quote
 			letters++;
-		tokens[word] = (char *)malloc(sizeof(char) * (letters + 1));
-		if (!tokens[word])
-			return (NULL);
+		tokens[word].text = calloc_or_exit(sizeof(char), letters + 1);
 		letters = 0;
 		while (s[i] && s[i] != c)
-			tokens[word][letters++] = s[i++];
-		tokens[word++][letters] = 0;
+			tokens[word].text[letters++] = s[i++];
+		tokens[word++].text[letters] = 0; // not necessary but keep for redonduncy ?
 	}
-	tokens[word] = 0;
 	return (tokens);
 }
 
-char	**tokenise(const char *s, char c, int words)
+t_token	*tokenise(const char *s, char c, int words)
 {
-	char	**tokens;
+	t_token	*tokens;
 
 	if (!s)
 		return (NULL);
-	/* from here on, need to do the function
-	// TO DO
-		Careful to remove + 1 and extra token[word] = 0 once I'm working with tokens. 
-		Also, change the "print tokens" function so it prints tokens and not a null 
-		terminated array. */
-	tokens = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!tokens)
-		return (NULL);
+	tokens = calloc_or_exit(sizeof(t_token), words);
 	fill_tokens(s, c, words, tokens);
-	DEBUG(print_split(tokens);)
+	DEBUG(print_tokens(tokens, words);)
 	return (tokens);
 }

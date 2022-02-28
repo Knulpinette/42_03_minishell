@@ -31,7 +31,7 @@ char	*get_instructions_line(int interactive, int fd);
 
 /* PARSING */
 void	parse(char *line);
-char	**tokenise(const char *s, char c, int words);
+t_token	*tokenise(const char *s, char c, int words);
 
 #endif
 

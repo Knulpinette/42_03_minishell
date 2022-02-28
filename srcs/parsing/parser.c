@@ -13,8 +13,7 @@ void	parse(char *line)
 	while (i < minishell->nb_cmd)
 	{
 		minishell->cmd_table[i].nb_tokens = get_nb_tokens(minishell->instructions[i], SPACE);
-		minishell->cmd_table[i].cmd_arg = tokenise(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
-		DEBUG(print_tokens("%s\n", minishell->cmd_table[i].cmd_arg);) // to test !!!
+		minishell->cmd_table[i].tokens = tokenise(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
 		i++;
 	}
 
