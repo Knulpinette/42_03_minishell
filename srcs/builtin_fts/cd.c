@@ -18,11 +18,12 @@ int	cd(t_cmd_table *cmd_table)
 	i = 0;
 	while (minishell->envp[i] && ft_strncmp(minishell->envp[i], "PWD=", 4))
 		i++;
-	
+	printf("%s\n", minishell->envp[i]);	
 	// update PWD in envp with args
 	i = 0;
 	while (minishell->envp[i] && ft_strncmp(minishell->envp[i], "OLDPWD=", 7))
 		i++;
+	printf("%s\n", minishell->envp[i]);	
 	// update OLDPWD in envp with cwd
 	free(cwd);
 	return (0); // should be exit code

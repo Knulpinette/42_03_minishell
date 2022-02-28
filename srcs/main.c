@@ -36,7 +36,6 @@ int	main(int argc, char **argv, char **envp)
 	// for cd debugging
 	cmd = init_cmd_table(1);
 	DEBUG(cmd->cmd_args = (char **)malloc(sizeof(char *) * 1));
-	DEBUG(cmd->cmd_args[0] = (char *)malloc(sizeof(char) * 2));
 	DEBUG(cmd->cmd_args[0] = ft_strdup("."));
 	DEBUG(printf("before calling cd\n"));
 	DEBUG(cd(cmd));
