@@ -1,23 +1,5 @@
 #include "minishell.h"
 
-/*
-
-ONGOING 
-
-// go with t_tokens or t_list ? 
-
-Parsing tokens
-{
-	while (instructions)
-	{
-		if SNG_QUOTE || DBLE_QUOTE
-			check_for_a_second_one();
-				if (true)
-					get_text_in_between_as_string();
-	}
-}
-*/
-
 static int	quote_len(const char *s, char c, char quote, int i)
 {
 	int i_start;
