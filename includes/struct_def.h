@@ -25,11 +25,18 @@ typedef enum	e_token_type
 	ENV_VAR,
 }				t_token_type;
 
+typedef enum	e_quote_type
+{
+	NONE,
+	SINGLE,
+	DOUBLE,
+}				t_quote_type;
+
 typedef struct 	s_token
 {
-	int				type;
+	t_token_type	type;
+	t_quote_type	quote;
 	char			*text;
-	struct	t_token *next;
 	
 }				t_token;
 
