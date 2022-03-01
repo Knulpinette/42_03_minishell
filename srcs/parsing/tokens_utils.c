@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+/*void	remove_quotes(t_token *token)
+{
+	if (token->quote == DBL_QUOTE)
+		(change ENV_VAR into its meaning);
+	
+	if (token->quote == SGL_QUOTE)
+	{
+
+	}
+	if (token->quote == DOUBLE)
+	if (SGL_QUOTE)
+				remove_quote + WORD;
+			if (DBL_QUOTE)
+			remove_quote + deal with ENV_VAR; 
+}*/
+
 void	get_tokens_types(t_token *tokens, int nb_tokens)
 {
 	int	i;
@@ -8,20 +24,15 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 	while (i < nb_tokens)
 	{
 		/*if (tokens[i].quote)
-			handle_quotes;
-			if (SGL_QUOTE)
-				remove_quote + WORD;
-			if (DBL_QUOTE)
-			remove_quote + deal with ENV_VAR;
-		else */ if (i == 0)
+			remove_quotes(&tokens[i]);*/
+		if (i == 0)
 			tokens[i].type = CMD;
 		else if (tokens[i].text[0] == '-')
 			tokens[i].type = FLAG;
 		else if (ft_strchr(tokens[i].text, '$'))
 			tokens[i].type = ENV_VAR;
 		else if (ft_strchr(tokens[i].text, '<'))
-		{ 
-			// redir peuvent être collées au texte ?
+		{
 			if (*(ft_strchr(tokens[i].text, '<') + 1) == '<')
 				tokens[i].type = OP_DELIMITER;
 			else

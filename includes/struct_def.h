@@ -20,17 +20,10 @@ typedef enum	e_token_type
 	OP_APPEND,
 }				t_token_type;
 
-typedef enum	e_quote_type
-{
-	NONE,
-	SINGLE,
-	DOUBLE,
-}				t_quote_type;
-
 typedef struct 	s_token
 {
 	t_token_type	type;
-	t_quote_type	quote;
+	char			quote;
 	char			*text;
 	
 }				t_token;

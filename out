@@ -1,0 +1,11 @@
+total 148
+drwxr-xr-x 3 knulp knulp   4096 Mar  1 10:37 42_00_libft
+drwxr-xr-x 2 knulp knulp   4096 Feb 22 16:22 docs
+drwxr-xr-x 2 knulp knulp   4096 Feb 28 21:53 includes
+-rw-r--r-- 1 knulp knulp   2090 Feb 18 11:51 Makefile
+-rwxr-xr-x 1 knulp knulp 116120 Mar  1 10:37 minishell
+drwxr-xr-x 4 knulp knulp   4096 Mar  1 10:37 objs
+-rw-r--r-- 1 knulp knulp      0 Mar  1 15:55 out
+-rw-r--r-- 1 knulp knulp   2911 Feb 25 16:18 README.md
+drwxr-xr-x 4 knulp knulp   4096 Feb 28 21:53 srcs
+drwxr-xr-x 5 knulp knulp   4096 Feb 18 11:21 tester
