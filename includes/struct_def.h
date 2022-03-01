@@ -68,6 +68,7 @@ typedef enum 	e_error_codes
 	MEMORY_FAIL,
 	WRONG_ARGC,
 	OPEN_FAIL,
+	WRONG_DIR,
 }				t_error;
 
 typedef struct 	s_minishell

@@ -56,6 +56,7 @@ int	cd(t_cmd_table *cmd)
 	if ((exit_code = chdir(new_cwd)) != 0) 
 	{
 		free(cwd);
+		error_message(WRONG_DIR);
 		return (exit_code);
 	}
 	minishell->envp[env_var_index("OLDPWD")] = ft_strjoin("OLDPWD=", cwd); // free?
