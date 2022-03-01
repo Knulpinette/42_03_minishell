@@ -1,4 +1,4 @@
-ls "$HOME"
-ls $HOME
-ls '$HOME'
-ls $home
+ls "$HOME" | ls "$USER"
+ls $HOME | ls $USER
+ls '$HOME' | ls '$USER'
+ls $home | ls $user
