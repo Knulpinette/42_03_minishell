@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		parse(line);
 		// debugging cd:
-		DEBUG(cd(&minishell->cmd_table[0]));
+		// DEBUG(cd(&minishell->cmd_table[0]));
 		free(line);
 		// executor
 	}
