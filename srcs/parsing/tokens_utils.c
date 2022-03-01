@@ -13,7 +13,7 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 				remove_quote + WORD;
 			if (DBL_QUOTE)
 			remove_quote + deal with ENV_VAR;
-		/*else*/ if (i == 0)
+		else*/ if (i == 0)
 			tokens[i].type = CMD;
 		else if (tokens[i].text[0] == '-')
 			tokens[i].type = FLAG;

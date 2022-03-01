@@ -52,7 +52,8 @@ $(OBJS_DIR)/%.o: ${SRCS_DIR}/%.c
 all:			${NAME} instructions
 
 # Make libft + compile minishell
-${NAME}:		${OBJS}
+# Cleaning before so that debug and no-debug object files don't conflict
+${NAME}:		clean_no_libft ${OBJS}
 			@printf "\n"
 			@${MAKE} bonus -C ${LIBFT_DIR}
 			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME) $(LIBRARIES)
@@ -72,11 +73,17 @@ bonus:			${NAME}
 
 #	Cleaning rules
 
+clean_no_libft:
+			@${RM} ${OBJS} ${OBJS_BONUS}
+			@rm -rf objs
+			@printf "\n	${WHITE}[${BLUE} Cleaned minishell object files ${WHITE}]\
+			${END}\n"
+
 clean:
 			@${MAKE} clean -C ${LIBFT_DIR}
 			@${RM} ${OBJS} ${OBJS_BONUS}
 			@rm -rf objs
-			@printf "\n	${WHITE}[${BLUE} Cleaned minishell object files ${WHITE}]\
+			@printf "\n	${WHITE}[${BLUE} Cleaned minishell and its dependencies object files ${WHITE}]\
 			${END}\n"
 
 fclean:			clean
@@ -89,8 +96,7 @@ re:				fclean all
 
 debug:			INCLUDES += -DDEBUG_MODE
 debug:			CFLAGS = -Wall -Wextra -g -fsanitize=address
-debug:			clean
 debug:			all
 
-.PHONY:			all clean fclean re debug
+.PHONY:			all clean_no_libft clean fclean re debug
 
