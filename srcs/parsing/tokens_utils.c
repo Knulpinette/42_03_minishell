@@ -1,69 +1,40 @@
 #include "minishell.h"
 
-int		get_env_var_count(char *text, char delim)
+void	setup_all_variables_with_dbl_quotes_exception(
+			t_token *token, char **env_var, int *len_token, int *i, int *j)
 {
-	int	i;
-	int	env_var_count;
+	char	*starting_point;
+	int		env_var_count;
 
-	i = 0;
-	env_var_count = 0;
-	while (text[i] != '$')
-		i++;
-	i++;
-	while (text[i + env_var_count] != delim)
-		env_var_count++;
-	return (env_var_count);
-}
-
-char	*get_env_var(char *text, int env_var_count, char delim)
-{
-	char	*env_var;
-	char	*result;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	env_var = calloc_or_exit(sizeof(char), env_var_count + 1);
-	while (text[i] != delim)
+	*i = 0;
+	*j = 0;
+	*env_var = NULL;
+	*len_token = ft_strlen(token->text) - 2;
+	if (ft_strchr(token->text, '$') && token->quote == DBL_QUOTE)
 	{
-		env_var[j++] = text[i++];
+		starting_point = ft_strchr(token->text, '$') + 1;
+		env_var_count = get_env_var_count(token->text, DBL_QUOTE);
+		*env_var = get_env_var(starting_point, env_var_count, DBL_QUOTE);
+		*len_token = (*len_token) - env_var_count + ft_strlen(*env_var); 
 	}
-	env_var[j] = 0;
-	if (getenv(env_var))
-		result = strdup(getenv(env_var));
-	else
-		result = strdup("");
-	free(env_var);
-	DEBUG(printf("%s\n", result);)
-	return (result);
 }
 
 void	remove_quotes(t_token *token)
 {
 	char	*temp;
 	char	*env_var;
-	int		len;
+	int		len_token;
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
-	env_var = NULL;
-	len = ft_strlen(token->text) - 2;
-	if (ft_strchr(token->text, '$') && token->quote == DBL_QUOTE)
-	{
-		env_var = get_env_var((ft_strchr(token->text, '$') + 1), get_env_var_count(token->text, DBL_QUOTE), DBL_QUOTE);
-		len = len - get_env_var_count(token->text, DBL_QUOTE) + ft_strlen(env_var); 
-	}
-	temp = calloc_or_exit(sizeof(char), len + 1);
+	setup_all_variables_with_dbl_quotes_exception(token, &env_var, &len_token, &i, &j);
+	temp = calloc_or_exit(sizeof(char), len_token + 1);
 	while (token->text[i])
 	{
 		if (token->text[i] == '$' && token->quote == DBL_QUOTE)
 		{
-			len = ft_strlcpy(&temp[j], env_var, ft_strlen(env_var) + 1);
 			i = i + get_env_var_count(token->text, DBL_QUOTE);
-			j = j + ft_strlen(env_var);
+			j = j + ft_strlcpy(&temp[j], env_var, ft_strlen(env_var) + 1);
 		}
 		else if (token->text[i] != token->quote)
 			temp[j++] = token->text[i];

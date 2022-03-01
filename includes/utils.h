@@ -14,6 +14,9 @@ int				get_array_len(char **split);
 char			*skip_space(char *line);
 char			**get_cmd_paths(char **envp);
 char			**finish_paths_by_slash(char **raw_paths);
+/* env_var */
+int				get_env_var_count(char *text, char delim);
+char			*get_env_var(char *text, int env_var_count, char delim);
 
 /* Memory utils */
 void			free_minishell(t_minishell *minishell);
