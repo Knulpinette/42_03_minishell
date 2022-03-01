@@ -1,67 +1,76 @@
 #include "minishell.h"
 
+int		get_env_var_count(char *text, char delim)
+{
+	int	i;
+	int	env_var_count;
+
+	i = 0;
+	env_var_count = 0;
+	while (text[i] != '$')
+		i++;
+	i++;
+	while (text[i + env_var_count] != delim)
+		env_var_count++;
+	return (env_var_count);
+}
+
+char	*get_env_var(char *text, int env_var_count, char delim)
+{
+	char	*env_var;
+	char	*result;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	env_var = calloc_or_exit(sizeof(char), env_var_count + 1);
+	while (text[i] != delim)
+	{
+		env_var[j++] = text[i++];
+	}
+	env_var[j] = 0;
+	if (getenv(env_var))
+		result = strdup(getenv(env_var));
+	else
+		result = strdup("");
+	free(env_var);
+	DEBUG(printf("%s\n", result);)
+	return (result);
+}
+
 void	remove_quotes(t_token *token)
 {
 	char	*temp;
+	char	*env_var;
 	int		len;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
+	env_var = NULL;
 	len = ft_strlen(token->text) - 2;
-	if (token->quote == DBL_QUOTE && ft_strchr(token->text, '$'))
+	if (ft_strchr(token->text, '$') && token->quote == DBL_QUOTE)
 	{
-		int	env_var_count;
-		char	*real_var;
-		char	*env_var;
-
-		while (token->text[i] != '$')
-			i++;
-		// MAKE SEPARATE FUNCTION FOR THIS
-		i++;
-		env_var_count = 0;
-		while (token->text[i + env_var_count] != DBL_QUOTE)
-			env_var_count++;
-		env_var = calloc_or_exit(sizeof(char), env_var_count + 1);
-		while (token->text[i] != DBL_QUOTE)
-			env_var[j++] = token->text[i++];
-		env_var[j] = 0;
-		if (getenv(env_var))
-			real_var = strdup(getenv(env_var));
-		else
-			real_var = strdup("");
-		DEBUG(printf("%s\n", real_var);)
-		free(env_var);
-		len = len - env_var_count + ft_strlen(real_var);
-		temp = calloc_or_exit(sizeof(char), len);
-		i = 0;
-		j = 0;
-		while (token->text[i])
-		{
-			if (token->text[i] == '$')
-			{
-				len = ft_strlcpy(&temp[j], real_var, ft_strlen(real_var) + 1);
-				i = i + env_var_count;
-				j = j + ft_strlen(real_var);
-			}
-			else if (token->text[i] != token->quote)
-				temp[j++] = token->text[i];
-			i++;
-		}
-		free(real_var);
-		free(token->text);
-		token->text = strdup(temp);
-		free(temp); 
-		return ;
+		env_var = get_env_var((ft_strchr(token->text, '$') + 1), get_env_var_count(token->text, DBL_QUOTE), DBL_QUOTE);
+		len = len - get_env_var_count(token->text, DBL_QUOTE) + ft_strlen(env_var); 
 	}
 	temp = calloc_or_exit(sizeof(char), len + 1);
 	while (token->text[i])
 	{
-		if (token->text[i] != token->quote)
+		if (token->text[i] == '$' && token->quote == DBL_QUOTE)
+		{
+			len = ft_strlcpy(&temp[j], env_var, ft_strlen(env_var) + 1);
+			i = i + get_env_var_count(token->text, DBL_QUOTE);
+			j = j + ft_strlen(env_var);
+		}
+		else if (token->text[i] != token->quote)
 			temp[j++] = token->text[i];
 		i++;
 	}
+	if (env_var)
+		free(env_var);
 	free(token->text);
 	token->text = strdup(temp);
 	free(temp); 
