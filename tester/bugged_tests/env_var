@@ -1,0 +1,4 @@
+ls "$HOME"
+ls $HOME
+ls '$HOME'
+ls $home
