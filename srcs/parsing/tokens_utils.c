@@ -27,15 +27,17 @@ void	remove_quotes(t_token *token)
 		while (token->text[i] != DBL_QUOTE)
 			env_var[j++] = token->text[i++];
 		env_var[j] = 0;
-		real_var = strdup(getenv(env_var));
-		//if error, handle
+		if (getenv(env_var))
+			real_var = strdup(getenv(env_var));
+		else
+			real_var = strdup("");
 		DEBUG(printf("%s\n", real_var);)
 		free(env_var);
 		len = len - env_var_count + ft_strlen(real_var);
 		temp = calloc_or_exit(sizeof(char), len);
 		i = 0;
 		j = 0;
-		while (token->text[i]) // error here of buffer overflow
+		while (token->text[i])
 		{
 			if (token->text[i] == '$')
 			{
