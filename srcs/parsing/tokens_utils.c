@@ -24,8 +24,17 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 	while (i < nb_tokens)
 	{
 		/*if (tokens[i].quote)
+<<<<<<< HEAD
 			remove_quotes(&tokens[i]);*/
 		if (i == 0)
+=======
+			handle_quotes;
+			if (SGL_QUOTE)
+				remove_quote + WORD;
+			if (DBL_QUOTE)
+			remove_quote + deal with ENV_VAR;
+		else*/ if (i == 0)
+>>>>>>> cd1cdd41f7d3bec0c7b6611cf74aa5d4b4c017ff
 			tokens[i].type = CMD;
 		else if (tokens[i].text[0] == '-')
 			tokens[i].type = FLAG;
