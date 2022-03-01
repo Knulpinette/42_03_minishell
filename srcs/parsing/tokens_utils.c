@@ -1,13 +1,11 @@
 #include "minishell.h"
 
 void	setup_all_variables_with_dbl_quotes_exception(
-			t_token *token, char **env_var, int *len_token, int *i, int *j)
+			t_token *token, char **env_var, int *len_token)
 {
 	char	*starting_point;
 	int		env_var_count;
 
-	*i = 0;
-	*j = 0;
 	*env_var = NULL;
 	*len_token = ft_strlen(token->text) - 2;
 	if (ft_strchr(token->text, '$') && token->quote == DBL_QUOTE)
@@ -27,8 +25,10 @@ void	remove_quotes(t_token *token)
 	int		i;
 	int		j;
 
-	setup_all_variables_with_dbl_quotes_exception(token, &env_var, &len_token, &i, &j);
+	setup_all_variables_with_dbl_quotes_exception(token, &env_var, &len_token);
 	temp = calloc_or_exit(sizeof(char), len_token + 1);
+	i = 0;
+	j = 0;
 	while (token->text[i])
 	{
 		if (token->text[i] == '$' && token->quote == DBL_QUOTE)
