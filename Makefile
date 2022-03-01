@@ -52,8 +52,8 @@ $(OBJS_DIR)/%.o: ${SRCS_DIR}/%.c
 all:			${NAME} instructions
 
 # Make libft + compile minishell
-# Cleaning before so that debug and no-debug object files don't conflict
-${NAME}:		clean_no_libft ${OBJS}
+# Run man clean before so that debug and no-debug obj files don't conflict
+${NAME}:		${OBJS}
 			@printf "\n"
 			@${MAKE} bonus -C ${LIBFT_DIR}
 			@$(CC) ${CFLAGS} ${INCLUDES} ${OBJS} -o $(NAME) $(LIBRARIES)
