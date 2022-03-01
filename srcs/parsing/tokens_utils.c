@@ -41,7 +41,7 @@ void	remove_quotes(t_token *token)
 			{
 				len = ft_strlcpy(&temp[j], real_var, ft_strlen(real_var) + 1);
 				i = i + env_var_count;
-				j = j + env_var_count;
+				j = j + ft_strlen(real_var);
 			}
 			else if (token->text[i] != token->quote)
 				temp[j++] = token->text[i];
