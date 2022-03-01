@@ -52,7 +52,7 @@ $(OBJS_DIR)/%.o: ${SRCS_DIR}/%.c
 all:			${NAME} instructions
 
 # Make libft + compile minishell
-# Run man clean before so that debug and no-debug obj files don't conflict
+# Run make clean before so that debug and no-debug obj files don't conflict
 ${NAME}:		${OBJS}
 			@printf "\n"
 			@${MAKE} bonus -C ${LIBFT_DIR}
