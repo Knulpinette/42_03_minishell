@@ -1,20 +1,54 @@
 #include "minishell.h"
 
-/*void	remove_quotes(t_token *token)
+void	remove_quotes(t_token *token)
 {
-	if (token->quote == DBL_QUOTE)
-		(change ENV_VAR into its meaning);
-	
-	if (token->quote == SGL_QUOTE)
-	{
+	char	*temp;
+	int		len;
+	int		i;
+	int		j;
 
+	/*if (token->quote == DBL_QUOTE && ft_strchr(token->text, '$'))
+	{
+		int	env_var_count;
+
+		len = strlen(token->text) - 2;
+		skip_to_$;
+		get_env_var_count until '"';
+		len = len - env_var_count;
+		get env_var;
+		len = len + ft_strlen(env_var);
+		temp = calloc_or_exit(sizeof(char), len);
+		i = 0;
+		while (token->text[i])
+		{
+			if (token->text[i] == '$')
+			{
+				append_env_var to temp;
+				i = i + env_var_count;
+			}
+			if (token->text[i] != token->quote)
+			temp[j++] = token->text[i];
+			i++;
+		}
+		free(token->text);
+		token->text = strdup(temp);
+		free(temp); 
+		return ;
+	}*/
+	len = ft_strlen(token->text) - 2;
+	temp = calloc_or_exit(sizeof(char), len + 1);
+	i = 0;
+	j = 0;
+	while (token->text[i])
+	{
+		if (token->text[i] != token->quote)
+			temp[j++] = token->text[i];
+		i++;
 	}
-	if (token->quote == DOUBLE)
-	if (SGL_QUOTE)
-				remove_quote + WORD;
-			if (DBL_QUOTE)
-			remove_quote + deal with ENV_VAR; 
-}*/
+	free(token->text);
+	token->text = strdup(temp);
+	free(temp); 
+}
 
 void	get_tokens_types(t_token *tokens, int nb_tokens)
 {
@@ -23,22 +57,15 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 	i = 0;
 	while (i < nb_tokens)
 	{
-		/*if (tokens[i].quote)
-<<<<<<< HEAD
-			remove_quotes(&tokens[i]);*/
+		if (tokens[i].quote)
+			remove_quotes(&tokens[i]);
+		//check_for_redir => get all info and go along the right amount of tokens
+		//then => next token == cmd
 		if (i == 0)
-=======
-			handle_quotes;
-			if (SGL_QUOTE)
-				remove_quote + WORD;
-			if (DBL_QUOTE)
-			remove_quote + deal with ENV_VAR;
-		else*/ if (i == 0)
->>>>>>> cd1cdd41f7d3bec0c7b6611cf74aa5d4b4c017ff
 			tokens[i].type = CMD;
-		else if (tokens[i].text[0] == '-')
+		else if (tokens[i].text[0] == '-' && tokens[i].text[1])
 			tokens[i].type = FLAG;
-		else if (ft_strchr(tokens[i].text, '$'))
+		else if (ft_strchr(tokens[i].text, '$') && tokens[i].quote != SGL_QUOTE)
 			tokens[i].type = ENV_VAR;
 		else if (ft_strchr(tokens[i].text, '<'))
 		{
