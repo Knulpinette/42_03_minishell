@@ -7,38 +7,53 @@ void	remove_quotes(t_token *token)
 	int		i;
 	int		j;
 
-	/*if (token->quote == DBL_QUOTE && ft_strchr(token->text, '$'))
+	i = 0;
+	j = 0;
+	len = ft_strlen(token->text) - 2;
+	if (token->quote == DBL_QUOTE && ft_strchr(token->text, '$'))
 	{
 		int	env_var_count;
+		char	*real_var;
+		char	*env_var;
 
-		len = strlen(token->text) - 2;
-		skip_to_$;
-		get_env_var_count until '"';
-		len = len - env_var_count;
-		get env_var;
-		len = len + ft_strlen(env_var);
+		while (token->text[i] != '$')
+			i++;
+		// MAKE SEPARATE FUNCTION FOR THIS
+		i++;
+		env_var_count = 0;
+		while (token->text[i + env_var_count] != DBL_QUOTE)
+			env_var_count++;
+		env_var = calloc_or_exit(sizeof(char), env_var_count + 1);
+		while (token->text[i] != DBL_QUOTE)
+			env_var[j++] = token->text[i++];
+		env_var[j] = 0;
+		real_var = strdup(getenv(env_var));
+		//if error, handle
+		DEBUG(printf("%s\n", real_var);)
+		free(env_var);
+		len = len - env_var_count + ft_strlen(real_var);
 		temp = calloc_or_exit(sizeof(char), len);
 		i = 0;
-		while (token->text[i])
+		j = 0;
+		while (token->text[i]) // error here of buffer overflow
 		{
 			if (token->text[i] == '$')
 			{
-				append_env_var to temp;
+				len = ft_strlcpy(&temp[j], real_var, ft_strlen(real_var) + 1);
 				i = i + env_var_count;
+				j = j + env_var_count;
 			}
-			if (token->text[i] != token->quote)
-			temp[j++] = token->text[i];
+			else if (token->text[i] != token->quote)
+				temp[j++] = token->text[i];
 			i++;
 		}
+		free(real_var);
 		free(token->text);
 		token->text = strdup(temp);
 		free(temp); 
 		return ;
-	}*/
-	len = ft_strlen(token->text) - 2;
+	}
 	temp = calloc_or_exit(sizeof(char), len + 1);
-	i = 0;
-	j = 0;
 	while (token->text[i])
 	{
 		if (token->text[i] != token->quote)
