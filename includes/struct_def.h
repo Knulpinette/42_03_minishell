@@ -20,17 +20,10 @@ typedef enum	e_token_type
 	OP_APPEND,
 }				t_token_type;
 
-typedef enum	e_quote_type
-{
-	NONE,
-	SINGLE,
-	DOUBLE,
-}				t_quote_type;
-
 typedef struct 	s_token
 {
 	t_token_type	type;
-	t_quote_type	quote;
+	char			quote;
 	char			*text;
 	
 }				t_token;
@@ -42,6 +35,7 @@ typedef struct 	s_command_table
 	char		*cmd_name;
 	char		**flags; /* array of flags */
 	char		*cmd_path; /* path to be executed */
+	//add a redirection struct. Probably need to get rid of following variables since they'll be in the struct
 	int			fd_in;
 	char		*infile;
 	int			fd_out;

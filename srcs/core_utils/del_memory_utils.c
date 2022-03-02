@@ -29,8 +29,10 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmd)
 	int	i;
 
 	i = 0;
+	DEBUG(printf("total of cmd to delete = %i\n", nb_cmd);)
 	while (i < nb_cmd)
 	{
+		DEBUG(printf("deleting tokens in cmd_table number %i\n", i);)
 		if (cmd_table[i].tokens)
 			free_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);
 		/*if (cmd_table[i].cmd_args)
@@ -45,9 +47,11 @@ void	free_tokens(t_token *tokens, int nb_tokens)
 	int	i;
 
 	i = 0;
-	while (i < nb_tokens + 1)
+	DEBUG(printf("total of tokens to delete = %i\n", nb_tokens);)
+	while (i < nb_tokens)
 	{
 		free(tokens[i].text);
+		DEBUG(printf("deleting tokens = %i\n", i);)
 		i++;
 	}
 	free(tokens);

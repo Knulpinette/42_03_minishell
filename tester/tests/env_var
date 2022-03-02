@@ -1,0 +1,4 @@
+ls "$HOME" | ls "$USER"
+ls $HOME | ls $USER
+ls '$HOME' | ls '$USER'
+ls $home | ls $user

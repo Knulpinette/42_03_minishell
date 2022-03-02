@@ -38,4 +38,3 @@ void	get_tokens_types(t_token *tokens, int nb_tokens);
 void	assign_tokens(t_cmd_table *cmd_table);
 
 #endif
-

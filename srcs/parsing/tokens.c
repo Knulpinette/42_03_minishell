@@ -1,16 +1,16 @@
 #include "minishell.h"
 
-static int		nb_of_letters_if_quotes(const char *s, int i, int letters, t_token *tokens, char c)
+static int		nb_of_letters_if_quotes(const char *s, int i, int letters, t_token *token, char c)
 {
 	if (s[i + letters] == SGL_QUOTE && ft_strchr(s, SGL_QUOTE))
 	{
 		letters = letters + quote_len(s, c, SGL_QUOTE, (i + letters));
-		tokens->quote = SINGLE;
+		token->quote = SGL_QUOTE;
 	}
 	else if (s[i + letters] == DBL_QUOTE && ft_strchr(s, DBL_QUOTE))
 	{
 		letters = letters + quote_len(s, c, DBL_QUOTE, (i + letters));
-		tokens->quote = DOUBLE;
+		token->quote = DBL_QUOTE;
 	}
 	return (letters);
 }
