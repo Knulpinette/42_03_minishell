@@ -4,16 +4,16 @@ void	setup_all_variables_with_dbl_quotes_exception(
 			t_token *token, char **env_var, int *len_token)
 {
 	char	*starting_point;
-	int		env_var_count;
+	int		env_var_len;
 
 	*env_var = NULL;
 	*len_token = ft_strlen(token->text) - 2;
 	if (ft_strchr(token->text, '$') && token->quote == DBL_QUOTE)
 	{
 		starting_point = ft_strchr(token->text, '$') + 1;
-		env_var_count = get_env_var_count(token->text, DBL_QUOTE);
-		*env_var = get_env_var(starting_point, env_var_count, DBL_QUOTE);
-		*len_token = (*len_token) - env_var_count + ft_strlen(*env_var); 
+		env_var_len = get_env_var_len(token->text, DBL_QUOTE);
+		*env_var = get_env_var(starting_point, env_var_len, DBL_QUOTE);
+		*len_token = (*len_token) - env_var_len + ft_strlen(*env_var); 
 	}
 }
 
@@ -33,7 +33,7 @@ void	remove_quotes(t_token *token)
 	{
 		if (token->text[i] == '$' && token->quote == DBL_QUOTE)
 		{
-			i = i + get_env_var_count(token->text, DBL_QUOTE);
+			i = i + get_env_var_len(token->text, DBL_QUOTE);
 			j = j + ft_strlcpy(&temp[j], env_var, ft_strlen(env_var) + 1);
 		}
 		else if (token->text[i] != token->quote)

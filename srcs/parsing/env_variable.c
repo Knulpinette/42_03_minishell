@@ -1,21 +1,21 @@
 #include "minishell.h"
 
-int		get_env_var_count(char *text, char delim)
+int		get_env_var_len(char *text, char delim)
 {
 	int	i;
-	int	env_var_count;
+	int	env_var_len;
 
 	i = 0;
-	env_var_count = 0;
+	env_var_len = 0;
 	while (text[i] != '$')
 		i++;
 	i++;
-	while (text[i + env_var_count] != delim)
-		env_var_count++;
-	return (env_var_count);
+	while (text[i + env_var_len] != delim)
+		env_var_len++;
+	return (env_var_len);
 }
 
-char	*get_env_var(char *text, int env_var_count, char delim)
+char	*get_env_var(char *text, int env_var_len, char delim)
 {
 	char	*env_var;
 	char	*result;
@@ -24,7 +24,7 @@ char	*get_env_var(char *text, int env_var_count, char delim)
 
 	i = 0;
 	j = 0;
-	env_var = calloc_or_exit(sizeof(char), env_var_count + 1);
+	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
 	while (text[i] != delim)
 	{
 		env_var[j++] = text[i++];
