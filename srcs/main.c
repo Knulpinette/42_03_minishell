@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	int			fd;
 	char		*line;
 	t_minishell	*minishell;
+
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
 	 *   a. get user input
@@ -36,10 +37,9 @@ int	main(int argc, char **argv, char **envp)
 		line = get_instructions_line(argc != 2, fd);
 		if (!line)
 			return (0);
-		// validate user input (line)
-		// if not valid, free line and return 1
 		parse(line);
-		// parse(line) and turn it into an array of command structs
+		// debugging cd:
+		// DEBUG(cd(&minishell->cmd_table[0]));
 		free(line);
 		// executor
 	}

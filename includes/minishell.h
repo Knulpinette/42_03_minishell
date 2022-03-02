@@ -25,6 +25,7 @@
 # include "struct_def.h"
 # include "utils.h"
 # include "debug.h"
+# include "builtin_fts.h"
 
 /* INTERFACE */
 char	*get_instructions_line(int interactive, int fd);

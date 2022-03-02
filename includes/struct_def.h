@@ -50,7 +50,6 @@ typedef struct 	s_command_table
 	char		*delim_arg;
 	int			mode; /* OVERWRITE, APPEND */
 	char		**cmd_args; /* array because of execve */
-
 }				t_cmd_table;
 
 typedef	enum	e_redir_mode
@@ -69,12 +68,14 @@ typedef enum 	e_error_codes
 	MEMORY_FAIL,
 	WRONG_ARGC,
 	OPEN_FAIL,
+	WRONG_DIR,
 }				t_error;
 
 typedef struct 	s_minishell
 {
 	int			nb_cmd;
 	char		**instructions; /* input instructions parsed from pipes */
+	char		**envp;
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
 
