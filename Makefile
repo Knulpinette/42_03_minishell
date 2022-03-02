@@ -95,7 +95,7 @@ fclean:			clean
 re:				fclean all
 
 debug:			INCLUDES += -DDEBUG_MODE
-debug:			CFLAGS = -Wall -Wextra -g -fsanitize=address
+debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 debug:			all
 
 .PHONY:			all clean_no_libft clean fclean re debug
