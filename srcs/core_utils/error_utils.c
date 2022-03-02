@@ -18,7 +18,7 @@ void	error_message(t_error code)
 	ft_putstr_fd(""LIGHT_RED"Error \n"END_COLOR"", STDERR_FILENO);
 	if (code == WRONG_ARGC)
 		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
-	if (code == MEMORY_FAIL || code == OPEN_FAIL)
+	if (code == MEMORY_FAIL || code == OPEN_FAIL || code == WRONG_DIR)
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
 		write(STDERR_FILENO, "\n", 1);
