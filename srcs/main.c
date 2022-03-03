@@ -38,8 +38,8 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			return (0);
 		parse(line);
-		// debugging cd:
-		// DEBUG(cd(&minishell->cmd_table[0]));
+		// debugging pwd:
+		//DEBUG(pwd(&minishell->cmd_table[0]));
 		free(line);
 		// executor
 	}
