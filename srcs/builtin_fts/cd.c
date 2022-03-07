@@ -42,6 +42,15 @@ char	*update_cwd(char *cwd)
 	return (cwd);
 }
 
+static char	*get_new_cwd(char *cmd_arg)
+{
+	if (!cmd_arg)
+		return (getenv("HOME"));
+	if (ft_strncmp(cmd_arg, "-", 1) == 0)
+		return (getenv("OLDPWD"));
+	return (cmd_arg);
+}
+
 int	cd(t_cmd_table *cmd)
 {
 	t_minishell	*minishell;
@@ -52,12 +61,7 @@ int	cd(t_cmd_table *cmd)
 	minishell = get_minishell(NULL);
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	if (!cmd->cmd_args[0])
-		new_cwd = getenv("HOME");
-	else if (ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
-		new_cwd = getenv("OLDPWD");
-	else	
-		new_cwd = cmd->cmd_args[0];
+	new_cwd = get_new_cwd(cmd->cmd_args[0]);
 	if ((exit_code = chdir(new_cwd)) != 0) 
 	{
 		free(cwd);
@@ -67,6 +71,8 @@ int	cd(t_cmd_table *cmd)
 	minishell->envp[env_var_index("OLDPWD")] = ft_strjoin("OLDPWD=", cwd); // free?
 	cwd = update_cwd(cwd);
 	minishell->envp[env_var_index("PWD")] = ft_strjoin("PWD=", cwd); // free?
+	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
+		pwd(cmd);
 	DEBUG(printf("PWD: %s\n", getenv("PWD")));
 	DEBUG(printf("OLDPWD: %s\n", getenv("OLDPWD")));	
 	free(cwd);
