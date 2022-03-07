@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+ * Error Handling
+ * In bash, arguments are ignored.
+ * In zsh it says "pwd: too many arguments".
+ */
+
 int	pwd(t_cmd_table *cmd)
 {
 	char	*cwd;
