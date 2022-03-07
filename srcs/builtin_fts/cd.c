@@ -3,7 +3,7 @@
 /*
  * 3 possible situations:
  * 1) no argument is given => change to HOME
- * 2) - => change to OLDPWD
+ * 2) - => change to OLDPWD and print PWD
  * 3) relative or absolute path are given => change to path
  * chdir can receive both relative or absolute paths - so smart ✨
  *
@@ -11,6 +11,11 @@
  * - envp from main
  * - extern char **environ from unistd.h
  * - getenv("VAR_NAME") for the value of a specific variable
+ *
+ * Error Handling
+ * In bash, additional arguments are ignored, if the first argument
+ * is correct then the command works properly.
+ * In zsh it says "cd: string not in pwd: <first_arg>"
  */
 
 int	env_var_index(char *env_name)
