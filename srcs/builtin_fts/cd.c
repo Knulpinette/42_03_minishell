@@ -51,14 +51,12 @@ static char	*get_new_cwd(char *cmd_arg)
 	return (cmd_arg);
 }
 
-int	cd(t_cmd_table *cmd)
+int	cd(t_cmd_table *cmd, t_minishell *minishell)
 {
-	t_minishell	*minishell;
 	char		*cwd;
 	char		*new_cwd;
 	int			exit_code;
 
-	minishell = get_minishell(NULL);
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	new_cwd = get_new_cwd(cmd->cmd_args[0]);
