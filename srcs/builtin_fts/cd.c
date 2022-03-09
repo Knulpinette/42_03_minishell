@@ -7,15 +7,14 @@
  * 3) relative or absolute path are given => change to path
  * chdir can receive both relative or absolute paths - so smart ✨
  *
- * Acessing env variables
- * - envp from main
- * - extern char **environ from unistd.h
- * - getenv("VAR_NAME") for the value of a specific variable
- *
  * Error Handling
  * In bash, additional arguments are ignored, if the first argument
  * is correct then the command works properly.
  * In zsh it says "cd: string not in pwd: <first_arg>"
+ *
+ * If we redirect the output from cd . (for e.g.) to a file (which is nothing)
+ * it rewrites the file with nothing (if there was something there).
+ * In order to obtain that effect, we write nothing (write(..., "", 0);)
  */
 
 int	env_var_index(char *env_name)
@@ -71,6 +70,8 @@ int	cd(t_cmd_table *cmd, t_minishell *minishell)
 	minishell->envp[env_var_index("PWD")] = ft_strjoin("PWD=", cwd); // free?
 	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
 		pwd(cmd);
+	else
+		write(cmd->fd_in, "", 0); // test this once redirections are handled
 	DEBUG(printf("PWD: %s\n", getenv("PWD")));
 	DEBUG(printf("OLDPWD: %s\n", getenv("OLDPWD")));	
 	free(cwd);
