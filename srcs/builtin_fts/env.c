@@ -1,6 +1,11 @@
 #include "minishell.h"
 
 /*
+ * Acessing env variables
+ * - envp from main
+ * - extern char **environ from unistd.h
+ * - getenv("VAR_NAME") for the value of a specific variable
+ *
  * Error Handling
  * No need to handle options nor arguments as per the subject
  */
