@@ -11,6 +11,8 @@
  * In bash, additional arguments are ignored, if the first argument
  * is correct then the command works properly.
  * In zsh it says "cd: string not in pwd: <first_arg>"
+ * In bash, the first time we open the terminal there is no OLDPWD yet,
+ * thus calling cd - returns "bash: cd: OLDPWD not set"
  *
  * If we redirect the output from cd . (for e.g.) to a file (which is nothing)
  * it rewrites the file with nothing (if there was something there).
