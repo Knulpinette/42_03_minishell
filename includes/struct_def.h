@@ -63,6 +63,7 @@ typedef enum 	e_error_codes
 	WRONG_ARGC,
 	OPEN_FAIL,
 	WRONG_DIR,
+	NO_OLDPWD,
 }				t_error;
 
 typedef struct 	s_minishell

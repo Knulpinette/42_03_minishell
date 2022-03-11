@@ -52,6 +52,13 @@ static char	*get_new_cwd(char *cmd_arg)
 	return (cmd_arg);
 }
 
+static int	exit_cd(char *cwd, int	error_code, int exit_code)
+{
+	free(cwd);
+	error_message(error_code);
+	return (exit_code);
+}
+
 int	cd(t_cmd_table *cmd, t_minishell *minishell)
 {
 	char		*cwd;
@@ -60,13 +67,10 @@ int	cd(t_cmd_table *cmd, t_minishell *minishell)
 
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	new_cwd = get_new_cwd(cmd->cmd_args[0]);
+	if ((new_cwd = get_new_cwd(cmd->cmd_args[0])) == NULL)
+		return (exit_cd(cwd, NO_OLDPWD, 1)); // double check exit code
 	if ((exit_code = chdir(new_cwd)) != 0) 
-	{
-		free(cwd);
-		error_message(WRONG_DIR);
-		return (exit_code);
-	}
+		return (exit_cd(cwd, WRONG_DIR, exit_code));
 	minishell->envp[env_var_index("OLDPWD")] = ft_strjoin("OLDPWD=", cwd); // free?
 	cwd = update_cwd(cwd);
 	minishell->envp[env_var_index("PWD")] = ft_strjoin("PWD=", cwd); // free?
