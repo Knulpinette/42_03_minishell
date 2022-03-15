@@ -40,6 +40,7 @@ typedef struct	s_redir
 
 typedef struct 	s_command_table
 {
+	int				nb_redirs;
 	t_redir			*redirs;
 	int				nb_tokens;
 	t_token			*tokens; /* array of tokens */ 

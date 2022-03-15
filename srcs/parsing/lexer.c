@@ -9,12 +9,12 @@ void	lexer(char *line)
 	minishell->instructions = ft_split(line, PIPE);
 	minishell->nb_cmd = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmd);
-	// DEAL WITH REDIRECTIONS !!!!! and rewrite instructions according to it.
 	i = 0;
 	while (i < minishell->nb_cmd)
 	{
 		if (ft_strchr(minishell->instructions[i], '>') || ft_strchr(minishell->instructions[i], '<'))
-			minishell->cmd_table[i].redirs = get_redirs(minishell->instructions[i]);
+			minishell->cmd_table[i].redirs = 
+				get_redirs(minishell->instructions[i], minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
 		minishell->cmd_table[i].nb_tokens =
 			get_nb_tokens(minishell->instructions[i], SPACE);
 		minishell->cmd_table[i].tokens =
