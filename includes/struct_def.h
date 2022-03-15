@@ -14,10 +14,6 @@ typedef enum	e_token_type
 	CMD,
 	FLAG,
 	ENV_VAR,
-	OP_REDIR_IN,
-	OP_REDIR_OUT,
-	OP_DELIMITER,
-	OP_APPEND,
 }				t_token_type;
 
 typedef struct 	s_token
@@ -28,29 +24,34 @@ typedef struct 	s_token
 	
 }				t_token;
 
+typedef enum	e_redir_type
+{
+	OP_REDIR_IN,
+	OP_REDIR_OUT,
+	OP_DELIMITER,
+	OP_APPEND, /* changes OVERWRITE default to APPEND */
+}				t_redir_type;
+
+typedef struct	s_redir
+{
+	t_redir_type	type;
+	char			*arg;
+}				t_redir;
+
 typedef struct 	s_command_table
 {
-	int			nb_tokens;
-	t_token		*tokens; /* array of tokens */ 
-	char		*cmd_name;
-	char		**flags; /* array of flags */
-	char		*cmd_path; /* path to be executed */
-	//add a redirection struct. Probably need to get rid of following variables since they'll be in the struct
-	int			fd_in;
-	char		*infile;
-	int			fd_out;
-	char		*outfile;
-	bool		delimiter;
-	char		*delim_arg;
-	int			mode; /* OVERWRITE, APPEND */
-	char		**cmd_args; /* array because of execve */
+	t_redir			*redirs;
+	int				nb_tokens;
+	t_token			*tokens; /* array of tokens */ 
+	char			*cmd_name;
+	char			**flags; /* array of flags */
+	char			*cmd_path; /* path to be executed */
+	int				fd_in;
+	char			*infile;
+	int				fd_out;
+	char			*outfile;
+	char			**cmd_args; /* array because of execve */
 }				t_cmd_table;
-
-typedef	enum	e_redir_mode
-{
-	OVERWRITE,  /* Default */
-	APPEND, 	/* >> */
-}				t_redir_mode;
 
 /* see https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/ */
 # define EXIT_FILE_NOT_FOUND 127
