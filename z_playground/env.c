@@ -19,25 +19,23 @@ typedef struct s_env {
 	char			*value;
 }				t_env;
 
-t_env	*new_env_content(char *var)
+t_env	new_env_content(char *var)
 {
 	int		i;
-	t_env	*env_var;
+	t_env	env_var;
 
 	i = 0;
 	while (var[i] && var[i] != '=')
 		i++;
-	env_var = NULL;
-	env_var->name = (char *)malloc(sizeof(char) * (i + 1));
-	ft_strlcpy(env_var->name, var, i + 1);
-	env_var->value = ft_strdup(getenv(env_var->name));
+	env_var.name = ft_substr(var, 0, i);
+	env_var.value = ft_strdup(getenv(env_var.name));
 	return (env_var);
 }
 
 t_list	*init_env(char **envp)
 {
 	int		i;
-	t_env	*env_var;
+	t_env	env_var;
 	t_list	*env_lst;
 
 	i = 0;
@@ -45,7 +43,10 @@ t_list	*init_env(char **envp)
 	while (envp[i])
 	{
 		env_var = new_env_content(envp[i]);
-		ft_lstadd_back(&env_lst, ft_lstnew((void *)env_var));
+		// should I allocate memory to env_var or the list?
+		// wondering because in the list it's type void
+		ft_lstadd_back(&env_lst, ft_lstnew((void *)&env_var));
+		printf("new item added\n");
 		i++;
 	}
 	return (env_lst);
@@ -55,11 +56,13 @@ void	del_env_content(void *env_var)
 {
 	free(((t_env *)env_var)->name);
 	free(((t_env *)env_var)->value);
+	printf("deleted content\n");
 }
 
 void	free_env(t_list **env)
 {
 	ft_lstclear(env, &del_env_content);
+	printf("deleted list\n");
 }
 
 int	main(int ac, char **av, char **envp)
