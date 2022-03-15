@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include "../42_00_libft/libft.h"
 
 /*
  * Conclusions:
@@ -13,16 +14,67 @@
  *    own structure for it...
  */
 
+typedef struct s_env {
+	char			*name;
+	char			*value;
+}				t_env;
 
-int	main(void)
+t_env	*new_env_content(char *var)
 {
-	int	i;
+	int		i;
+	t_env	*env_var;
 
 	i = 0;
-	//while (envp[i] && strncmp(envp[i], "PWD", 3))
+	while (var[i] && var[i] != '=')
+		i++;
+	env_var = NULL;
+	env_var->name = (char *)malloc(sizeof(char) * (i + 1));
+	ft_strlcpy(env_var->name, var, i + 1);
+	env_var->value = ft_strdup(getenv(env_var->name));
+	return (env_var);
+}
+
+t_list	*init_env(char **envp)
+{
+	int		i;
+	t_env	*env_var;
+	t_list	*env_lst;
+
+	i = 0;
+	env_lst = NULL;
+	while (envp[i])
+	{
+		env_var = new_env_content(envp[i]);
+		ft_lstadd_back(&env_lst, ft_lstnew((void *)env_var));
+		i++;
+	}
+	return (env_lst);
+}
+
+void	del_env_content(void *env_var)
+{
+	free(((t_env *)env_var)->name);
+	free(((t_env *)env_var)->value);
+}
+
+void	free_env(t_list **env)
+{
+	ft_lstclear(env, &del_env_content);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	(void)ac;
+	(void)av;
+	int		i;
+	t_list	*env;
+
+	i = 0;
+	env = init_env(envp);
 	//	i++;
 	//envp[i] = strdup("PWD=heyo");
-	chdir("/Users/svieira/");
+	setenv("PWD", "/Users/svieira/", 1);
 	printf("%s\n", getenv("PWD"));
+	free_env(&env);
 	return (0);
 }
