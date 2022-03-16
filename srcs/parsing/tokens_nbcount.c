@@ -2,7 +2,6 @@
 
 static int	quote_word_count(const char *s, char c, char quote, int i)
 {
-	DEBUG(printf("_____\nentering word count\n");)
 	while (s[i] && s[i] != quote && s[i + 1])
 		i++;
 	if (s[i] != c)
@@ -55,6 +54,6 @@ int		get_nb_tokens(const char *s, char c)
 				nb++;
 		i++;
 	}
-	DEBUG(printf("\n>>> nb_tokens : %i <<<\n", nb);)
+	DEBUG(printf("\nnb_tokens : %i\n", nb);)
 	return (nb);
 }
