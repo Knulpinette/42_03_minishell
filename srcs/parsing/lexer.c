@@ -13,8 +13,11 @@ void	lexer(char *line)
 	while (i < minishell->nb_cmd)
 	{
 		if (ft_strchr(minishell->instructions[i], '>') || ft_strchr(minishell->instructions[i], '<'))
+		{
+			minishell->cmd_table[i].nb_redirs = get_nb_redirs(minishell->instructions[i]);
 			minishell->cmd_table[i].redirs = 
 				get_redirs(minishell->instructions[i], minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
+		}
 		minishell->cmd_table[i].nb_tokens =
 			get_nb_tokens(minishell->instructions[i], SPACE);
 		minishell->cmd_table[i].tokens =
