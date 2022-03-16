@@ -17,6 +17,8 @@ void	setup_all_variables_with_dbl_quotes_exception(
 	}
 }
 
+// handle problem of removing extra quote if "yo""this""hello
+
 void	remove_quotes(t_token *token)
 {
 	char	*temp;
