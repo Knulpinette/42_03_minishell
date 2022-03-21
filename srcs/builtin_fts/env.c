@@ -6,6 +6,9 @@
  * - extern char **environ from unistd.h
  * - getenv("VAR_NAME") for the value of a specific variable
  *
+ * However, I decided to do a separate env linked list,
+ * so that's the one we actually need to access
+ *
  * Error Handling
  * No need to handle options nor arguments as per the subject
  */

@@ -8,6 +8,11 @@
 # define SGL_QUOTE '\''
 # define DBL_QUOTE '"'
 
+typedef struct s_env {
+	char			*name;
+	char			*value;
+}				t_env;
+
 typedef enum	e_token_type
 {
 	WORD,
@@ -70,7 +75,8 @@ typedef struct 	s_minishell
 {
 	int			nb_cmd;
 	char		**instructions; /* input instructions parsed from pipes */
-	char		**envp;
+	t_list		*env; // or should it be **env?
+	char		**envp; // TODO remove
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
 

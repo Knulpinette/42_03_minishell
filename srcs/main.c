@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	int			fd;
 	char		*line;
 	t_minishell	*minishell;
-	int			exit_code;
+	// int			exit_code; // TODO think about this
 
 	/* 1. assign signals to appropriate handlers
 	 * 2. infinite while loop
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		parse(line);
 		free(line);
-		exit_code = execute(minishell);
+		execute(minishell);
 	}
 	free_minishell(minishell);
 	return (EXIT_SUCCESS); // or is it?

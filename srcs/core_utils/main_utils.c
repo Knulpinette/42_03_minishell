@@ -20,7 +20,8 @@ t_minishell		*init_minishell(char **envp)
 	get_minishell(minishell);
 	minishell->nb_cmd = 0;
 	minishell->instructions = NULL;
-	minishell->envp = envp;
+	minishell->envp = envp; // TODO remove
+	minishell->env = init_env_lst(envp);
 	minishell->envp_paths = get_cmd_paths(envp);
 	minishell->cmd_table = NULL;
 	return (minishell);

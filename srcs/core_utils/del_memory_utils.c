@@ -4,6 +4,8 @@ void	free_minishell(t_minishell *minishell)
 {
 	if (minishell->cmd_table)
 		free_table(minishell->cmd_table, minishell->nb_cmd);
+	if (minishell->env)
+		ft_lstclear(&minishell->env, &del_env_content);
 	if (minishell->envp_paths)
 		free_split(minishell->envp_paths);
 	if (minishell)
