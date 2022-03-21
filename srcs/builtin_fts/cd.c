@@ -19,21 +19,6 @@
  * In order to obtain that effect, we write nothing (write(..., "", 0);)
  */
 
-int	env_var_index(char *env_name)
-{
-	t_minishell	*minishell;
-	int			env_name_len;
-	int			i;
-
-	minishell = get_minishell(NULL);
-	env_name_len = ft_strlen(env_name);
-	i = 0;
-	while (minishell->envp[i] &&
-		ft_strncmp(minishell->envp[i], env_name, env_name_len))
-		i++;
-	return (i);
-}
-
 char	*update_cwd(char *cwd)
 {
 	if (cwd)
@@ -43,12 +28,12 @@ char	*update_cwd(char *cwd)
 	return (cwd);
 }
 
-static char	*get_new_cwd(char *cmd_arg)
+static char	*get_new_cwd(t_list *env, char *cmd_arg)
 {
 	if (!cmd_arg)
-		return (getenv("HOME"));
+		return (get_env_value(env, "HOME"));
 	if (ft_strncmp(cmd_arg, "-", 1) == 0)
-		return (getenv("OLDPWD"));
+		return (get_env_value(env, "OLDPWD"));
 	return (cmd_arg);
 }
 
@@ -67,19 +52,19 @@ int	cd(t_cmd_table *cmd, t_minishell *minishell)
 
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	if ((new_cwd = get_new_cwd(cmd->cmd_args[0])) == NULL)
-		return (exit_cd(cwd, NO_OLDPWD, 1)); // double check exit code
+	if ((new_cwd = get_new_cwd(minishell->env, cmd->cmd_args[0])) == NULL)
+		return (exit_cd(cwd, NO_OLDPWD, 1));
 	if ((exit_code = chdir(new_cwd)) != 0) 
 		return (exit_cd(cwd, WRONG_DIR, exit_code));
-	minishell->envp[env_var_index("OLDPWD")] = ft_strjoin("OLDPWD=", cwd); // free?
+	set_env_value(minishell->env, "OLDPWD", cwd);
 	cwd = update_cwd(cwd);
-	minishell->envp[env_var_index("PWD")] = ft_strjoin("PWD=", cwd); // free?
+	set_env_value(minishell->env, "PWD", cwd);
 	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
 		pwd(cmd);
 	else
 		write(cmd->fd_in, "", 0); // test this once redirections are handled
-	DEBUG(printf("PWD: %s\n", getenv("PWD")));
-	DEBUG(printf("OLDPWD: %s\n", getenv("OLDPWD")));	
+	DEBUG(printf("PWD: %s\n", get_env_value(minishell->env, "PWD")));
+	DEBUG(printf("OLDPWD: %s\n", get_env_value(minishell->env, "OLDPWD")));	
 	free(cwd);
 	return (0);
 }

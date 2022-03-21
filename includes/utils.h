@@ -10,9 +10,10 @@ void			*calloc_or_exit(size_t size, int count);
 t_env	*new_env_content(char *var);
 t_list	*init_env_lst(char **envp);
 void	del_env_content(void *env_var);
-char    *get_env_name(t_list *env_lst);
-char	*get_env_value(t_list *env_lst);
+char    *get_env_lst_name(t_list *env_lst);
+char	*get_env_lst_value(t_list *env_lst);
 t_list	*get_env_lst(t_list *env_lst, char *name);
+char	*get_env_value(t_list *env_lst, char *name);
 void	set_env_value(t_list *env_lst, char *name, char *value);
 
 /* Parsing utils */
