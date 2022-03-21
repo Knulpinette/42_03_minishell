@@ -75,8 +75,7 @@ typedef struct 	s_minishell
 {
 	int			nb_cmd;
 	char		**instructions; /* input instructions parsed from pipes */
-	t_list		*env; // or should it be **env?
-	char		**envp; // TODO remove
+	t_list		*env;
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
 
