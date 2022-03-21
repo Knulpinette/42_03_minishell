@@ -6,7 +6,7 @@
 
 /*
  * Conclusions:
- * 1) I don't need envp as arg from main to be able to use getenv not setenv.
+ * 1) I don't need envp as arg from main to be able to use getenv nor setenv.
  *    Seems like there is an envp somewhere anyway...
  * 2) Neither this misterious env nor the envp argument change automatically
  *    when they should (for example, when chdir function is used)
@@ -66,6 +66,27 @@ char	*get_env_name(t_list *env_lst)
 	return (((t_env *)env_lst->content)->name);
 }
 
+t_list	*get_env_lst(t_list *env_lst, char *name)
+{
+	int		name_len;
+	t_list	*to_get;
+
+	name_len = ft_strlen(name);
+	to_get = env_lst;
+	while (to_get && ft_strncmp(get_env_name(to_get), name, name_len))
+		to_get = to_get->next;
+	return (to_get);
+}
+
+void	set_env_value(t_list *env_lst, char *name, char *value)
+{
+	t_list	*to_set;
+
+	to_set = get_env_lst(env_lst, name);
+	free(((t_env *)to_set->content)->value);
+	((t_env *)to_set->content)->value = ft_strdup(value);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	(void)ac;
@@ -78,14 +99,12 @@ int	main(int ac, char **av, char **envp)
 	printf("%s\n", ((t_env *)env_lst->content)->value);
 	printf("%s=", ((t_env *)env_lst->next->content)->name);
 	printf("%s\n", ((t_env *)env_lst->next->content)->value);*/
-	to_change = env_lst;
-	while (to_change && ft_strncmp(get_env_name(to_change), "PWD", 3))
-		to_change = to_change->next;
+	to_change = get_env_lst(env_lst, "PWD");
 	printf("%s=", get_env_name(to_change)); 
-	free(((t_env *)to_change->content)->value);
-	((t_env *)to_change->content)->value = ft_strdup("/Users/svieira/");
+	set_env_value(env_lst, "PWD", "/Users/svieira/");
+	printf("%s\n", ((t_env *)to_change->content)->value);
 	//setenv("PWD", "/Users/svieira/", 1);
-	printf("%s\n", getenv("PWD"));
+	//printf("%s\n", getenv("PWD"));
 	free_env_lst(&env_lst);
 	return (0);
 }
