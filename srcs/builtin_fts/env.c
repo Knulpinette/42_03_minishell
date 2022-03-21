@@ -15,14 +15,16 @@
 
 int	env(t_cmd_table *cmd, t_minishell *minishell)
 {
-	int	i;
+	t_list	*curr;
 
-	i = 0;
-	while (minishell->envp[i])
+	curr = minishell->env;
+	while (curr)
 	{
-		ft_putstr_fd(minishell->envp[i], cmd->fd_in);
+		ft_putstr_fd(get_env_name(curr), cmd->fd_in);
+		write(cmd->fd_in, "=", 1);
+		ft_putstr_fd(get_env_value(curr), cmd->fd_in);
 		write(cmd->fd_in, "\n", 1);
-		i++;
+		curr = curr->next;
 	}
 	return (0);
 }
