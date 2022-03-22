@@ -13,6 +13,7 @@ int	export(t_cmd_table *cmd, t_minishell *minishell)
 	if (!cmd->cmd_args[0])
 	{
 		// sort - a linkedlist... fuck. or. I can just print in order?
+		// sort by ascii, caps before small
 		// print "declare -x "
 		// print env
 		// understand difference between assigned and unassigned env vars
