@@ -8,6 +8,11 @@
 # define SGL_QUOTE '\''
 # define DBL_QUOTE '"'
 
+typedef struct s_env {
+	char			*name;
+	char			*value;
+}				t_env;
+
 typedef enum	e_token_type
 {
 	WORD,
@@ -54,10 +59,12 @@ typedef struct 	s_command_table
 	char			**cmd_args; /* array because of execve */
 }				t_cmd_table;
 
-/* see https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/ */
+/* see
+ * https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/
+ */
 # define EXIT_FILE_NOT_FOUND 127
 
-// error codes that we can use for the error function and making the whole thing clearer.
+/* error codes for personalised error messages */
 typedef enum 	e_error_codes
 {
 	ERR_NO_PRINT,
@@ -65,16 +72,18 @@ typedef enum 	e_error_codes
 	WRONG_ARGC,
 	OPEN_FAIL,
 	WRONG_DIR,
+	NO_OLDPWD,
+	WRITE_FAIL
 }				t_error;
 
 typedef struct 	s_minishell
 {
-	int			nb_cmd;
+	int			nb_cmds;
 	char		**instructions; /* input instructions parsed from pipes */
-	char		**envp;
+	t_list		*env;
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
-
+	int			exit_code;
 }				t_minishell;
 
 #endif

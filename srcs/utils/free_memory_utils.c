@@ -3,7 +3,9 @@
 void	free_minishell(t_minishell *minishell)
 {
 	if (minishell->cmd_table)
-		free_table(minishell->cmd_table, minishell->nb_cmd);
+		free_table(minishell->cmd_table, minishell->nb_cmds);
+	if (minishell->env)
+		ft_lstclear(&minishell->env, &del_env_content);
 	if (minishell->envp_paths)
 		free_split(minishell->envp_paths);
 	if (minishell)
@@ -24,13 +26,13 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_table(t_cmd_table *cmd_table, int nb_cmd)
+void	free_table(t_cmd_table *cmd_table, int nb_cmds)
 {
 	int	i;
 
 	i = 0;
-	DEBUG(printf("total of cmd to delete = %i\n", nb_cmd);)
-	while (i < nb_cmd)
+	DEBUG(printf("total of cmd to delete = %i\n", nb_cmds);)
+	while (i < nb_cmds)
 	{
 		DEBUG(printf("deleting tokens in cmd_table number %i\n", i);)
 		//if (cmd_table[i].redirs)
