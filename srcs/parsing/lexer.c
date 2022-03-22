@@ -7,10 +7,10 @@ void	lexer(char *line)
 
 	minishell = get_minishell(NULL);
 	minishell->instructions = ft_split(line, PIPE);
-	minishell->nb_cmd = get_array_len(minishell->instructions);
-	minishell->cmd_table = init_cmd_table(minishell->nb_cmd);
+	minishell->nb_cmds = get_array_len(minishell->instructions);
+	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
 	i = 0;
-	while (i < minishell->nb_cmd)
+	while (i < minishell->nb_cmds)
 	{
 		if (ft_strchr(minishell->instructions[i], '>') || ft_strchr(minishell->instructions[i], '<'))
 		{
@@ -37,14 +37,14 @@ void	lexer(char *line)
 	free_split(minishell->instructions);
 }
 
-t_cmd_table	*init_cmd_table(int nb_cmd)
+t_cmd_table	*init_cmd_table(int nb_cmds)
 {
 	t_cmd_table	*cmd_table;
 	int			i;
 
-	cmd_table = calloc_or_exit(sizeof(t_cmd_table), nb_cmd + 1);
+	cmd_table = calloc_or_exit(sizeof(t_cmd_table), nb_cmds + 1);
 	i = 0;
-	while (i < nb_cmd)
+	while (i < nb_cmds)
 	{
 		cmd_table[i].redirs = NULL;
 		cmd_table[i].tokens = NULL;

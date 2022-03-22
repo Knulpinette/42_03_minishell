@@ -75,7 +75,7 @@ typedef enum 	e_error_codes
 
 typedef struct 	s_minishell
 {
-	int			nb_cmd;
+	int			nb_cmds;
 	char		**instructions; /* input instructions parsed from pipes */
 	t_list		*env;
 	char		**envp_paths;

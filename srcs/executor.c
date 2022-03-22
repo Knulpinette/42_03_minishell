@@ -6,7 +6,7 @@ int	execute(t_minishell *minishell)
 	int	exit_code;
 
 	i = 0;
-	while (i < minishell->nb_cmd)
+	while (i < minishell->nb_cmds)
 	{
 		if (ft_strncmp(minishell->cmd_table[i].cmd_name, "cd", 2) == 0)
 			exit_code = cd(&minishell->cmd_table[i], minishell);

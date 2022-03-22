@@ -20,7 +20,7 @@ t_minishell		*init_minishell(char **envp)
 
 	minishell = calloc_or_exit(sizeof(t_minishell), 1);
 	get_minishell(minishell);
-	minishell->nb_cmd = 0;
+	minishell->nb_cmds = 0;
 	minishell->instructions = NULL;
 	minishell->env = init_env_lst(envp);
 	minishell->envp_paths = get_cmd_paths(envp);
