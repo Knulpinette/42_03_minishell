@@ -36,3 +36,13 @@ int	open_or_exit(char *file_path, mode_t mode)
 		error_and_exit(OPEN_FAIL);
 	return (fd);
 }
+
+void	*calloc_or_exit(size_t size, int count)
+{
+	void	*result;
+
+	result = ft_calloc(size, count);
+	if (!result)
+		error_and_exit(MEMORY_FAIL);
+	return (result);
+}
