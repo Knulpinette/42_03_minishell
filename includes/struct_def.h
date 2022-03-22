@@ -59,7 +59,9 @@ typedef struct 	s_command_table
 	char			**cmd_args; /* array because of execve */
 }				t_cmd_table;
 
-/* see https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/ */
+/* see
+ * https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/
+ */
 # define EXIT_FILE_NOT_FOUND 127
 
 /* error codes for personalised error messages */
