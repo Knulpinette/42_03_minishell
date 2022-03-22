@@ -25,5 +25,6 @@ t_minishell		*init_minishell(char **envp)
 	minishell->env = init_env_lst(envp);
 	minishell->envp_paths = get_cmd_paths(envp);
 	minishell->cmd_table = NULL;
+	minishell->exit_code = 0;
 	return (minishell);
 }

@@ -82,7 +82,7 @@ typedef struct 	s_minishell
 	t_list		*env;
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
-
+	int			exit_code;
 }				t_minishell;
 
 #endif
