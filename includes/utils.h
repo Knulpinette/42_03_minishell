@@ -28,7 +28,7 @@ char			*skip_space(char *line);
 char			**get_cmd_paths(char **envp);
 char			**finish_paths_by_slash(char **raw_paths);
 
-/* env_var */ // TODO This will have to change
+/* Env Vars ($) - inside the parsing folder */
 int				get_env_var_len(char *text, char delim);
 char			*get_env_var(char *text, int env_var_count, char delim);
 
