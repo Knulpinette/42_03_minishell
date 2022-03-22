@@ -12,7 +12,7 @@ int	pwd(t_cmd_table *cmd)
 
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	ft_putstr_fd(cwd, cmd->fd_in); // change once the struct is in place
+	ft_putstr_fd(cwd, cmd->fd_in); // TODO change once the redirs are in place
 	write(cmd->fd_in, "\n", 1);
 	free(cwd);
 	return (0);

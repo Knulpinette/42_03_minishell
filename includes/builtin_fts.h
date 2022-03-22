@@ -7,7 +7,10 @@ int	cd(t_cmd_table *cmd, t_minishell *minishell);
 /* PWD - Print Working Directory */
 int	pwd(t_cmd_table *cmd);
 
-/* ENV - print all environment variables */
+/* ECHO */
+int	echo(t_cmd_table *cmd);
+
+/* ENV - Print all environment variables */
 int	env(t_cmd_table *cmd, t_minishell *minishell);
 
 #endif

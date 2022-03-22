@@ -62,7 +62,7 @@ int	cd(t_cmd_table *cmd, t_minishell *minishell)
 	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
 		pwd(cmd);
 	else
-		write(cmd->fd_in, "", 0); // test this once redirections are handled
+		write(cmd->fd_in, "", 0); // TODO test this once redirections are handled
 	DEBUG(printf("PWD: %s\n", get_env_value(minishell->env, "PWD")));
 	DEBUG(printf("OLDPWD: %s\n", get_env_value(minishell->env, "OLDPWD")));	
 	free(cwd);

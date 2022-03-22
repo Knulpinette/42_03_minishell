@@ -13,9 +13,9 @@ int	execute(t_minishell *minishell)
 			minishell->exit_code = pwd(&minishell->cmd_table[i]);
 		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "env", 3) == 0)
 			minishell->exit_code = env(&minishell->cmd_table[i], minishell);
-		// not sure what to do with the exit code
-		// need to return it in the end but... hmm...
-		// should I do a child process even for built-in cmds?
+		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "echo", 4) == 0)
+			minishell->exit_code = echo(&minishell->cmd_table[i]);
+		// TODO build an actually executor
 		i++;
 	}
 	return (minishell->exit_code);
