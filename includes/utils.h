@@ -19,6 +19,7 @@ void	set_env_value(t_list *env_lst, char *name, char *value);
 /* Parsing utils */
 t_cmd_table		*init_cmd_table(int nb_cmd);
 int				get_nb_tokens(const char *s, char c);
+int				get_nb_redirs(char *instructions);
 int				quote_len(const char *s, char c, char quote, int i);
 int				get_array_len(char **split);
 char			*skip_space(char *line);

@@ -35,6 +35,9 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmd)
 	while (i < nb_cmd)
 	{
 		DEBUG(printf("deleting tokens in cmd_table number %i\n", i);)
+		//if (cmd_table[i].redirs)
+		//
+		//	free(redirs); // change to an actual function del_redir later ! 
 		if (cmd_table[i].tokens)
 			free_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);
 		/*if (cmd_table[i].cmd_args)

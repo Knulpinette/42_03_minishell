@@ -37,3 +37,13 @@ void	*calloc_or_exit(size_t size, int count)
 		error_and_exit(MEMORY_FAIL);
 	return (result);
 }
+
+int		get_array_len(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
+}

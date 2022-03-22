@@ -43,5 +43,5 @@ int	main(int argc, char **argv, char **envp)
 		execute(minishell);
 	}
 	free_minishell(minishell);
-	return (EXIT_SUCCESS); // or is it?
+	return (exit_code); // or is it?
 }
