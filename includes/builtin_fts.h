@@ -13,4 +13,7 @@ int	echo(t_cmd_table *cmd);
 /* ENV - Print all environment variables */
 int	env(t_cmd_table *cmd, t_minishell *minishell);
 
+/* EXPORT */
+int	export(t_cmd_table *cmd, t_minishell *minishell);
+
 #endif

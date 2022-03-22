@@ -6,7 +6,7 @@
  * there's nothing that could go wrong...
  * unless something goes wrong with write => returns -1
  * ALERT: Right now we don't catch an error if something goes wrong
- * inside ft_putstr_fd (since it returns void... who thought of that?)
+ * inside ft_putstr_fd (since it returns void... who thought of that? 42...)
  */
 
 static int  exit_echo(void)
