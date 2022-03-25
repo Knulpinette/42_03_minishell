@@ -57,15 +57,24 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 	while (i < nb_tokens)
 	{
 		if (tokens[i].quote)
-			remove_quotes(&tokens[i]);
+			remove_quotes(&tokens[i]); 
+		//voir si garder remove_quotes tel quel. Pas ouf + problème potentiel env_var? => needs to set up env_var int in the struct!
+       /* if (ft_strchr(tokens[i].text, '$') && tokens[i].quote != SGL_QUOTE) //pbme of tokens that would be like this 'yo'$OUT ? => need to handle that. Use a quote_count = 0, 1, 2 ?
+        {
+            tokens[i].env_var = ENV_VAR;
+            tokens[i].type = ENV_VAR;
+        }*/
+        //if ('$' => set tokens[i].env_var = ENV_VAR)
+            //replace with get_env_var (WHEN VALIDATION OR ASSIGNING TOKEN TYPES => every single part of it needs to become an argument => cut it & have a special case for if it's a CMD)
+        //check_for_redir => get all info and go along the right amount of tokens
+        //then => next token == cmd
+
 		//check_for_redir => get all info and go along the right amount of tokens
 		//then => next token == cmd
 		if (i == 0)
 			tokens[i].type = CMD;
 		else if (tokens[i].text[0] == '-' && tokens[i].text[1])
 			tokens[i].type = FLAG;
-		else if (ft_strchr(tokens[i].text, '$') && tokens[i].quote != SGL_QUOTE)
-			tokens[i].type = ENV_VAR;
 		else
 			tokens[i].type = WORD;
 		i++;
