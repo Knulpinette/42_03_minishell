@@ -19,12 +19,12 @@ static	int		nb_words(const char *s, char c)
 	return (nb);
 }
 
-static	char	**fill_split(const char *s, char c, int words, char **split)
+static	char	**fill_instructions(const char *s, char c, int words, char **split)
 {
 	int		i;
+	int		j;
 	int		word;
 	int		letters;
-	int		saved;
 	char	quote;
 
 	i = 0;
@@ -43,17 +43,16 @@ static	char	**fill_split(const char *s, char c, int words, char **split)
 		split[word] = (char *)malloc(sizeof(char) * (letters + 1));
 		if (!split[word])
 			return (NULL);
-		saved = i + letters;
-		letters = 0;
-		while (s[i] && i < saved)
-			split[word][letters++] = s[i++];
-		split[word++][letters] = 0;
+		j = 0;
+		while (s[i] && j < letters)
+			split[word][j++] = s[i++];
+		split[word++][j] = 0;
 	}
 	split[word] = 0;
 	return (split);
 }
 
-char	**ft_split_quote(const char *s, char c)
+char	**get_instructions(const char *s, char c)
 {
 	int		words;
 	char	**split;
@@ -64,6 +63,6 @@ char	**ft_split_quote(const char *s, char c)
 	split = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!split)
 		return (NULL);
-	fill_split(s, c, words, split);
+	fill_instructions(s, c, words, split);
 	return (split);
 }
