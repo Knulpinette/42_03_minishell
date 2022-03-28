@@ -1,17 +1,5 @@
 #include "minishell.h"
 
-static	char	check_quote(const char *s, int i, char quote)
-{
-	if ((s[i] == DBL_QUOTE || s[i] == SGL_QUOTE) && (!quote || (quote && s[i] == quote)))
-	{
-		if (quote)
-			quote = 0;
-		else
-			quote = s[i];
-	}
-	return (quote);
-}
-
 static	int		nb_words(const char *s, char c)
 {
 	int		i;
@@ -23,7 +11,7 @@ static	int		nb_words(const char *s, char c)
 	quote = 0;
 	while (s[i])
 	{
-		quote = check_quote(s, i, quote);
+		quote = check_quote(s[i], quote);
 		if (s[i] != c && (s[i + 1] == 0 || (s[i + 1] == c && !quote)))
 			nb++;
 		i++;
@@ -36,8 +24,8 @@ static	char	**fill_split(const char *s, char c, int words, char **split)
 	int		i;
 	int		word;
 	int		letters;
-	char	quote;
 	int		saved;
+	char	quote;
 
 	i = 0;
 	word = 0;
@@ -49,7 +37,7 @@ static	char	**fill_split(const char *s, char c, int words, char **split)
 		letters = 0;
 		while (s[i + letters] && ((s[i + letters] != c && !quote) || quote))
 		{
-			quote = check_quote(s, i + letters, quote);
+			quote = check_quote(s[i + letters], quote);
 			letters++;
 		}
 		split[word] = (char *)malloc(sizeof(char) * (letters + 1));
@@ -73,7 +61,6 @@ char	**ft_split_quote(const char *s, char c)
 	if (!s)
 		return (NULL);
 	words = nb_words(s, c);
-	DEBUG(printf("nb_words = %i\n", words);)
 	split = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!split)
 		return (NULL);
