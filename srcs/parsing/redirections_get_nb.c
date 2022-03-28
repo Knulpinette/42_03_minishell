@@ -1,59 +1,32 @@
 #include "minishell.h"
 
-bool	is_quote(char letter, char quote)
-{
-	if (letter == quote)
-		return (true);
-	return (false);
-}
-
-int	pass_quotes(char *instructions, int i, char quote)
-{
-	int	count;
-
-	count = 0;
-	//DEBUG(printf("pass quotes begins at : %s || char = %c\n", instructions + i + count, instructions[i + count]);)
-	while (instructions[i + count] && !is_quote(instructions[i + count], quote))
-		count++;
-	//DEBUG(printf("pass quotes ends on : %s || char = %c\n", instructions + i + count, instructions[i + count]);)
-	if (instructions[i + count] == quote)
-		return (count + i);
-	else
-		return (i - 1);
-}
-
 int	get_nb_redirs(char *instructions)
 {
-	int		count;
+	int		count_redirs;
 	int		i;
 	char	quote;
 	char	redir;
 
-	count = 0;
+	count_redirs = 0;
 	i = 0;
 	quote = 0;
 	redir = 0;
 	while (instructions[i])
 	{
-		if (instructions[i] == SGL_QUOTE || instructions[i] == DBL_QUOTE)
-		{
-			quote = instructions[i];
-			i = pass_quotes(instructions, i + 1, quote) + 1;
-			//DEBUG(printf("sending in loop : %s || char = %c\n", instructions + i, instructions[i]);)
-		}
-		else if (instructions[i] == '<' || instructions[i] == '>')
+		quote = check_quote(instructions[i], quote);
+		if ((instructions[i] == '<' || instructions[i] == '>') && !quote)
 		{
 			redir = instructions[i];
 			i++;
 			if (instructions[i] && instructions[i] == redir)
 				i++;
-			count++;
+			count_redirs++;
 		}
 		else
 			i++;
 	}
-	//DEBUG(printf("count of redirs = %i\n", count);)
-	return (count);
+	DEBUG(printf("count of redirs = %i\n", count_redirs);)
+	return (count_redirs);
 }
 
 		/*	else if (ft_strchr(tokens[i].text, '<'))
