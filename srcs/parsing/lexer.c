@@ -7,21 +7,21 @@ void	lexer(char *line)
 
 	minishell = get_minishell(NULL);
 	minishell->instructions = get_instructions(line, PIPE);
+	minishell->instructions = rewrite_instructions_with_env_var(minishell->instructions);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
-		if (ft_strchr(minishell->instructions[i], '>') || ft_strchr(minishell->instructions[i], '<'))
-		{
-			minishell->cmd_table[i].nb_redirs = get_nb_redirs(minishell->instructions[i]);
+		minishell->cmd_table[i].nb_redirs = get_nb_redirs(minishell->instructions[i]);
+		if (minishell->cmd_table[i].nb_redirs)
 			minishell->cmd_table[i].redirs = 
 				get_redirs(minishell->instructions[i], minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
-		}
 		minishell->cmd_table[i].nb_tokens =
 			get_nb_tokens(minishell->instructions[i], SPACE);
-		minishell->cmd_table[i].tokens =
-			get_tokens(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
+		if (minishell->cmd_table[i].nb_tokens)
+			minishell->cmd_table[i].tokens =
+				get_tokens(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
 		get_tokens_types(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
 
 		DEBUG(printf("_____\nprint tokens\n");)

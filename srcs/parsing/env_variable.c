@@ -39,6 +39,14 @@ char	*get_env_var(char *text, int env_var_len, char delim)
 	return (result);
 }
 
+char	**rewrite_instructions_with_env_var(char **instructions)
+{
+	char **rewrite;
+
+	(void)rewrite;
+	return (instructions); 
+} 
+
 /*char  *replace_with_env_var(char *instruction)
 {
     char    *new_instruction;
