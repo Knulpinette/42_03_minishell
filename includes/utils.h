@@ -21,6 +21,7 @@ int		get_array_len(char **split);
 
 /* Parsing utils - inside the parsing folder */
 t_cmd_table		*init_cmd_table(int nb_cmds);
+char			**ft_split_quote(const char *s, char c);
 int				get_nb_tokens(const char *s, char c);
 int				get_nb_redirs(char *instructions);
 int				quote_len(const char *s, char c, char quote, int i);

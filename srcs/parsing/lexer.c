@@ -6,7 +6,8 @@ void	lexer(char *line)
 	int	i;
 
 	minishell = get_minishell(NULL);
-	minishell->instructions = ft_split(line, PIPE);
+	minishell->instructions = ft_split_quote(line, PIPE);
+	DEBUG(print_split(minishell->instructions);)
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
 	i = 0;
