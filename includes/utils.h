@@ -8,6 +8,7 @@ t_minishell		*init_minishell(char **envp);
 /* ENV List */
 t_env	*new_env_content(char *var);
 t_list	*init_env_lst(char **envp);
+t_list	*copy_env_lst(t_list *original);
 void	del_env_content(void *env_var);
 /* ENV List getters and setters */
 char    *get_env_lst_name(t_list *env_lst);
@@ -18,6 +19,9 @@ void	set_env_value(t_list *env_lst, char *name, char *value);
 
 /* Array utils */
 int		get_array_len(char **split);
+
+/* Merge Sort Linked Lists */
+void	merge_sort(t_list **list);
 
 /* Parsing utils - inside the parsing folder */
 t_cmd_table		*init_cmd_table(int nb_cmds);

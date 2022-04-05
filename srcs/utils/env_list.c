@@ -31,6 +31,23 @@ t_list	*init_env_lst(char **envp)
 	return (env_lst);
 }
 
+t_list	*copy_env_lst(t_list *original)
+{
+	t_env	*env_var;
+	t_list	*copy;
+
+	copy = NULL;
+	while (original)
+	{
+		env_var = (t_env *)malloc(sizeof(t_env));
+		env_var->name = ft_strdup(get_env_lst_name(original));
+		env_var->value = ft_strdup(get_env_lst_value(original));
+		ft_lstadd_back(&copy, ft_lstnew((void *)env_var));
+		original = original->next;
+	}
+	return (copy);
+}
+
 void	del_env_content(void *env_var)
 {
 	free(((t_env *)env_var)->name);
