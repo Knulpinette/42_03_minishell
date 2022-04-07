@@ -71,3 +71,55 @@ char	*rewrite_instruction_with_env_var(char *instruction)
     return (new_instruction);
 }*/
 // then get rid of " and ' exeception for env_var in rest of code.
+
+
+// PROBABLY CAN DELETE THOSE TWO FUNCTIONS AND REWRITE THEM!
+
+/*void	setup_all_variables_with_dbl_quotes_exception(
+			t_token *token, char **env_var, int *len_token)
+{
+	char	*starting_point;
+	int		env_var_len;
+
+	*env_var = NULL;
+	*len_token = ft_strlen(token->text) - 2;
+	if (ft_strchr(token->text, '$') && token->quote == DBL_QUOTE)
+	{
+		starting_point = ft_strchr(token->text, '$') + 1;
+		env_var_len = get_env_var_len(token->text, DBL_QUOTE);
+		*env_var = get_env_var(starting_point, env_var_len, DBL_QUOTE);
+		*len_token = (*len_token) - env_var_len + ft_strlen(*env_var); 
+	}
+}
+
+// handle problem of removing extra quote if "yo""this""hello 
+
+void	remove_quotes(t_token *token)
+{
+	char	*temp;
+	char	*env_var;
+	int		len_token;
+	int		i;
+	int		j;
+
+	setup_all_variables_with_dbl_quotes_exception(token, &env_var, &len_token);
+	temp = calloc_or_exit(sizeof(char), len_token + 1);
+	i = 0;
+	j = 0;
+	while (token->text[i])
+	{
+		if (token->text[i] == '$' && token->quote == DBL_QUOTE)
+		{
+			i = i + get_env_var_len(token->text, DBL_QUOTE);
+			j = j + ft_strlcpy(&temp[j], env_var, ft_strlen(env_var) + 1);
+		}
+		else if (token->text[i] != token->quote)
+			temp[j++] = token->text[i];
+		i++;
+	}
+	if (env_var)
+		free(env_var);
+	free(token->text);
+	token->text = strdup(temp);
+	free(temp); 
+}*/
