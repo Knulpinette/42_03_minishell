@@ -1,39 +1,52 @@
 #include "minishell.h"
 
-void	lexer(char *line)
+void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions)
 {
-	t_minishell	*minishell;
 	int	i;
 
-	minishell = get_minishell(NULL);
-	minishell->instructions = get_instructions(line, PIPE);
-	minishell->instructions = rewrite_instructions_with_env_var(minishell->instructions);
-	minishell->nb_cmds = get_array_len(minishell->instructions);
-	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
 	i = 0;
-	while (i < minishell->nb_cmds)
+	while (i < nb_cmds)
 	{
-		minishell->cmd_table[i].nb_redirs = get_nb_redirs(minishell->instructions[i]);
-		if (minishell->cmd_table[i].nb_redirs)
-			minishell->cmd_table[i].redirs = 
-				get_redirs(minishell->instructions[i], minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
-		minishell->cmd_table[i].nb_tokens =
-			get_nb_tokens(minishell->instructions[i], SPACE);
-		if (minishell->cmd_table[i].nb_tokens)
-			minishell->cmd_table[i].tokens =
-				get_tokens(minishell->instructions[i], SPACE, minishell->cmd_table[i].nb_tokens);
-		get_tokens_types(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
+		cmd_table[i].nb_redirs = get_nb_redirs(instructions[i]);
+		if (cmd_table[i].nb_redirs)
+			cmd_table[i].redirs = 
+				get_redirs(instructions[i], cmd_table[i].redirs, cmd_table[i].nb_redirs);
+		cmd_table[i].nb_tokens =
+			get_nb_tokens(instructions[i], SPACE);
+		if (cmd_table[i].nb_tokens)
+			cmd_table[i].tokens =
+				get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
+		//this should be in parsing section. =)
+		get_tokens_types(cmd_table[i].tokens, cmd_table[i].nb_tokens);
 
 		DEBUG(printf("_____\nprint tokens\n");)
-		DEBUG(print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);)
+		DEBUG(print_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);)
 		DEBUG(printf("_____\n");)
-		assign_tokens(&minishell->cmd_table[i]);
-		//DEBUG(print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);)
-		//DEBUG(printf("cmd = %s\n", minishell->cmd_table[i].cmd_name);)
-		//DEBUG(print_split(minishell->cmd_table[i].cmd_args);)
+		assign_tokens(&cmd_table[i]);
+		//DEBUG(printf("cmd = %s\n", cmd_table[i].cmd_name);)
+		//DEBUG(print_split(cmd_table[i].cmd_args);)
 
 		i++;
 	}
+}
+
+void	lexer(char *line)
+{
+	t_minishell	*minishell;
+	int			i;
+
+	minishell = get_minishell(NULL);
+	minishell->instructions = get_instructions(line, PIPE);
+	i = 0;
+	while (minishell->instructions[i])
+	{
+		if (ft_strchr(minishell->instructions[i], '$'))
+			rewrite_instruction_with_env_var(minishell->instructions[i]);
+		i++;
+	}
+	minishell->nb_cmds = get_array_len(minishell->instructions);
+	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
+	get_command_tables(minishell->cmd_table, minishell->nb_cmds, minishell->instructions);
 	free_split(minishell->instructions);
 }
 
