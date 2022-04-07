@@ -18,13 +18,11 @@ typedef enum	e_token_type
 	WORD,
 	CMD,
 	FLAG,
-	ENV_VAR,
 }				t_token_type;
 
 typedef struct 	s_token
 {
 	t_token_type	type;
-	char			quote;
 	char			*text;
 	
 }				t_token;

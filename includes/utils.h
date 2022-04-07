@@ -24,6 +24,7 @@ t_cmd_table		*init_cmd_table(int nb_cmds);
 char			**get_instructions(const char *s, char c);
 char			**rewrite_instructions_with_env_var(char **instructions);
 char			check_quote(char letter, char quote);
+bool			there_is_quote(char *text, char quote);
 char			*remove_quotes(char *text);
 int				get_nb_tokens(const char *s, char c);
 int				get_nb_redirs(char *instructions);

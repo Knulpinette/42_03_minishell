@@ -20,6 +20,20 @@ char	check_valid_quote(char *text, char quote)
 	return (0);
 }
 
+bool	there_is_quote(char *text, char quote)
+{
+	int		i;
+
+	i = 0;
+	while (text[i])
+	{
+		if (text[i] == quote &&	ft_strchr((text + i + 1), quote))
+				return (true);
+		i++;
+	}
+	return (false);
+}
+
 int		get_nb_quotes(char *text)
 {
 	int		count;
