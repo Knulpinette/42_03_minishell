@@ -106,37 +106,3 @@ char	**get_env_var_split(char *instruction)
 	env_var[count] = 0;
 	return (env_var);
 }
-
-char	*rewrite_instruction_with_env_var(char *instruction)
-{
-	char	*temp;
-	char	quote;
-	char	**env_var;
-	int		len_instruction;
-	int		count;
-	int		i;
-	int		j;
-
-	temp = NULL;
-	quote = 0;
-	env_var = get_env_var_split(instruction);
-	len_instruction = get_len_instruction(instruction, env_var);
-	temp = calloc_or_exit(sizeof(char), len_instruction + 1);
-	count = 0;
-	i = 0;
-	j = 0;
-	while (instruction[i])
-	{
-		quote = check_quote(*instruction, quote);
-		if (*instruction == '$' && quote != SGL_QUOTE)
-		{
-			j += ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
-			i += get_env_var_len(instruction + i, SPACE, '$');
-			count++;
-		}
-		else
-			temp[j++] = instruction[i++];
-	}
-	free_split(env_var);
-	return (temp); 
-}

@@ -88,26 +88,38 @@ char	*rewrite_instruction_with_env_var(char *instruction)
 	int		i;
 	int		j;
 
-	temp = NULL;
 	quote = 0;
 	env_var = get_env_var_split(instruction);
 	len_instruction = get_len_instruction(instruction, env_var);
 	temp = calloc_or_exit(sizeof(char), len_instruction + 1);
+	DEBUG(printf("len_instruction = %i\n", len_instruction);)
 	count = 0;
 	i = 0;
 	j = 0;
 	while (instruction[i])
 	{
 		quote = check_quote(*instruction, quote);
-		if (*instruction == '$' && quote != SGL_QUOTE)
+		DEBUG(printf("début boucle : i = %i >> j = %i\n", i, j);)
+		if (*instruction == '$' && quote != SGL_QUOTE && env_var)
 		{
-			j += ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
-			i += get_env_var_len(instruction + i, SPACE, '$');
+			int save;
+			
+			save = ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
+			DEBUG(printf("len_of_copied_env_var_path = %i\n", save);)
+			j = j + save;
+			//j += ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
+			DEBUG(printf("len_of_$_env_var = %i & env_var_$ = %s\n", get_env_var_len(instruction + i, SPACE, '$'), instruction + i);)
+			i = i + get_env_var_len(instruction + i, SPACE, '$');
+			DEBUG(printf("i after env_var = %i\n", i);)
 			count++;
 		}
 		else
+		{
 			temp[j++] = instruction[i++];
+			DEBUG(printf("temp[j] = %c || instruction[i] = %c\n", temp[j - 1], instruction[i - 1]);)
+		}
 	}
+	DEBUG(printf("temp = %s\n", temp);)
 	free_split(env_var);
 	return (temp); 
 }
