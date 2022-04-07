@@ -2,6 +2,8 @@
 
 void	free_minishell(t_minishell *minishell)
 {
+	if (minishell->instructions)
+		free_split(minishell->instructions);
 	if (minishell->cmd_table)
 		free_table(minishell->cmd_table, minishell->nb_cmds);
 	if (minishell->env)

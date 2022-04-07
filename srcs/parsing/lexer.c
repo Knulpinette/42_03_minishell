@@ -3,21 +3,26 @@
 void	lexer(char *line)
 {
 	t_minishell	*minishell;
+	char		*temp;
 	int			i;
 
 	minishell = get_minishell(NULL);
 	minishell->instructions = get_instructions(line, PIPE);
+	temp = NULL;
 	i = 0;
 	while (minishell->instructions[i])
 	{
 		if (ft_strchr(minishell->instructions[i], '$'))
-			rewrite_instruction_with_env_var(minishell->instructions[i]);
+		{
+			temp = rewrite_instruction_with_env_var(minishell->instructions[i]);
+			free(minishell->instructions[i]);
+			minishell->instructions[i] = temp;
+		}
 		i++;
 	}
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
 	get_command_tables(minishell->cmd_table, minishell->nb_cmds, minishell->instructions);
-	free_split(minishell->instructions);
 }
 
 t_cmd_table	*init_cmd_table(int nb_cmds)

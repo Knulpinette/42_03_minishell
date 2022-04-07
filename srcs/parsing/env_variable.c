@@ -21,13 +21,10 @@ int		get_nb_env_var(char	*text)
 
 int		get_env_var_len(char *text, char delim1, char delim2)
 {
-	int	i;
 	int	env_var_len;
 
-	i = 0;
-	env_var_len = 0;
-	i++;
-	while (text[i + env_var_len] != delim1 || text[i + env_var_len] != delim2)
+	env_var_len = 1; // to handle the '$'
+	while (text[env_var_len] && (text[env_var_len] != delim1 && text[env_var_len] != delim2))
 		env_var_len++;
 	return (env_var_len);
 }
@@ -39,14 +36,11 @@ char	*get_env_var(char *text, int env_var_len, char delim1, char delim2)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = 1; // to handle the '$'
 	j = 0;
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
-	while (text[i] != delim1 ||text[i] != delim2)
-	{
+	while (text[i] && (text[i] != delim1 && text[i] != delim2))
 		env_var[j++] = text[i++];
-	}
-	env_var[j] = 0;
 	if (getenv(env_var))
 		result = strdup(getenv(env_var));
 	else
@@ -74,7 +68,7 @@ int		get_len_instruction(char *instruction, char **env_var)
 		{
 			i++;
 			len = len + ft_strlen(env_var[count++]);
-			while (instruction[i] != SPACE || instruction[i] != '$')
+			while (instruction[i] && (instruction[i] != SPACE && instruction[i] != '$'))
 				i++;
 		}
 		else
@@ -120,6 +114,8 @@ char	*rewrite_instruction_with_env_var(char *instruction)
 	char	**env_var;
 	int		len_instruction;
 	int		count;
+	int		i;
+	int		j;
 
 	temp = NULL;
 	quote = 0;
@@ -127,21 +123,20 @@ char	*rewrite_instruction_with_env_var(char *instruction)
 	len_instruction = get_len_instruction(instruction, env_var);
 	temp = calloc_or_exit(sizeof(char), len_instruction + 1);
 	count = 0;
-	while (*instruction)
+	i = 0;
+	j = 0;
+	while (instruction[i])
 	{
 		quote = check_quote(*instruction, quote);
-		if (*temp == '$' && quote != SGL_QUOTE)
+		if (*instruction == '$' && quote != SGL_QUOTE)
 		{
-			temp = temp + ft_strlcpy(temp, env_var[count], ft_strlen(env_var[count]) + 1);
+			j += ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
+			i += get_env_var_len(instruction + i, SPACE, '$');
 			count++;
 		}
 		else
-			*temp = *instruction;
-		temp++;
-		instruction++;
+			temp[j++] = instruction[i++];
 	}
-	*instruction = 0;
 	free_split(env_var);
-	free(instruction);
 	return (temp); 
 }

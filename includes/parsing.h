@@ -8,14 +8,13 @@ char		*get_env_var(char *text, int env_var_len, char delim1, char delim2);
 int			get_len_instruction(char *instruction, char **env_var);
 char		**get_env_var_split(char *instruction);
 
-char	*rewrite_instruction_with_env_var(char *instruction);
-
 /* ENVIRONEMENT PATHS */
 char		**get_cmd_paths(char **envp);
 char		**finish_paths_by_slash(char **raw_paths);
 
 /* INSTRUCTIONS */
 char		**get_instructions(const char *s, char c);
+char		*rewrite_instruction_with_env_var(char *instruction);
 
 /* LEXER */
 void		lexer(char *line);
