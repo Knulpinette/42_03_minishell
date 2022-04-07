@@ -64,12 +64,19 @@ char	*remove_quotes(char *text)
 			quote = check_valid_quote((text + i), text[i]);
 		if (quote && text[i++])
 		{
+			//DEBUG(printf("entering quote copy\nquote = %c && text[i] = %c\n", quote, text[i]);)
 			while (text[i] && text[i] != quote)
+			{
 				temp[j++] = text[i++];
+				//DEBUG(printf("temp[j] = %c && text[i] = %c\n", temp[j - 1], text [i - 1]);)
+			}
 			quote = 0;
+			//DEBUG(printf("exiting\nquote = %c && text[i] = %c\n", quote, text[i]);)
 			i++;
+			//DEBUG(printf("text[i++] = %c\n", text[i]);)
 		}
-		temp[j++] = text[i++];
+		else
+			temp[j++] = text[i++];
 	}
 	temp[j] = 0;
 	free(text);
