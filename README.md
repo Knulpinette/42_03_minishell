@@ -7,7 +7,7 @@ Write a simple version of a shell.
 Ophélie
 * Do the parsing (tokenise, interpret, validate)
 * Qualify the tokens
-* Put them in the right variable
+* Put them in the right variable <br/>
 Sara
 * for your to do list
 

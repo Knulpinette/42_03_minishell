@@ -1,21 +1,38 @@
 #include "minishell.h"
 
-int		get_env_var_len(char *text, char delim)
+int		get_nb_env_var(char	*text)
+{
+	int		i;
+	int		count;
+	char	quote;
+
+	i = 0;
+	count = 0;
+	quote = 0;
+	while (text[i])
+	{
+		quote = check_quote(text[i], quote);
+		if (text[i] == '$' && quote != SGL_QUOTE)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+int		get_env_var_len(char *text, char delim1, char delim2)
 {
 	int	i;
 	int	env_var_len;
 
 	i = 0;
 	env_var_len = 0;
-	while (text[i] != '$')
-		i++;
 	i++;
-	while (text[i + env_var_len] != delim)
+	while (text[i + env_var_len] != delim1 || text[i + env_var_len] != delim2)
 		env_var_len++;
 	return (env_var_len);
 }
 
-char	*get_env_var(char *text, int env_var_len, char delim)
+char	*get_env_var(char *text, int env_var_len, char delim1, char delim2)
 {
 	char	*env_var;
 	char	*result;
@@ -25,7 +42,7 @@ char	*get_env_var(char *text, int env_var_len, char delim)
 	i = 0;
 	j = 0;
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
-	while (text[i] != delim)
+	while (text[i] != delim1 ||text[i] != delim2)
 	{
 		env_var[j++] = text[i++];
 	}
@@ -39,13 +56,97 @@ char	*get_env_var(char *text, int env_var_len, char delim)
 	return (result);
 }
 
+int		get_len_token(char *instruction, char **env_var)
+{
+	int		len;
+	int		i;
+	char	quote;
+	int		count;
+
+	len = 0;
+	i = 0;
+	quote = 0;
+	count = 0;
+	while (instruction[i])
+	{
+		quote = check_quote(instruction[i], quote);
+		if (instruction[i] == '$' && quote != SGL_QUOTE)
+		{
+			i++;
+			len = len + ft_strlen(env_var[count++]);
+			while (instruction[i] != SPACE || instruction[i] != '$')
+				i++;
+		}
+		else
+		{
+			i++;
+			len++;
+		}
+	}
+	return (len);
+}
+
+char	**get_env_var_split(char *instruction)
+{
+	int		nb_env_var;
+	int		env_var_len;
+	int		count;
+	char	quote;
+	char	**env_var;
+
+	count = 0;
+	quote = 0;
+	nb_env_var = get_nb_env_var(instruction);
+	env_var = calloc_or_exit(sizeof(char *), nb_env_var + 1);
+	while (count < nb_env_var && *instruction)
+	{
+		quote = check_quote(*instruction, quote);
+		if (*instruction == '$' && quote != SGL_QUOTE)
+		{
+			env_var_len = get_env_var_len(instruction, SPACE, '$');
+			env_var[count] = get_env_var(instruction, env_var_len, SPACE, '$');
+			count++;
+		}
+		instruction++;
+	}
+	env_var[count] = 0;
+	return (env_var);
+}
+
 char	*rewrite_instruction_with_env_var(char *instruction)
 {
-	char *rewrite;
+	char	*temp;
+	char	quote;
+	char	**env_var;
+	int		len_token;
+	int		count;
 
-	(void)rewrite;
-	//free(instructions)
-	return (instruction); 
+	temp = NULL;
+	quote = 0;
+	env_var = get_env_var_split(instruction);
+	len_token = get_len_token(instruction, env_var);
+	temp = calloc_or_exit(sizeof(char), len_token + 1);
+	count = 0;
+	while (*instruction)
+	{
+		quote = check_quote(*instruction, quote);
+		if (*temp == '$')
+		{
+			if (quote != SGL_QUOTE)
+			{
+				temp = temp + ft_strlcpy(temp, env_var[count], ft_strlen(env_var[count]) + 1);
+				count++;
+			}
+		}
+		else
+			*temp = *instruction;
+		temp++;
+		instruction++;
+	}
+	*instruction = 0;
+	free_split(env_var);
+	free(instruction);
+	return (temp); 
 } 
 
 /*char  *replace_with_env_var(char *instruction)
@@ -70,7 +171,6 @@ char	*rewrite_instruction_with_env_var(char *instruction)
     free(instruction);
     return (new_instruction);
 }*/
-// then get rid of " and ' exeception for env_var in rest of code.
 
 
 // PROBABLY CAN DELETE THOSE TWO FUNCTIONS AND REWRITE THEM!

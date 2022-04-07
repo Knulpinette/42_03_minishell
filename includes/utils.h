@@ -34,8 +34,8 @@ char			**get_cmd_paths(char **envp);
 char			**finish_paths_by_slash(char **raw_paths);
 
 /* Env Vars ($) - inside the parsing folder */
-int				get_env_var_len(char *text, char delim);
-char			*get_env_var(char *text, int env_var_count, char delim);
+int				get_env_var_len(char *text, char delim1, char delim2);
+char			*get_env_var(char *text, int env_var_count, char delim1, char delim2);
 
 /* Free Memory utils */
 void			free_minishell(t_minishell *minishell);
