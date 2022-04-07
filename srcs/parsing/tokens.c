@@ -20,7 +20,6 @@ int		get_nb_tokens(const char *s, char c)
 	return (nb);
 }
 
-
 static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 {
 	int		i;

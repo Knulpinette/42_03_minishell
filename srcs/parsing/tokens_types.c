@@ -2,7 +2,7 @@
 
 // PROBABLY CAN DELETE THOSE TWO FUNCTIONS AND REWRITE THEM!
 
-void	setup_all_variables_with_dbl_quotes_exception(
+/*void	setup_all_variables_with_dbl_quotes_exception(
 			t_token *token, char **env_var, int *len_token)
 {
 	char	*starting_point;
@@ -19,7 +19,7 @@ void	setup_all_variables_with_dbl_quotes_exception(
 	}
 }
 
-// handle problem of removing extra quote if "yo""this""hello
+// handle problem of removing extra quote if "yo""this""hello 
 
 void	remove_quotes(t_token *token)
 {
@@ -49,7 +49,7 @@ void	remove_quotes(t_token *token)
 	free(token->text);
 	token->text = strdup(temp);
 	free(temp); 
-}
+}*/
 
 void	get_tokens_types(t_token *tokens, int nb_tokens)
 {
@@ -58,8 +58,7 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 	i = 0;
 	while (i < nb_tokens)
 	{
-		if (tokens[i].quote)
-			remove_quotes(&tokens[i]); 
+		tokens[i].text = remove_quotes(tokens[i].text);
         //check_for_redir => get all info and go along the right amount of tokens
         //then => next token == cmd
 
