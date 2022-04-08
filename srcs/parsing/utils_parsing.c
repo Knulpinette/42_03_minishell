@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-bool	is_not_exception(char letter, t_token_type type)
+bool			is_not_exception(char letter, t_token_type type)
 {
 	if (letter == SPACE)
 		return (false);
@@ -16,7 +16,7 @@ bool	is_not_exception(char letter, t_token_type type)
 		return (true);
 }
 
-int	pass_space(char *text)
+int				pass_space(char *text)
 {
 	int	count;
 
@@ -26,7 +26,7 @@ int	pass_space(char *text)
 	return (count);
 }
 
-int	pass_redir(char *instruction)
+int				pass_redir(char *instruction)
 {
 	int		count;
 	char	redir;
@@ -47,7 +47,7 @@ int	pass_redir(char *instruction)
 	return (count);
 }
 
-bool	text_is_all_n(char *text)
+bool			text_is_all_n(char *text)
 {
 	int	i;
 
@@ -59,4 +59,11 @@ bool	text_is_all_n(char *text)
 		i++;
 	}
 	return (true);
+}
+
+t_token_type	handle_special_case_echo(t_token *tokens, int i)
+{
+	if (i == 1 && (tokens[i].text[0] == '-' && text_is_all_n(tokens[i].text + 1)))
+		return (FLAG);
+	return (WORD);
 }
