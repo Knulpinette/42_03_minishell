@@ -63,7 +63,7 @@ t_token			*get_tokens(const char *s, char c, int words)
 
 	if (!s)
 		return (NULL);
-	tokens = calloc_or_exit(sizeof(t_token), words);
+	tokens = calloc_or_exit(sizeof(t_token), words + 1);
 	fill_tokens(s, c, words, tokens);
 	return (tokens);
 }
