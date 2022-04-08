@@ -38,7 +38,8 @@ int	pass_redir(char *instruction)
 	if (instruction[count] && instruction[count] == redir)
 		count++;
 	count += pass_space(instruction + count);
-	while (instruction[count] && instruction[count] != SPACE && !quote)
+	while (instruction[count] && ((!quote &&
+			is_not_exception(instruction[count], REDIR)) || quote))
 	{
 		quote = check_quote(instruction[count], quote);
 		count++;

@@ -60,6 +60,16 @@ static char	**get_args(t_token *tokens, int nb_tokens, t_token_type arg_type)
 
 void		assign_tokens(t_cmd_table *cmd_table)
 {
+	int	i;
+
+	i = 0;
+	while (i < cmd_table->nb_redirs)
+	{
+		if (there_is_quote(cmd_table->redirs[i].arg, DBL_QUOTE) ||
+				there_is_quote(cmd_table->redirs[i].arg, SGL_QUOTE))
+			cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
+		i++;
+	}
 	cmd_table->cmd_name = cmd_table->tokens[0].text;
 	cmd_table->flags = get_args(cmd_table->tokens, cmd_table->nb_tokens, FLAG);
 	cmd_table->cmd_args = get_args(cmd_table->tokens, cmd_table->nb_tokens, WORD);

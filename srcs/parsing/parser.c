@@ -23,8 +23,6 @@ void	parse(char *line)
 
 		i++;
 	}
-	//PARSER (grammar)
-	//parser();
 	//VALIDATION (meaning)
 	//validate_input();
 	return ;

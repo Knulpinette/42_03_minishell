@@ -75,8 +75,8 @@ static char			*save_next_word_as_arg(const char *instructions, int i)
 	quote = 0;
 	while (instructions[i] == SPACE)
 		i++;
-	while (instructions[i + arg_len] && !quote && 
-			is_not_exception(instructions[i + arg_len], REDIR))
+	while (instructions[i + arg_len] && ((!quote &&
+			is_not_exception(instructions[i + arg_len], REDIR)) || quote))
 	{
 		quote = check_quote(instructions[i + arg_len], quote);
 		arg_len++;

@@ -73,15 +73,6 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 			error_and_exit(NO_CMD);
 		cmd_table[i].tokens =
 			get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
-
-		DEBUG(printf("_____\nprint redirs\n");)
-		DEBUG(print_redirs(cmd_table[i].redirs, cmd_table[i].nb_redirs);)
-		DEBUG(printf("_____\nprint tokens\n");)
-		DEBUG(print_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);)
-		DEBUG(printf("_____\n");)
-		//DEBUG(printf("cmd = %s\n", cmd_table[i].cmd_name);)
-		//DEBUG(print_split(cmd_table[i].cmd_args);)
-
 		i++;
 	}
 }
