@@ -68,6 +68,7 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 		}
 		cmd_table[i].nb_tokens =
 			get_nb_tokens(instructions[i], SPACE);
+		// see if I keep this here or put it in validation
 		if (!cmd_table[i].nb_tokens)
 			error_and_exit(NO_CMD);
 		cmd_table[i].tokens =
