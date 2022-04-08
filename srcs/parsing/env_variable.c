@@ -24,7 +24,7 @@ int		get_env_var_len(char *text)
 	int	env_var_len;
 
 	env_var_len = 1; // to handle the '$'
-	while (text[env_var_len] && is_not_exception(text[env_var_len]))
+	while (text[env_var_len] && is_not_exception(text[env_var_len], ENV_VAR))
 		env_var_len++;
 	return (env_var_len);
 }
@@ -39,7 +39,7 @@ char	*get_env_var(char *text, int env_var_len)
 	i = 1; // to handle the '$'
 	j = 0;
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
-	while (text[i] && is_not_exception(text[i]))
+	while (text[i] && is_not_exception(text[i], ENV_VAR))
 		env_var[j++] = text[i++];
 	if (getenv(env_var))
 		result = strdup(getenv(env_var));

@@ -18,7 +18,7 @@ static int	get_len_instruction(char *instruction, char **env_var)
 		{
 			i++;
 			len = len + ft_strlen(env_var[count++]);
-			while (instruction[i] && is_not_exception(instruction[i]))
+			while (instruction[i] && is_not_exception(instruction[i], ENV_VAR))
 				i++;
 		}
 		else

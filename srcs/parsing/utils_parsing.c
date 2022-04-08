@@ -1,12 +1,12 @@
 #include "minishell.h"
 
-bool	is_not_exception(char letter)
+bool	is_not_exception(char letter, t_token_type type)
 {
 	if (letter == SPACE)
 		return (false);
-	else if (letter == '$')
+	else if (type == ENV_VAR && letter == '$')
 		return (false);
-	else if (letter == DBL_QUOTE)
+	else if (type == ENV_VAR && letter == DBL_QUOTE)
 		return (false);
 	else if (letter == '>')
 		return (false);
