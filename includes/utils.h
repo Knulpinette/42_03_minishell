@@ -24,6 +24,7 @@ void	free_minishell(t_minishell *minishell);
 void	free_split(char **split);
 void	free_table(t_cmd_table *cmd_table, int nb_cmds);
 void	free_tokens(t_token *tokens, int nb_tokens);
+void	free_redirs(t_redir *redirs, int nb_redirs);
 
 /* Error and/or Exit utils */
 int		error_and_exit(t_error code);

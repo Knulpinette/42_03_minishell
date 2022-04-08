@@ -5,7 +5,6 @@
 int			get_nb_env_var(char	*text);
 int			get_env_var_len(char *text);
 char		*get_env_var(char *text, int env_var_len);
-int			get_len_instruction(char *instruction, char **env_var);
 char		**get_env_var_split(char *instruction);
 
 /* ENVIRONEMENT PATHS */
@@ -14,7 +13,9 @@ char		**finish_paths_by_slash(char **raw_paths);
 
 /* INSTRUCTIONS */
 char		**get_instructions(const char *s, char c);
+/* rewrite instructions */
 char		*rewrite_instruction_with_env_var(char *instruction);
+char		*rewrite_instruction_without_redirs(char *instruction);
 
 /* LEXER */
 void		lexer(char *line);
@@ -33,7 +34,7 @@ char		*remove_quotes(char *text);
 
 /* REDIRECTIONS */
 int			get_nb_redirs(char *instructions);
-t_redir		*get_redirs(char *instructions, t_redir *redirs, int nb_redirs);
+t_redir		*get_redirs(const char *instructions, int nb_redirs);
 
 /* TOKENS */
 int			get_nb_tokens(const char *s, char c);
@@ -43,5 +44,10 @@ void		get_tokens_types(t_token *tokens, int nb_tokens);
 
 /* VALIDATION */
 void		assign_tokens(t_cmd_table *cmd_table);
+
+/* UTILS */
+bool		is_not_exception(char letter);
+int			pass_space(char *text);
+int			pass_redir(char *instruction);
 
 #endif

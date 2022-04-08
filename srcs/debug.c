@@ -27,3 +27,19 @@ void	print_tokens(t_token *tokens, int words)
 	}
 	return;
 }
+
+void	print_redirs(t_redir *redirs, int args)
+{
+	int i;
+
+	i = 0;
+	while (i < args)
+	{
+		ft_putstr_fd(redirs[i].arg, 2);
+		ft_putstr_fd("   ", 2);
+		ft_putnbr_fd(redirs[i].type, 2);
+		ft_putstr_fd("\n", 2);
+		i++;
+	}
+	return;
+}

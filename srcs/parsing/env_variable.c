@@ -24,8 +24,7 @@ int		get_env_var_len(char *text)
 	int	env_var_len;
 
 	env_var_len = 1; // to handle the '$'
-	while (text[env_var_len] && (text[env_var_len] != SPACE &&
-			text[env_var_len] != '$' && text[env_var_len] != DBL_QUOTE))
+	while (text[env_var_len] && is_not_exception(text[env_var_len]))
 		env_var_len++;
 	return (env_var_len);
 }
@@ -40,7 +39,7 @@ char	*get_env_var(char *text, int env_var_len)
 	i = 1; // to handle the '$'
 	j = 0;
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
-	while (text[i] && (text[i] != SPACE && text[i] != '$' && text[i] != DBL_QUOTE))
+	while (text[i] && is_not_exception(text[i]))
 		env_var[j++] = text[i++];
 	if (getenv(env_var))
 		result = strdup(getenv(env_var));
@@ -49,37 +48,6 @@ char	*get_env_var(char *text, int env_var_len)
 	free(env_var);
 	DEBUG(printf("env_var_real_path = %s\n", result);)
 	return (result);
-}
-
-int		get_len_instruction(char *instruction, char **env_var)
-{
-	int		len;
-	int		i;
-	char	quote;
-	int		count;
-
-	len = 0;
-	i = 0;
-	quote = 0;
-	count = 0;
-	while (instruction[i])
-	{
-		quote = check_quote(instruction[i], quote);
-		if (instruction[i] == '$' && quote != SGL_QUOTE)
-		{
-			i++;
-			len = len + ft_strlen(env_var[count++]);
-			while (instruction[i] && (instruction[i] != SPACE &&
-					instruction[i] != '$' && instruction[i] != DBL_QUOTE))
-				i++;
-		}
-		else
-		{
-			i++;
-			len++;
-		}
-	}
-	return (len);
 }
 
 char	**get_env_var_split(char *instruction)
