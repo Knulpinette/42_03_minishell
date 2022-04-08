@@ -2,7 +2,6 @@
 
 // deal with -eeeeeeeeeee or -aaaaaaaaaaaaaaaa 
 
-
 static int	get_args_count(t_token *tokens, int nb_tokens)
 {
 	int count;

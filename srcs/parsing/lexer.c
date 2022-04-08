@@ -68,9 +68,10 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 		}
 		cmd_table[i].nb_tokens =
 			get_nb_tokens(instructions[i], SPACE);
-		if (cmd_table[i].nb_tokens)
-			cmd_table[i].tokens =
-				get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
+		if (!cmd_table[i].nb_tokens)
+			error_and_exit(NO_CMD);
+		cmd_table[i].tokens =
+			get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
 		
 		//this should be in parsing section. =)
 		get_tokens_types(cmd_table[i].tokens, cmd_table[i].nb_tokens);

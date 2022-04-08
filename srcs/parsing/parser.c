@@ -6,6 +6,6 @@ void	parse(char *line)
 	//PARSER (grammar)
 	//parser();
 	//VALIDATION (meaning)
-	// validate_meaning();
+	//validate_input();
 	return ;
 }
