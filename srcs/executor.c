@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+** Case to check later (no command) : 
+	> hello | ls -l
+See if it still segfaults when proper executor is built. 
+*/
+
 int	execute(t_minishell *minishell)
 {
 	int	i;

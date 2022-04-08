@@ -80,8 +80,6 @@ void				assign_tokens(t_cmd_table *cmd_table)
 	i = 0;
 	while (i < cmd_table->nb_redirs)
 	{
-		/*if (!cmd_table->redirs[i].arg)
-			error_and_exit(REDIR_SYNTAX_ERROR);*/
 		if (there_is_quote(cmd_table->redirs[i].arg, DBL_QUOTE) ||
 				there_is_quote(cmd_table->redirs[i].arg, SGL_QUOTE))
 			cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);

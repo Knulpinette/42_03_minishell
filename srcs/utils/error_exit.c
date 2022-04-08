@@ -23,8 +23,8 @@ void	error_message(t_error code)
 	/* can you check the input:     > test       to see if you have leaks or a segfault ? */
 	else if (code == NO_CMD)
 		ft_putstr_fd("There is no command.\n", STDERR_FILENO);
-	else if (code == REDIR_SYNTAX_ERROR)
-		ft_putstr_fd("Syntax error with redirection.\n", STDERR_FILENO);
+	/*else if (code == REDIR_SYNTAX_ERROR)
+		ft_putstr_fd("Syntax error with redirection.\n", STDERR_FILENO);*/
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
