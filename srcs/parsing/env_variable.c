@@ -19,17 +19,18 @@ int		get_nb_env_var(char	*text)
 	return (count);
 }
 
-int		get_env_var_len(char *text, char delim1, char delim2)
+int		get_env_var_len(char *text)
 {
 	int	env_var_len;
 
 	env_var_len = 1; // to handle the '$'
-	while (text[env_var_len] && (text[env_var_len] != delim1 && text[env_var_len] != delim2))
+	while (text[env_var_len] && (text[env_var_len] != SPACE &&
+			text[env_var_len] != '$' && text[env_var_len] != DBL_QUOTE))
 		env_var_len++;
 	return (env_var_len);
 }
 
-char	*get_env_var(char *text, int env_var_len, char delim1, char delim2)
+char	*get_env_var(char *text, int env_var_len)
 {
 	char	*env_var;
 	char	*result;
@@ -39,7 +40,7 @@ char	*get_env_var(char *text, int env_var_len, char delim1, char delim2)
 	i = 1; // to handle the '$'
 	j = 0;
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
-	while (text[i] && (text[i] != delim1 && text[i] != delim2))
+	while (text[i] && (text[i] != SPACE && text[i] != '$' && text[i] != DBL_QUOTE))
 		env_var[j++] = text[i++];
 	if (getenv(env_var))
 		result = strdup(getenv(env_var));
@@ -68,7 +69,8 @@ int		get_len_instruction(char *instruction, char **env_var)
 		{
 			i++;
 			len = len + ft_strlen(env_var[count++]);
-			while (instruction[i] && (instruction[i] != SPACE && instruction[i] != '$'))
+			while (instruction[i] && (instruction[i] != SPACE &&
+					instruction[i] != '$' && instruction[i] != DBL_QUOTE))
 				i++;
 		}
 		else
@@ -97,8 +99,8 @@ char	**get_env_var_split(char *instruction)
 		quote = check_quote(*instruction, quote);
 		if (*instruction == '$' && quote != SGL_QUOTE)
 		{
-			env_var_len = get_env_var_len(instruction, SPACE, '$');
-			env_var[count] = get_env_var(instruction, env_var_len, SPACE, '$');
+			env_var_len = get_env_var_len(instruction);
+			env_var[count] = get_env_var(instruction, env_var_len);
 			count++;
 		}
 		instruction++;

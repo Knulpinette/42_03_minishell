@@ -3,8 +3,8 @@
 
 /* ENVIRONEMENT VARIABLES */
 int			get_nb_env_var(char	*text);
-int			get_env_var_len(char *text, char delim1, char delim2);
-char		*get_env_var(char *text, int env_var_len, char delim1, char delim2);
+int			get_env_var_len(char *text);
+char		*get_env_var(char *text, int env_var_len);
 int			get_len_instruction(char *instruction, char **env_var);
 char		**get_env_var_split(char *instruction);
 

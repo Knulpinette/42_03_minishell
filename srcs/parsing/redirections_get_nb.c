@@ -14,16 +14,26 @@ int	get_nb_redirs(char *instructions)
 	while (instructions[i])
 	{
 		quote = check_quote(instructions[i], quote);
+		DEBUG(printf("while (instructions[i])\ni = %i\ninstruction[i] = %c\nquote = %c\n", i, instructions[i], quote);)
 		if ((instructions[i] == '<' || instructions[i] == '>') && !quote)
 		{
+			DEBUG(printf("if ((instructions[i] == '<' || instructions[i] == '>') && !quote)\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			redir = instructions[i];
 			i++;
+			DEBUG(printf("i++;\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			if (instructions[i] && instructions[i] == redir)
+			{
 				i++;
+				DEBUG(printf("if (instructions[i] && instructions[i] == redir)\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
+			}
 			count_redirs++;
 		}
 		else
+		{
+			DEBUG(printf("else\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			i++;
+			DEBUG(printf("end_boucle\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
+		}
 	}
 	DEBUG(printf("count of redirs = %i\n", count_redirs);)
 	return (count_redirs);
