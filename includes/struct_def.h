@@ -75,6 +75,7 @@ typedef enum 	e_error_codes
 	NO_OLDPWD,
 	WRITE_FAIL,
 	NO_CMD,
+	REDIR_SYNTAX_ERROR,
 }				t_error;
 
 typedef struct 	s_minishell

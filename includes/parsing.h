@@ -49,5 +49,6 @@ void		assign_tokens(t_cmd_table *cmd_table);
 bool		is_not_exception(char letter, t_token_type type);
 int			pass_space(char *text);
 int			pass_redir(char *instruction);
+bool		text_is_all_n(char *text);
 
 #endif

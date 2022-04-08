@@ -46,3 +46,17 @@ int	pass_redir(char *instruction)
 	}
 	return (count);
 }
+
+bool	text_is_all_n(char *text)
+{
+	int	i;
+
+	i = 0;
+	while (text[i])
+	{
+		if (text[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}

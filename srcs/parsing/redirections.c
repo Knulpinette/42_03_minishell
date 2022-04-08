@@ -14,26 +14,16 @@ int	get_nb_redirs(char *instructions)
 	while (instructions[i])
 	{
 		quote = check_quote(instructions[i], quote);
-		//DEBUG(printf("while (instructions[i])\ni = %i\ninstruction[i] = %c\nquote = %c\n", i, instructions[i], quote);)
 		if ((instructions[i] == '<' || instructions[i] == '>') && !quote)
 		{
-			//DEBUG(printf("if ((instructions[i] == '<' || instructions[i] == '>') && !quote)\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			redir = instructions[i];
 			i++;
-			//DEBUG(printf("i++;\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			if (instructions[i] && instructions[i] == redir)
-			{
 				i++;
-			//	DEBUG(printf("if (instructions[i] && instructions[i] == redir)\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
-			}
 			count_redirs++;
 		}
 		else
-		{
-			//DEBUG(printf("else\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			i++;
-			//DEBUG(printf("end_boucle\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
-		}
 	}
 	DEBUG(printf("count of redirs = %i\n", count_redirs);)
 	return (count_redirs);
@@ -81,7 +71,6 @@ static char			*save_next_word_as_arg(const char *instructions, int i)
 		quote = check_quote(instructions[i + arg_len], quote);
 		arg_len++;
 	}
-	//DEBUG(printf("while (instructions[i + arg_len])\narg_len = %i\n", arg_len);)
 	arg = calloc_or_exit(sizeof(char), arg_len + 1);
 	j = 0;
 	while (instructions[i] && j < arg_len)
@@ -115,7 +104,6 @@ t_redir				*get_redirs(const char *instructions, int nb_redirs)
 				i += 2;
 			redirs[count].arg = save_next_word_as_arg(instructions, i);
 			i += ft_strlen(redirs[count].arg);
-			//DEBUG(printf("i+= ft_strlen(redirs[count].arg)\ni = %i\n", i);)
 			count++;
 		}
 		else
