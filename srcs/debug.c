@@ -51,6 +51,7 @@ DEBUG(void	print_debug(void)
 
 	minishell = get_minishell(NULL);
 	i = 0;
+	printf("_____\n 🥥🌴 COCOSHELLS DEBUG LIST 🌴🥥\n");
 	printf("_____\n📝 instructions\n");
 	printf("🔢 %i\n", minishell->nb_cmds);
 	print_split(minishell->instructions);
