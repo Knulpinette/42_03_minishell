@@ -16,7 +16,6 @@ int		get_nb_tokens(const char *s, char c)
 				nb++;
 		i++;
 	}
-	DEBUG(printf("\nnb_tokens : %i\n", nb);)
 	return (nb);
 }
 

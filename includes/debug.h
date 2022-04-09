@@ -4,5 +4,6 @@
 void	print_split(char **split);
 void	print_tokens(t_token *tokens, int words);
 void	print_redirs(t_redir *redirs, int args);
+DEBUG(void	print_debug(););
 
 #endif

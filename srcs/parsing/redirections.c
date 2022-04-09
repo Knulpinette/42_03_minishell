@@ -25,7 +25,6 @@ int	get_nb_redirs(char *instructions)
 		else
 			i++;
 	}
-	DEBUG(printf("count of redirs = %i\n", count_redirs);)
 	return (count_redirs);
 }
 
