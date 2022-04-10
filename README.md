@@ -53,7 +53,10 @@ The parsing stage gives the tokens their type : `command`, `flag` or `word` whil
 We validate and verify the meaning of the result given by the parser. 
 <i>That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.</i>
 
-## Interactive / Non-interactive mode
+
+## Executor
+
+### Interactive / Non-interactive mode
 * Interactive mode accepts input typed from the keyboard.
 * Non-interactive mode will execute commands read from a file.
 
