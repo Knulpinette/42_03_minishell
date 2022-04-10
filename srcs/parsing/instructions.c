@@ -1,14 +1,25 @@
 #include "minishell.h"
 
-/* Note: any input that has an open quote will be recorded
-** as one command instead of two. 
-** Is that ok?
-** for example:
-** > ls -l | echo hello
-**		ls -l
-**		echo hello
-** > ls -l " | echo hello
-**		ls -l " | echo hello
+/*
+** 🦕🌴
+**
+** get_instructions
+**
+**	This function is a ft_split tailored to minishell.
+**		It takes into account quotes and divides the given
+**		string into chuncks according to a delimiter ('|').
+**
+**	Since open quotes are undefined behaviour, we save
+**	everything following the quote as if we were waiting for
+**	the user to close the quote (which is what bash does).**	
+** 		for example:
+** 			> ls -l | echo hello
+**				ls -l
+**				echo hello
+** 			> ls -l " | echo hello
+**				ls -l " | echo hello
+**
+** 🌴🥥
 */
 
 static	int		nb_words(const char *s, char c)

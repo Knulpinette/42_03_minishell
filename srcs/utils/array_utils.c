@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+/*
+** get_array_len
+**
+** Gets the length of a null-terminated array.
+*/
+
 int		get_array_len(char **split)
 {
 	int	i;

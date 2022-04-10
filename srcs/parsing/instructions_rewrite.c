@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+** 
+** rewrite_instructions
+**
+** Those functions serve two purposes
+**
+**	1. rewrite the original instruction parsed from the input
+**		with the real path of environement variables.
+**	2. erase the redirections from the parsed instructions before
+**		tokenisation.
+**	For both, we first calculate the final length of the rewritten
+**	instruction line. Then we copy with the added or removed content.
+**
+** 🌴🥥
+*/
+
 static int	get_len_instruction(char *instruction, char **env_var)
 {
 	int		len;

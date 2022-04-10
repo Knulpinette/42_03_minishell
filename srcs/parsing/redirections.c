@@ -1,5 +1,23 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+**
+** get_redirs
+**
+**	Redirections are as follow
+**		>	will redirect the std_input to a given file
+**		<	will redirect the std_output to a given file
+**		>>	will append the std_input to the given fd
+**		<<	will save the std_input until it finds the given delimiter
+**	1. We get the number of redirections to init the struct properly
+**	2. We extract the right redir_type to give to the individual redir.
+**	3. We save the 'word' following the redir_operator as the argument.
+**		That 'word' ends when encountering a SPACE, '<' or '>'.
+**
+** 🌴🥥
+*/
+
 int	get_nb_redirs(char *instructions)
 {
 	int		count_redirs;

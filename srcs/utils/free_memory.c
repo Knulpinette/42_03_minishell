@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+/*
+** Frees the various allocated pieces of memory in the
+**	minishell struct.
+*/
+
 void	free_minishell(t_minishell *minishell)
 {
 	if (minishell->instructions)

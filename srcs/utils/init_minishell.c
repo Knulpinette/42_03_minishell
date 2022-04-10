@@ -1,10 +1,18 @@
 #include "minishell.h"
 
-/* cool concept (singleton) taken from Michele,
- * who didn't use any global variables. 
- * This allow us to store the pointer of minishell once and be able to
- * reaccess it any point in our code, without passing the struct.
- */
+/*
+** 🦕🌴
+** 
+**	get_minishell
+**
+**	This is a singleton. The concept is to create
+**	an object once and then be able to access it
+**	any time while not using global variable thanks
+**	to a stored pointer.
+**
+** 🌴🥥
+*/
+
 t_minishell		*get_minishell(t_minishell *minishell)
 {
 	static t_minishell	*pointer_to_minishell = NULL;
