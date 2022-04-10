@@ -30,13 +30,13 @@ We went with a linear parsing since we are only dealing with pipes and redirecti
 > `'` `''` quotes <br>
 > `alphanumerical` text / commands / flags <br>
 
-* ⚠️ **Quotes** <br>
+* ⚠️ **Quotes** (`'` `''`) <br>
 Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly. 
 
-* **Step 0. Instructions** (pipes) <br>
-We split the input line into an array** of instructions with `|` as the delimiter.
+* **Step 0. Instructions** (`|`) <br>
+We split the input line into an array** of instructions with pipes as the delimiter.
 
-* **Step 1. Translate** (environement variables `$`) <br>
+* **Step 1. Translate** (`$`) <br>
 Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). <br>
 ⚠️ If the environement variable is in between single quotes, it shouldn't be translated.
 
