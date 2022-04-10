@@ -21,7 +21,7 @@ Sara
 Analyse the text and divide it into categories and sub-categories. We went with a linear parsing since we are only dealing with pipes and redirections as operators. (The parsing would need to be more abstract if we were dealing with && or ||, for example).
 Special characters that will need to be handled: 
 
-> **|** pipe <br>
+> ```|``` pipe <br>
 > **<, <<, >, >>** redirections <br>
 > **$** environement variable <br>
 > **', ''** quotes <br>
