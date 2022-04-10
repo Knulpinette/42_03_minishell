@@ -2,6 +2,8 @@
 
 /*
 ** 🦕🌴
+**
+** parser
 ** 
 ** The parsing functions will 'recognize' what the token its looking at is.
 **		- a command (CMD)

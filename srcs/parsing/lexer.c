@@ -2,6 +2,8 @@
 
 /*
 ** 🦕🌴
+**
+**	lexer
 ** 
 ** The lexer (tokeniser) is divided in a few steps.
 **	1. Divide the input line in instructions with pipe '|' as a delimiter.

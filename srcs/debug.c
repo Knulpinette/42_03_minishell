@@ -44,7 +44,7 @@ void	print_redirs(t_redir *redirs, int args)
 	return;
 }
 
-DEBUG(void	print_debug(void)
+void	print_debug(void)
 {
 	t_minishell	*minishell;
 	int	i;
@@ -71,4 +71,4 @@ DEBUG(void	print_debug(void)
 		print_split(minishell->cmd_table[i].cmd_args);
 		i++;
 	}
-})
+}
