@@ -32,25 +32,25 @@ Special characters that will need to be handled:
 * ⚠️ **Quotes** <br>
 Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly. 
 
-* **Step 0. Instructions** (pipes `|`) <br>
+* **Step 0. Instructions** (pipes) <br>
 We split the input line into an array** of instructions with `|` as the delimiter.
 
 * **Step 1. Translate** (environement variables `$`) <br>
 Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). <br>
-⚠️ If the environement variable is in between `' '` single quotes, it shouldn't be translated.
+⚠️ If the environement variable is in between single quotes, it shouldn't be translated.
 
 * **Step 2. Redirections** (`>` `<` `<<` `>>`) <br>
 The redirection operator type and the following argument are saved as redirections (in a dedicated struct). The instruction line is then rewritten without the redirections text.
 
 * **Step 3. Lexer** (tokenise) <br>
-All words left are then separated into single elements (in little boxes let's say) using spaces ` ` as delimiters.
+All words left are then separated into single elements (in little boxes let's say) using spaces as delimiters.
 
 * **Step 4. Parse** (grammar) <br>
 The parsing stage gives the tokens their type : `command`, `flag` or `word` while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
 
 * **Step 5. Semantics** (validation) <br>
-We validate and verify the meaning of the result given by the parser.
-> That a given name IS a name (David) and not a name that doesn't exist (Philosopher).
+We validate and verify the meaning of the result given by the parser. 
+>>> That a given name IS a name (David) and not a name that doesn't exist (Philosopher).
 
 ### Interactive / Non-interactive mode
 * Interactive mode accepts input typed from the keyboard.
