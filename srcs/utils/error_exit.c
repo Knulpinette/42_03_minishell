@@ -1,5 +1,9 @@
 #include "minishell.h"
 
+/*
+** Handles do_something_and_exit functions.
+*/
+
 int		error_and_exit(t_error code)
 {
 	t_minishell *minishell;
