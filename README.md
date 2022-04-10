@@ -33,23 +33,23 @@ We went with a linear parsing since we are only dealing with pipes and redirecti
 * ⚠️ **Quotes** (`'` `''`) ⚠️ <br>
 Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly. 
 
-* **Step 0. Instructions** (`|`) <br>
+* **Step 0. Instructions**  (`|`) <br>
 We split the input line into an array** of instructions with pipes as the delimiter.
 
-* **Step 1. Translate** (`$`) <br>
+* **Step 1. Translate**  (`$`) <br>
 Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). <br>
 **Careful**: if the environement variable is in between single quotes, it shouldn't be translated.
 
-* **Step 2. Redirections** (`>` `<` `<<` `>>`) <br>
+* **Step 2. Redirections**  (`>` `<` `<<` `>>`) <br>
 The redirection operator type and the following argument are saved as redirections (in a dedicated struct). The instruction line is then rewritten without the redirections text.
 
-* **Step 3. Lexer**  ( tokenise ) <br>
+* **Step 3. Lexer**  (`tokenise`) <br>
 All words left are then separated into single elements (in little boxes let's say) using spaces as delimiters.
 
-* **Step 4. Parse**  ( grammar ) <br>
+* **Step 4. Parse**  (`grammar`) <br>
 The parsing stage gives the tokens their type : `command`, `flag` or `word` while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
 
-* **Step 5. Semantics**  ( validation ) <br>
+* **Step 5. Validation**  (`semantics`) <br>
 We validate and verify the meaning of the result given by the parser. 
 <i>That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.</i>
 
