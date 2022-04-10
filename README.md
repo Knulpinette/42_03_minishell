@@ -27,20 +27,20 @@ Special characters that will need to be handled:
 > ```'``` ```''``` quotes <br>
 > ```alphanumerical``` text / commands / flags <br>
 
-* ⚠️ Quotes 
+* ⚠️ **Quotes** <br>
 Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly.
-0. Instructions (pipes)
+* **Step 0. Instructions** (pipes) <br>
 We split the input line into an array** of instructions with '|' as the delimiter.
-1. Translate (environement variables)
+* **Step 1. Translate** (environement variables) <br>
 Then we replace the environement variables ($HOME, $CMD, $PWD...) by they real value (home/cocoshells, ls -l, home/cocoshells/minishell...). <br>
 ⚠️ If the environement variable is in between single quotes, it shouldn't be translated.
-2. Redirections ('>' '<' '<<' '>>')
+* **Step 2. Redirections** ('>' '<' '<<' '>>') <br>
 The redirection operator type and the following argument are saved as redirections (in a dedicated struct). The instruction line is then rewritten without the redirections text.
-3. Lexer (tokenise)
+* **Step 3. Lexer** (tokenise) <br>
 All words left are then separated into single elements (in little boxes let's say) using spaces as delimiters.
-4. Parse (grammar)
+* **Step 4. Parse** (grammar) <br>
 The parsing stage gives the tokens their type : command, flag or word while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
-5. Semantics (validation)
+* **Step 5. Semantics** (validation) <br>
 We validate and verify the meaning of the result given by the parser (that a given name IS a name (David) and not a name that doesn't exist (Philosopher).
 <br/>
 
