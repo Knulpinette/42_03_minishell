@@ -22,10 +22,10 @@ Analyse the text and divide it into categories and sub-categories. We went with 
 Special characters that will need to be handled: 
 
 > ```|``` pipe <br>
-> **<, <<, >, >>** redirections <br>
-> **$** environement variable <br>
-> **', ''** quotes <br>
-> **alphanumerical** text / commands / flags <br>
+> ```<``` ```<<``` ```>``` ```>>``` redirections <br>
+> ```$``` environement variable <br>
+> ```'``` ```''``` quotes <br>
+> ```alphanumerical``` text / commands / flags <br>
 
 * ⚠️ Quotes 
 Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly.
