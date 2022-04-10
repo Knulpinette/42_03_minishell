@@ -1,5 +1,22 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+** 
+** The parsing functions will 'recognize' what the token its looking at is.
+**		- a command (CMD)
+**		- a flag (FLAG)
+**		- an argument (WORD)
+**	First, it will assign the right type to the token. Then assign the tokens
+**	to the right variable that will be fed to the the executor:
+**	minishell->cmd_table[i].
+**		 					cmd_name
+**		 					**flags
+**		 					**cmd_args
+**
+** 🌴🥥
+*/
+
 void	parse(char *line)
 {
 	t_minishell	*minishell;
@@ -19,6 +36,21 @@ void	parse(char *line)
 	//validate_input();
 	return ;
 }
+
+/*
+** 1. This functions cleans up the tokens by removing the closed quotes.
+** 2. Then it gets the right token type (CMD, FLAG, WORD) to the given token.
+** 	  If it's the first token of the array**, it's a command (since we 
+**	  removed the redirections from the line that's being parsed at this
+**	  stage, it should always be the case).
+** 3. Then wherever the flag is in the line it should be counted as a flag. It
+**    needs to start with '-' and be followed by an alphanumerical character.
+**    Flags can also look like '--l' or '-llllll' or -lllllllh3' for example.
+** 4. Anything else is an argument (WORD).
+**
+** ⚠️ It also handles the special case of echo which only accepts '-n' or
+**	   '-nnnnnnnn' as a flag. The rest should be treated as text.
+*/
 
 void		get_tokens_types(t_token *tokens, int nb_tokens)
 {
@@ -47,7 +79,12 @@ void		get_tokens_types(t_token *tokens, int nb_tokens)
 		i++;
 	}
 	return ;
-}	
+}
+
+/*
+** This function gets the total number of tokens of the given type
+**	WORD, FLAG or CMD.
+*/
 
 static int	get_type_count(t_token *tokens, int nb_tokens, t_token_type type)
 {
@@ -64,6 +101,11 @@ static int	get_type_count(t_token *tokens, int nb_tokens, t_token_type type)
 	}
 	return (count);
 }
+
+/*
+** This function creates an array** with the token of a given type
+**	(WORD or FLAG). It null terminates it with 0.
+*/
 
 static char	**get_args(t_token *tokens, int nb_tokens, t_token_type arg_type)
 {
@@ -85,6 +127,12 @@ static char	**get_args(t_token *tokens, int nb_tokens, t_token_type arg_type)
 	args[j] = 0;
 	return (args);
 }
+
+/*
+** This function puts the tokens in the appropriate variable to be fed
+** to the executor.
+** ⚠️ It also removes the closed quotes from the redirections.
+*/
 
 void		assign_tokens(t_cmd_table *cmd_table)
 {
