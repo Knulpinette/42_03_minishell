@@ -23,18 +23,30 @@ Sara
 <br/>
 
 ## Parsing
-Analyse the text and divide it into categories and sub-categories.
-* Lexer. Tokenise characters and place them in box/categories (command (+ flags), text, operators (pipe, env variable, redirections...))
-* Parser. Grammatically interprets the tokens
-* Semantics. Validate and verify the meaning of the result given by the parser (that a given name IS a name (David) and not a name that doesn't exist (Philosopher) // For example => check the flags ! (be careful with that. Will show error, except in "echo"'s case. Unless -n, will print as text)
-
-Among characters to tokenise : 
+Analyse the text and divide it into categories and sub-categories. We went with a linear parsing since we are only dealing with pipes and redirections as operators. (The parsing would need to be more abstract if we were dealing with && or ||, for example).
+Special characters that will need to be handled: 
+```
 * | (pipe)
 * <, <<, >, >> (redirections)
 * $ (environement variable)
 * ', '' (quotes)
 * alphanumerical (text / commands / flags) [to delimitate with whitespaces]
-
+```
+* /!\ Quotes /!\
+Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly.
+* Step 0. Instructions (pipes)
+We split the input line into an array** of instructions with '|' as the delimiter.
+* Step 1. Translate (environement variables)
+Then we replace the environement variables ($HOME, $CMD, $PWD...) by they real value (home/cocoshells, ls -l, home/cocoshells/minishell...). <br>
+<b>/!\ If the environement variable is in between single quotes, it shouldn't be translated. /!\</b>
+* Step 2. Redirections ('>' '<' '<<' '>>')
+The redirection operator type and the following argument are saved as redirections (in a dedicated struct). The instruction line is then rewritten without the redirections text.
+* Step 3. Lexer (tokenise)
+All words left are then separated into single elements (in little boxes let's say) using spaces as delimiters.
+* Step 4. Parse (grammar)
+The parsing stage gives the tokens their type : command, flag or word while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
+* Step 5. Semantics (validation)
+We validate and verify the meaning of the result given by the parser (that a given name IS a name (David) and not a name that doesn't exist (Philosopher).
 <br/>
 
 ## Interactive / Non-interactive mode
