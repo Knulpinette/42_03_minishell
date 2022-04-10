@@ -18,13 +18,12 @@ Sara
 * Handle multiple pipes
 
 
-### Parsing
+## Parsing
 
-Analyse the text and divide it into categories and sub-categories.
- 
+Analyse the text and divide it into categories and sub-categories. 
 We went with a linear parsing since we are only dealing with pipes and redirections as operators. (The parsing would need to be more abstract if we were dealing with && or ||, for example).
 
-Special characters that will need to be handled: 
+**Special characters that will need to be handled:**
 > `|` pipe <br>
 > `<` `<<` `>` `>>` redirections <br>
 > `$` environement variable <br>
@@ -54,12 +53,12 @@ The parsing stage gives the tokens their type : `command`, `flag` or `word` whil
 We validate and verify the meaning of the result given by the parser. 
 <i>That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.</i>
 
-### Interactive / Non-interactive mode
+## Interactive / Non-interactive mode
 * Interactive mode accepts input typed from the keyboard.
 * Non-interactive mode will execute commands read from a file.
 
 
-### Useful Links
+## Useful Links
 
 * [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
 * [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
