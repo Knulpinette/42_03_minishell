@@ -20,9 +20,11 @@ Sara
 
 ### Parsing
 
-Analyse the text and divide it into categories and sub-categories. We went with a linear parsing since we are only dealing with pipes and redirections as operators. (The parsing would need to be more abstract if we were dealing with && or ||, for example).
-Special characters that will need to be handled: 
+Analyse the text and divide it into categories and sub-categories.
+ 
+We went with a linear parsing since we are only dealing with pipes and redirections as operators. (The parsing would need to be more abstract if we were dealing with && or ||, for example).
 
+Special characters that will need to be handled: 
 > `|` pipe <br>
 > `<` `<<` `>` `>>` redirections <br>
 > `$` environement variable <br>
@@ -49,7 +51,8 @@ All words left are then separated into single elements (in little boxes let's sa
 The parsing stage gives the tokens their type : `command`, `flag` or `word` while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
 
 * **Step 5. Semantics** (validation) <br>
-We validate and verify the meaning of the result given by the parser. <i>(That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.)</i>
+We validate and verify the meaning of the result given by the parser. 
+<i>That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.</i>
 
 ### Interactive / Non-interactive mode
 * Interactive mode accepts input typed from the keyboard.
