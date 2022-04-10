@@ -27,7 +27,8 @@ void	parse(char *line)
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
-		get_tokens_types(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
+		get_tokens_types(minishell->cmd_table[i].tokens,
+			minishell->cmd_table[i].nb_tokens);
 		assign_tokens(&minishell->cmd_table[i]);
 		DEBUG(print_debug();)
 		i++;
