@@ -49,8 +49,7 @@ All words left are then separated into single elements (in little boxes let's sa
 The parsing stage gives the tokens their type : `command`, `flag` or `word` while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
 
 * **Step 5. Semantics** (validation) <br>
-We validate and verify the meaning of the result given by the parser. 
->>> That a given name IS a name (David) and not a name that doesn't exist (Philosopher).
+We validate and verify the meaning of the result given by the parser. <i>(That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.)</i>
 
 ### Interactive / Non-interactive mode
 * Interactive mode accepts input typed from the keyboard.
