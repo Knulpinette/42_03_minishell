@@ -63,9 +63,10 @@ We validate and verify the meaning of the result given by the parser.
 
 ## Useful Links
 
-* [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
-* [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
-* [Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
+> **General links**
+>> [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
+>> [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
+>> [Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
 
 > **Links from Maria**
 >> [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c)
