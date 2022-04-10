@@ -3,6 +3,8 @@
 /*
 ** 🦕🌴
 **
+** get_redirs
+**
 **	Redirections are as follow
 **		>	will redirect the std_input to a given file
 **		<	will redirect the std_output to a given file

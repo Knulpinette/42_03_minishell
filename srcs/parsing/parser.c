@@ -39,6 +39,8 @@ void	parse(char *line)
 }
 
 /*
+** get_token_types
+**
 ** 1. This functions cleans up the tokens by removing the closed quotes.
 ** 2. Then it gets the right token type (CMD, FLAG, WORD) to the given token.
 ** 	  If it's the first token of the array**, it's a command (since we 
@@ -83,6 +85,8 @@ void		get_tokens_types(t_token *tokens, int nb_tokens)
 }
 
 /*
+** get_type_count
+**
 ** This function gets the total number of tokens of the given type
 **	WORD, FLAG or CMD.
 */
@@ -104,6 +108,8 @@ static int	get_type_count(t_token *tokens, int nb_tokens, t_token_type type)
 }
 
 /*
+** get_args
+**
 ** This function creates an array** with the token of a given type
 **	(WORD or FLAG). It null terminates it with 0.
 */
@@ -130,6 +136,8 @@ static char	**get_args(t_token *tokens, int nb_tokens, t_token_type arg_type)
 }
 
 /*
+** assign_tokens
+**
 ** This function puts the tokens in the appropriate variable to be fed
 ** to the executor.
 ** ⚠️ It also removes the closed quotes from the redirections.
