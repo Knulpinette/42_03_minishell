@@ -43,13 +43,13 @@ Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they 
 * **Step 2. Redirections** (`>` `<` `<<` `>>`) <br>
 The redirection operator type and the following argument are saved as redirections (in a dedicated struct). The instruction line is then rewritten without the redirections text.
 
-* **Step 3. Lexer** (tokenise) <br>
+* **Step 3. Lexer** (<i>tokenise</i>) <br>
 All words left are then separated into single elements (in little boxes let's say) using spaces as delimiters.
 
-* **Step 4. Parse** (grammar) <br>
+* **Step 4. Parse** (<i>grammar</i>) <br>
 The parsing stage gives the tokens their type : `command`, `flag` or `word` while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
 
-* **Step 5. Semantics** (validation) <br>
+* **Step 5. Semantics** (<i>validation</i>) <br>
 We validate and verify the meaning of the result given by the parser. 
 <i>That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.</i>
 
