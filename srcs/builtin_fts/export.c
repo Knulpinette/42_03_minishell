@@ -67,11 +67,14 @@ int	export(t_cmd_table *cmd, t_minishell *minishell)
 		return (0);
 	}
 	i = 0;
+	exit_code = 0;
 	while (cmd->cmd_args[i])
 	{
-		exit_code = add_env_list(cmd->cmd_args[i], minishell->env);
-		if (exit_code)
+		if (add_env_list(cmd->cmd_args[i], minishell->env))
+		{
 			error_message(INVALID_IDENTIFIER);
+			exit_code = 1;
+		}
 		i++;
 	}
 	return (exit_code);
