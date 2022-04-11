@@ -16,4 +16,7 @@ int	env(t_cmd_table *cmd, t_minishell *minishell);
 /* EXPORT */
 int	export(t_cmd_table *cmd, t_minishell *minishell);
 
+/* UNSET */
+int	unset(t_cmd_table *cmd, t_minishell *minishell);
+
 #endif
