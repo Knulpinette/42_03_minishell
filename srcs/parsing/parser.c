@@ -32,9 +32,9 @@ void	parse(char *line)
 		get_tokens_types(minishell->cmd_table[i].tokens,
 			minishell->cmd_table[i].nb_tokens);
 		assign_tokens(&minishell->cmd_table[i]);
-		DEBUG(print_debug();)
 		i++;
 	}
+	DEBUG(print_debug();)
 	//VALIDATION (meaning)
 	//validate_input();
 	return ;
@@ -55,16 +55,6 @@ void	parse(char *line)
 **
 ** ⚠️ It also handles the special case of echo which only accepts '-n' or
 **	   '-nnnnnnnn' as a flag. The rest should be treated as text.
-**
-**	The folliwing lines will print:
-**		>echo -nnnnnnn This is world!
-**			This is world!>
-**		>echo -nnsa
-**			-nnsa>
-**		>echo -nn -nnn-nn-nn -nn -nn yo
-**			-nnn-nn-nn -nn -nn yo>
-**		>echo -nn -nnn -nn -nn -nn -nn yo -n
-**			yo -n>
 **
 */
 

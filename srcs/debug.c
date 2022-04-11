@@ -57,6 +57,7 @@ void	print_debug(void)
 	print_split(minishell->instructions);
 	while (i < minishell->nb_cmds)
 	{
+		printf("\nINSTRUCTION %i\n", i + 1);
 		printf("_____\n🧭 redirections\n");
 		printf("🔢 %i\n", minishell->cmd_table[i].nb_redirs);
 		print_redirs(minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
