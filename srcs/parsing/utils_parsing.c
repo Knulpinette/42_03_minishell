@@ -31,6 +31,8 @@ bool			is_not_exception(char letter, t_token_type type)
 		return (false);
 	else if (type == ENV_VAR && letter == DBL_QUOTE)
 		return (false);
+	else if (type == ENV_VAR && letter == SGL_QUOTE)
+		return (false);
 	else if (letter == '>')
 		return (false);
 	else if (letter == '<')
