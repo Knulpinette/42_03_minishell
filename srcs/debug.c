@@ -51,13 +51,13 @@ void	print_debug(void)
 
 	minishell = get_minishell(NULL);
 	i = 0;
-	printf("_____\n 🥥🌴 COCOSHELLS DEBUG LIST 🌴🥥\n");
+	printf("\n\n 🥥🌴 "WHITE"COCOSHELLS DEBUG"END_COLOR" 🌴🥥\n");
 	printf("_____\n📝 instructions\n");
 	printf("🔢 %i\n", minishell->nb_cmds);
 	print_split(minishell->instructions);
 	while (i < minishell->nb_cmds)
 	{
-		printf("\nINSTRUCTION %i\n", i + 1);
+		printf("\n"YELLOW"INSTRUCTION %i"END_COLOR"\n", i + 1);
 		printf("_____\n🧭 redirections\n");
 		printf("🔢 %i\n", minishell->cmd_table[i].nb_redirs);
 		print_redirs(minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
