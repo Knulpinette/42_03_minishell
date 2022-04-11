@@ -64,11 +64,20 @@ void	print_debug(void)
 		printf("🔢 %i\n", minishell->cmd_table[i].nb_tokens);
 		print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
 		printf("_____\n🎛️ cmd\n");
-		printf("%s\n", minishell->cmd_table[i].cmd_name);
+		if (minishell->cmd_table[i].cmd_name)
+			printf("%s\n", minishell->cmd_table[i].cmd_name);
+		else
+			printf("NO_COMMAND\n");
 		printf("_____\n🏳️‍🌈 flags\n");
-		print_split(minishell->cmd_table[i].flags);
+		if (minishell->cmd_table[i].flags)
+			print_split(minishell->cmd_table[i].flags);
+		else
+			printf("NO_FLAGS\n");
 		printf("_____\n📋 cmd_args\n");
-		print_split(minishell->cmd_table[i].cmd_args);
+		if (minishell->cmd_table[i].cmd_args)
+			print_split(minishell->cmd_table[i].cmd_args);
+		else
+			printf("NO_CMD_ARGUMENTS\n");
 		i++;
 	}
 }
