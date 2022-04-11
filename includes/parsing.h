@@ -49,6 +49,6 @@ bool			is_not_exception(char letter, t_token_type type);
 int				pass_space(char *text);
 int				pass_redir(char *instruction);
 bool			text_is_all_n(char *text);
-t_token_type	handle_special_case_echo(t_token *tokens, int i);
+t_token_type	handle_special_case_echo(t_token *tokens, int i, int *first_word);
 
 #endif

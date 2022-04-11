@@ -46,17 +46,17 @@ typedef struct	s_redir
 typedef struct 	s_command_table
 {
 	int				nb_redirs;
-	t_redir			*redirs;
+	t_redir			*redirs; /* array of redirs */ 
 	int				nb_tokens;
 	t_token			*tokens; /* array of tokens */ 
 	char			*cmd_name;
 	char			**flags; /* array of flags */
 	char			*cmd_path; /* path to be executed */
+	char			**cmd_args; /* array because of execve */
 	int				fd_in;
 	char			*infile;
 	int				fd_out;
 	char			*outfile;
-	char			**cmd_args; /* array because of execve */
 }				t_cmd_table;
 
 /* see
