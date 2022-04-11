@@ -20,6 +20,16 @@
 **	of '-nnnnnnnnnnnnnn' flag. The rest will always be considered as an
 **	argument and printed - regardless of if it is a flag or else.
 **
+**	The folliwing lines will print:
+**		>echo -nnnnnnn This is world!
+**			This is world!>
+**		>echo -nnsa
+**			-nnsa>
+**		>echo -nn -nnn-nn-nn -nn -nn yo
+**			-nnn-nn-nn -nn -nn yo>
+**		>echo -nn -nnn -nn -nn -nn -nn yo -n
+**			yo -n>
+**
 ** 🌴🥥
 */
 
