@@ -1,13 +1,14 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-/* Write DEBUG(print_tokens(get_minishell(NULL));) and that line
+/*
+ * Write DEBUG(print_tokens(get_minishell(NULL));) and that line
  * will only be happening if you "make debug"
  */
 # ifdef DEBUG_MODE
 #  define DEBUG(x) x
 # else
-#  define DEBUG(x)
+#  define DEBUG(x)  
 # endif
 
 # include <unistd.h>

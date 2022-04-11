@@ -20,7 +20,8 @@ char			*rewrite_instruction_without_redirs(char *instruction);
 /* LEXER */
 void			lexer(char *line);
 t_cmd_table		*init_cmd_table(int nb_cmds);
-void			get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions);
+void			get_command_tables(
+					t_cmd_table *cmd_table, int nb_cmds, char **instructions);
 
 /* PARSER */
 void			parse(char *line);
@@ -49,6 +50,7 @@ bool			is_not_exception(char letter, t_token_type type);
 int				pass_space(char *text);
 int				pass_redir(char *instruction);
 bool			text_is_all_n(char *text);
-t_token_type	handle_special_case_echo(t_token *tokens, int i, int *first_word);
+t_token_type	handle_special_case_echo(
+					t_token *tokens, int i, int *first_word);
 
 #endif
