@@ -19,7 +19,7 @@
  * In order to obtain that effect, we write nothing (write(..., "", 0);)
  */
 
-char	*update_cwd(char *cwd)
+static char	*update_cwd(char *cwd)
 {
 	if (cwd)
 		free(cwd);

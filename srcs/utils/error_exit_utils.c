@@ -20,6 +20,8 @@ void	error_message(t_error code)
 		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
 	else if (code == NO_OLDPWD)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
+	else if (code == INVALID_IDENTIFIER)
+		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);

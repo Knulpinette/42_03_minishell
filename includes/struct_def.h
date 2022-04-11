@@ -73,7 +73,8 @@ typedef enum 	e_error_codes
 	OPEN_FAIL,
 	WRONG_DIR,
 	NO_OLDPWD,
-	WRITE_FAIL
+	WRITE_FAIL,
+	INVALID_IDENTIFIER
 }				t_error;
 
 typedef struct 	s_minishell
