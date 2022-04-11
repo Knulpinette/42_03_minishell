@@ -10,7 +10,10 @@ t_env	*new_env_content(char *var)
 		i++;
 	env_var = (t_env *)malloc(sizeof(t_env));
 	env_var->name = ft_substr(var, 0, i);
-	env_var->value = ft_strdup(getenv(env_var->name));
+	if (var + i + 1)
+		env_var->value = ft_strdup(var + i + 1);
+	else
+		env_var->value = NULL;
 	return (env_var);
 }
 
