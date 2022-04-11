@@ -13,13 +13,13 @@
  * If one prompts an error, the next one is still added
  */
 
-void	print_export(t_list *env, int fd_in)
+static void	print_export(t_list *env, int fd_in)
 {
 	while (env)
 	{
 		ft_putstr_fd("declare -x ", fd_in);
 		ft_putstr_fd(get_env_lst_name(env), fd_in);
-		if (get_env_lst_value(env)) // it's printing when it shouldn't
+		if (get_env_lst_value(env))
 		{
 			write(fd_in, "=\"", 2);
 			ft_putstr_fd(get_env_lst_value(env), fd_in);
@@ -30,13 +30,10 @@ void	print_export(t_list *env, int fd_in)
 	}
 }
 
-int	add_env_list(char *arg, t_list *env)
+static int	add_env_list(char *arg, t_list *env)
 {
 	int		i;
 	t_env	*env_var;
-	//check input and give errors
-	//redo env_content with proper error/exit handling
-	//env_var = new_env_content(envp[i]); // what happens when null
 	
 	if (!ft_isalpha(arg[0]) && arg[0] != '_')
 		return (1);
@@ -47,7 +44,7 @@ int	add_env_list(char *arg, t_list *env)
 		return (1);
 	env_var = (t_env *)malloc(sizeof(t_env));
 	env_var->name = ft_substr(arg, 0, i);
-	if (arg + i)
+	if (arg[i])
 		env_var->value = ft_strdup(arg + i + 1);
 	else
 		env_var->value = NULL;
@@ -66,11 +63,9 @@ int	export(t_cmd_table *cmd, t_minishell *minishell)
 		sorted_env = copy_env_lst(minishell->env);
 		merge_sort(&sorted_env);
 		print_export(sorted_env, cmd->fd_in);
-		// understand difference between assigned and unassigned env vars
 		ft_lstclear(&sorted_env, &del_env_content);
 		return (0);
 	}
-	// add the new var to the list - this is actually simpler
 	i = 0;
 	while (cmd->cmd_args[i])
 	{
@@ -79,7 +74,5 @@ int	export(t_cmd_table *cmd, t_minishell *minishell)
 			error_message(INVALID_IDENTIFIER);
 		i++;
 	}
-	// check if there's a limit to nb of arguments it can handle
-	// error handling with wrong args
 	return (exit_code);
 }

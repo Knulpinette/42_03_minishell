@@ -10,7 +10,7 @@ t_env	*new_env_content(char *var)
 		i++;
 	env_var = (t_env *)malloc(sizeof(t_env));
 	env_var->name = ft_substr(var, 0, i);
-	if (var + i)
+	if (var[i])
 		env_var->value = ft_strdup(var + i + 1);
 	else
 		env_var->value = NULL;
@@ -44,7 +44,10 @@ t_list	*copy_env_lst(t_list *original)
 	{
 		env_var = (t_env *)malloc(sizeof(t_env));
 		env_var->name = ft_strdup(get_env_lst_name(original));
-		env_var->value = ft_strdup(get_env_lst_value(original));
+		if (get_env_lst_value(original))
+			env_var->value = ft_strdup(get_env_lst_value(original));
+		else
+			env_var->value = NULL;
 		ft_lstadd_back(&copy, ft_lstnew((void *)env_var));
 		original = original->next;
 	}
