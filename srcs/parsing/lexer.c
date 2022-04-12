@@ -59,6 +59,7 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 		cmd_table[i].infile = NULL;
 		cmd_table[i].fd_out = STDOUT_FILENO;
 		cmd_table[i].outfile = NULL;
+		cmd_table[i].write_mode = OVERWRITE;
 		cmd_table[i].cmd_args = NULL;
 		i++;
 	}

@@ -98,7 +98,6 @@ bool			text_is_all_n(char *text)
 
 t_token_type	handle_special_case_echo(t_token *tokens, int i, int *first_word)
 {
-	DEBUG(printf("token_treated %s\nvalue first_word = %i\n", tokens[i].text, *first_word);)
 	if (!(*first_word) && (tokens[i].text[0] == '-' && text_is_all_n(tokens[i].text + 1)))
 		return (FLAG);
 	else if (!(*first_word))
