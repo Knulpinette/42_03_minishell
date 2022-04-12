@@ -27,6 +27,8 @@ char	*get_env_value(t_list *env_lst, char *name)
 	t_list	*to_get;
 
 	to_get = get_env_lst(env_lst, name);
+	if (!to_get)
+		return (NULL);
 	return (get_env_lst_value(to_get));
 }
 
