@@ -51,8 +51,8 @@ typedef struct s_command_table
 	t_token			*tokens;
 	char			*cmd_name;
 	char			**flags;
-	char			*cmd_path;
 	char			**cmd_args;
+	char			*cmd_path;
 	int				fd_in;
 	char			*infile;
 	int				fd_out;
