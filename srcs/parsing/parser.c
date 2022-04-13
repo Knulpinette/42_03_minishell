@@ -160,7 +160,10 @@ void		assign_tokens(t_cmd_table *cmd_table)
 			cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
 		i++;
 	}
-	cmd_table->cmd_name = cmd_table->tokens[0].text;
+	if (cmd_table->tokens[0].text)
+		cmd_table->cmd_name = cmd_table->tokens[0].text;
+	else
+		cmd_table->cmd_name = ft_strdup("");
 	cmd_table->flags = get_args(cmd_table->tokens, cmd_table->nb_tokens, FLAG);
 	cmd_table->cmd_args = get_args(cmd_table->tokens, cmd_table->nb_tokens, WORD);
 }
