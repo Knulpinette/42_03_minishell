@@ -69,7 +69,22 @@ instructions:	${NAME}
 test:			${NAME}
 			@bash tester/cocoshell_tester.sh		
 
-bonus:			${NAME} 
+bonus:			${NAME}
+
+#	Norme rule
+
+norme:
+	norminette ./42_00_libft/
+	@echo
+	norminette ./includes/
+	@echo
+	norminette ./srcs/
+	@echo
+	norminette ./srcs/builtin_fts
+	@echo
+	norminette ./srcs/parsing
+	@echo
+	norminette ./srcs/utils
 
 #	Cleaning rules
 

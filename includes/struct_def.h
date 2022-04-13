@@ -13,50 +13,51 @@ typedef struct s_env {
 	char			*value;
 }				t_env;
 
-typedef enum	e_token_type
+typedef enum e_token_type
 {
 	WORD,
 	CMD,
 	FLAG,
 	ENV_VAR,
+	REDIR,
 }				t_token_type;
 
-typedef struct 	s_token
+typedef struct s_token
 {
 	t_token_type	type;
-	char			quote;
 	char			*text;
-	
 }				t_token;
 
-typedef enum	e_redir_type
+typedef enum e_redir_type
 {
+	OVERWRITE,
 	OP_REDIR_IN,
 	OP_REDIR_OUT,
 	OP_DELIMITER,
-	OP_APPEND, /* changes OVERWRITE default to APPEND */
+	OP_APPEND,
 }				t_redir_type;
 
-typedef struct	s_redir
+typedef struct s_redir
 {
 	t_redir_type	type;
 	char			*arg;
 }				t_redir;
 
-typedef struct 	s_command_table
+typedef struct s_command_table
 {
 	int				nb_redirs;
 	t_redir			*redirs;
 	int				nb_tokens;
-	t_token			*tokens; /* array of tokens */ 
+	t_token			*tokens;
 	char			*cmd_name;
-	char			**flags; /* array of flags */
-	char			*cmd_path; /* path to be executed */
+	char			**flags;
+	char			**cmd_args;
+	char			*cmd_path;
 	int				fd_in;
 	char			*infile;
 	int				fd_out;
+	t_redir_type	write_mode;
 	char			*outfile;
-	char			**cmd_args; /* array because of execve */
 }				t_cmd_table;
 
 /* see
@@ -65,7 +66,7 @@ typedef struct 	s_command_table
 # define EXIT_FILE_NOT_FOUND 127
 
 /* error codes for personalised error messages */
-typedef enum 	e_error_codes
+typedef enum e_error_codes
 {
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
@@ -75,12 +76,14 @@ typedef enum 	e_error_codes
 	NO_OLDPWD,
 	WRITE_FAIL,
 	INVALID_IDENTIFIER
+	NO_CMD,
+	REDIR_SYNTAX_ERROR,
 }				t_error;
 
-typedef struct 	s_minishell
+typedef struct s_minishell
 {
 	int			nb_cmds;
-	char		**instructions; /* input instructions parsed from pipes */
+	char		**instructions;
 	t_list		*env;
 	char		**envp_paths;
 	t_cmd_table	*cmd_table;
