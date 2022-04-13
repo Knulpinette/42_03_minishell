@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+**
+**	lexer
+** 
+** The lexer (tokeniser) is divided in a few steps.
+**	1. Divide the input line in instructions with pipe '|' as a delimiter.
+**	2. Then translate the environement variables - if there's any - in the
+**		instruction line. (Effectively, rewrite the instruction line with
+**		the real path of the environement variable.)
+**	3. Then get the number of instructions to init the command tables.
+**	4. Then get the command tables content.
+**
+** 🌴🥥
+*/
+
 void	lexer(char *line)
 {
 	t_minishell	*minishell;
@@ -49,6 +65,16 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 	return (cmd_table);
 }
 
+/*
+**	get_command_tables
+**
+**	1. Get the redirections ('>', '<', '>>', '<<' and
+**		their following argument).
+**	2. Rewrite the instruction line without the redirections.
+**	3. Get the tokens with spaces as delimiter.
+**
+*/
+
 void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions)
 {
 	int		i;
@@ -60,30 +86,15 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 		cmd_table[i].nb_redirs = get_nb_redirs(instructions[i]);
 		if (cmd_table[i].nb_redirs)
 		{
-			cmd_table[i].redirs = 
-				get_redirs(instructions[i], cmd_table[i].nb_redirs);
+			cmd_table[i].redirs = get_redirs(instructions[i], cmd_table[i].nb_redirs);
 			temp = rewrite_instruction_without_redirs(instructions[i]);
 			free(instructions[i]);
 			instructions[i] = temp;
 		}
 		cmd_table[i].nb_tokens =
 			get_nb_tokens(instructions[i], SPACE);
-		if (cmd_table[i].nb_tokens)
-			cmd_table[i].tokens =
-				get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
-		
-		//this should be in parsing section. =)
-		get_tokens_types(cmd_table[i].tokens, cmd_table[i].nb_tokens);
-
-		DEBUG(printf("_____\nprint redirs\n");)
-		DEBUG(print_redirs(cmd_table[i].redirs, cmd_table[i].nb_redirs);)
-		DEBUG(printf("_____\nprint tokens\n");)
-		DEBUG(print_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);)
-		DEBUG(printf("_____\n");)
-		assign_tokens(&cmd_table[i]);
-		//DEBUG(printf("cmd = %s\n", cmd_table[i].cmd_name);)
-		//DEBUG(print_split(cmd_table[i].cmd_args);)
-
+		cmd_table[i].tokens =
+			get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
 		i++;
 	}
 }

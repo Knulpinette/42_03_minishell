@@ -1,5 +1,23 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+**
+** get_redirs
+**
+**	Redirections are as follow
+**		>	will redirect the std_input to a given file
+**		<	will redirect the std_output to a given file
+**		>>	will append the std_input to the given fd
+**		<<	will save the std_input until it finds the given delimiter
+**	1. We get the number of redirections to init the struct properly
+**	2. We extract the right redir_type to give to the individual redir.
+**	3. We save the 'word' following the redir_operator as the argument.
+**		That 'word' ends when encountering a SPACE, '<' or '>'.
+**
+** 🌴🥥
+*/
+
 int	get_nb_redirs(char *instructions)
 {
 	int		count_redirs;
@@ -14,28 +32,17 @@ int	get_nb_redirs(char *instructions)
 	while (instructions[i])
 	{
 		quote = check_quote(instructions[i], quote);
-		//DEBUG(printf("while (instructions[i])\ni = %i\ninstruction[i] = %c\nquote = %c\n", i, instructions[i], quote);)
 		if ((instructions[i] == '<' || instructions[i] == '>') && !quote)
 		{
-			//DEBUG(printf("if ((instructions[i] == '<' || instructions[i] == '>') && !quote)\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			redir = instructions[i];
 			i++;
-			//DEBUG(printf("i++;\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			if (instructions[i] && instructions[i] == redir)
-			{
 				i++;
-			//	DEBUG(printf("if (instructions[i] && instructions[i] == redir)\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
-			}
 			count_redirs++;
 		}
 		else
-		{
-			//DEBUG(printf("else\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
 			i++;
-			//DEBUG(printf("end_boucle\ni = %i\ninstruction[i] = %c\n", i, instructions[i]);)
-		}
 	}
-	DEBUG(printf("count of redirs = %i\n", count_redirs);)
 	return (count_redirs);
 }
 
@@ -75,13 +82,12 @@ static char			*save_next_word_as_arg(const char *instructions, int i)
 	quote = 0;
 	while (instructions[i] == SPACE)
 		i++;
-	while (instructions[i + arg_len] && !quote && 
-			is_not_exception(instructions[i + arg_len], REDIR))
+	while (instructions[i + arg_len] && ((!quote &&
+			is_not_exception(instructions[i + arg_len], REDIR)) || quote))
 	{
 		quote = check_quote(instructions[i + arg_len], quote);
 		arg_len++;
 	}
-	//DEBUG(printf("while (instructions[i + arg_len])\narg_len = %i\n", arg_len);)
 	arg = calloc_or_exit(sizeof(char), arg_len + 1);
 	j = 0;
 	while (instructions[i] && j < arg_len)
@@ -115,7 +121,6 @@ t_redir				*get_redirs(const char *instructions, int nb_redirs)
 				i += 2;
 			redirs[count].arg = save_next_word_as_arg(instructions, i);
 			i += ft_strlen(redirs[count].arg);
-			//DEBUG(printf("i+= ft_strlen(redirs[count].arg)\ni = %i\n", i);)
 			count++;
 		}
 		else

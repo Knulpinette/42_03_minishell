@@ -1,5 +1,24 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+**
+** get_tokens
+**
+**	This function gets all the individual tokens.
+**		examples:
+**			hello
+**			hello"this'"is""wo'rld"!
+**			"he   llo",you
+**
+**	1. Get the right number of tokens to allocate the right amount of memory.
+**	2. Using spaces as delimiters, fill up the struct with the words while
+**		taking quotes into account.
+**	This function is quite smiliar to ft_split, but tailored to minishell.
+**
+** 🌴🥥
+*/
+
 int		get_nb_tokens(const char *s, char c)
 {
 	int			i;
@@ -16,7 +35,6 @@ int		get_nb_tokens(const char *s, char c)
 				nb++;
 		i++;
 	}
-	DEBUG(printf("\nnb_tokens : %i\n", nb);)
 	return (nb);
 }
 
@@ -63,7 +81,7 @@ t_token			*get_tokens(const char *s, char c, int words)
 
 	if (!s)
 		return (NULL);
-	tokens = calloc_or_exit(sizeof(t_token), words);
+	tokens = calloc_or_exit(sizeof(t_token), words + 1);		
 	fill_tokens(s, c, words, tokens);
 	return (tokens);
 }

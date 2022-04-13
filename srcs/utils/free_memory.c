@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+/*
+** Frees the various allocated pieces of memory in the
+**	minishell struct.
+*/
+
 void	free_minishell(t_minishell *minishell)
 {
 	if (minishell->instructions)
@@ -41,8 +46,10 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmds)
 			free_redirs(cmd_table[i].redirs, cmd_table[i].nb_redirs); 
 		if (cmd_table[i].tokens)
 			free_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);
-		/*if (cmd_table[i].cmd_args)
-			free_split(cmd_table[i].cmd_args);*/
+		if (cmd_table[i].flags)
+			free_split(cmd_table[i].flags);
+		if (cmd_table[i].cmd_args)
+			free_split(cmd_table[i].cmd_args);
 		i++;
 	}
 	free(cmd_table);

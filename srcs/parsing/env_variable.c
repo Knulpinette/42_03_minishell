@@ -1,5 +1,25 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+**
+** get_env_var
+** 
+** Those functions build up a null terminated array**
+**	of environement variables.
+**	⚠️ If the $ENV_VAR is in between single quotes, it is ignored.
+**	1. We get the number of environement variables (while taking the
+**		quote rule into account.)
+**	2. We get the length of the '$ENV_VAR' written in the instruction
+**		line. (Will be used to save that text temporarily when getting
+**		the path).
+**	3. Then we extract the real path of the env_variable and return the
+**		result as an allocated string.
+**		If the env_var doesn't exist, we return an empty string.
+**
+** 🌴🥥
+*/
+
 int		get_nb_env_var(char	*text)
 {
 	int		i;
