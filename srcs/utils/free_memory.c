@@ -1,7 +1,14 @@
 #include "minishell.h"
 
+/*
+** Frees the various allocated pieces of memory in the
+**	minishell struct.
+*/
+
 void	free_minishell(t_minishell *minishell)
 {
+	if (minishell->instructions)
+		free_split(minishell->instructions);
 	if (minishell->cmd_table)
 		free_table(minishell->cmd_table, minishell->nb_cmds);
 	if (minishell->env)
@@ -35,13 +42,14 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmds)
 	while (i < nb_cmds)
 	{
 		DEBUG(printf("deleting tokens in cmd_table number %i\n", i);)
-		//if (cmd_table[i].redirs)
-		//
-		//	free(redirs); // change to an actual function del_redir later ! 
+		if (cmd_table[i].redirs)
+			free_redirs(cmd_table[i].redirs, cmd_table[i].nb_redirs); 
 		if (cmd_table[i].tokens)
 			free_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);
-		/*if (cmd_table[i].cmd_args)
-			free_split(cmd_table[i].cmd_args);*/
+		if (cmd_table[i].flags)
+			free_split(cmd_table[i].flags);
+		if (cmd_table[i].cmd_args)
+			free_split(cmd_table[i].cmd_args);
 		i++;
 	}
 	free(cmd_table);
@@ -60,4 +68,19 @@ void	free_tokens(t_token *tokens, int nb_tokens)
 		i++;
 	}
 	free(tokens);
+}
+
+void	free_redirs(t_redir *redirs, int nb_redirs)
+{
+	int	i;
+
+	i = 0;
+	DEBUG(printf("total of redirs to delete = %i\n", nb_redirs);)
+	while (i < nb_redirs)
+	{
+		free(redirs[i].arg);
+		DEBUG(printf("deleting redirs = %i\n", i);)
+		i++;
+	}
+	free(redirs);
 }

@@ -19,12 +19,12 @@ typedef enum	e_token_type
 	CMD,
 	FLAG,
 	ENV_VAR,
+	REDIR,
 }				t_token_type;
 
 typedef struct 	s_token
 {
 	t_token_type	type;
-	char			quote;
 	char			*text;
 	
 }				t_token;
@@ -73,7 +73,9 @@ typedef enum 	e_error_codes
 	OPEN_FAIL,
 	WRONG_DIR,
 	NO_OLDPWD,
-	WRITE_FAIL
+	WRITE_FAIL,
+	NO_CMD,
+	REDIR_SYNTAX_ERROR,
 }				t_error;
 
 typedef struct 	s_minishell
