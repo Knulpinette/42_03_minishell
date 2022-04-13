@@ -24,19 +24,6 @@ int		        get_array_len(char **split);
 /* Merge Sort Linked Lists */
 void	        merge_sort(t_list **list);
 
-/* Parsing utils - inside the parsing folder TODO check */
-t_cmd_table		*init_cmd_table(int nb_cmds);
-int				get_nb_tokens(const char *s, char c);
-int				get_nb_redirs(char *instructions);
-int				quote_len(const char *s, char c, char quote, int i);
-char			*skip_space(char *line);
-char			**get_cmd_paths(char **envp);
-char			**finish_paths_by_slash(char **raw_paths);
-
-/* Env Vars ($) - inside the parsing folder TODO check */
-int				get_env_var_len(char *text, char delim);
-char			*get_env_var(char *text, int env_var_count, char delim);
-
 /* Free Memory utils */
 void			free_minishell(t_minishell *minishell);
 void			free_split(char **split);

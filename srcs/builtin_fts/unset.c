@@ -26,6 +26,7 @@ int	unset(t_cmd_table *cmd, t_minishell *minishell)
 {
     int		i;
     int		exit_code;
+    (void)minishell;
 
     i = 0;
     exit_code = 0;

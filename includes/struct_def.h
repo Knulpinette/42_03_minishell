@@ -75,7 +75,7 @@ typedef enum e_error_codes
 	WRONG_DIR,
 	NO_OLDPWD,
 	WRITE_FAIL,
-	INVALID_IDENTIFIER
+	INVALID_IDENTIFIER,
 	NO_CMD,
 	REDIR_SYNTAX_ERROR,
 }				t_error;
