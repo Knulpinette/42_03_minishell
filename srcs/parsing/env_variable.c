@@ -69,8 +69,8 @@ char	*get_env_var(char *text, int env_var_len)
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
 	while (text[i] && is_not_exception(text[i], ENV_VAR))
 		env_var[j++] = text[i++];
-	if (getenv(env_var))
-		result = strdup(getenv(env_var));
+	if (get_env_value(env_var))
+		result = strdup(get_env_value(env_var));
 	else
 		result = strdup("");
 	free(env_var);

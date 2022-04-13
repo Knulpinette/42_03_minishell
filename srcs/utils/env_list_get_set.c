@@ -45,6 +45,8 @@ void	set_env_value(char *name, char *value)
 	t_list	*to_set;
 
 	to_set = get_env_lst(name);
+	if (!to_set)
+		return ;
 	free(((t_env *)to_set->content)->value);
 	((t_env *)to_set->content)->value = ft_strdup(value);
 }
