@@ -21,7 +21,7 @@ int	execute(t_minishell *minishell)
 			continue;
 		}		
 		if (ft_strncmp(minishell->cmd_table[i].cmd_name, "cd", 2) == 0)
-			minishell->exit_code = cd(&minishell->cmd_table[i], minishell);
+			minishell->exit_code = cd(&minishell->cmd_table[i]);
 		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "pwd", 3) == 0)
 			minishell->exit_code = pwd(&minishell->cmd_table[i]);
 		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "env", 3) == 0)
