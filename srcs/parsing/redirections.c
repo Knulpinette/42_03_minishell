@@ -52,6 +52,7 @@ static t_redir_type	get_redir_type(const char *instructions, int i)
 	int				redir;
 
 	redir = instructions[i];
+	redir_type = 0;
 	i++;
 	if (instructions[i] && instructions[i] == redir)
 	{

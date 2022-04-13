@@ -20,7 +20,7 @@
 ** 🌴🥥
 */
 
-int		get_nb_env_var(char	*text)
+int	get_nb_env_var(char	*text)
 {
 	int		i;
 	int		count;
@@ -39,15 +39,23 @@ int		get_nb_env_var(char	*text)
 	return (count);
 }
 
-int		get_env_var_len(char *text)
+/*
+** env_var_len = 1 to handle the '$'
+*/
+
+int	get_env_var_len(char *text)
 {
 	int	env_var_len;
 
-	env_var_len = 1; // to handle the '$'
+	env_var_len = 1;
 	while (text[env_var_len] && is_not_exception(text[env_var_len], ENV_VAR))
 		env_var_len++;
 	return (env_var_len);
 }
+
+/*
+** i = 1 to handle the '$'
+*/
 
 char	*get_env_var(char *text, int env_var_len)
 {
@@ -56,7 +64,7 @@ char	*get_env_var(char *text, int env_var_len)
 	int		i;
 	int		j;
 
-	i = 1; // to handle the '$'
+	i = 1;
 	j = 0;
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
 	while (text[i] && is_not_exception(text[i], ENV_VAR))

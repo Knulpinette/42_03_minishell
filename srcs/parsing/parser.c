@@ -32,9 +32,9 @@ void	parse(char *line)
 		get_tokens_types(minishell->cmd_table[i].tokens,
 			minishell->cmd_table[i].nb_tokens);
 		assign_tokens(&minishell->cmd_table[i]);
-		DEBUG(print_debug();)
 		i++;
 	}
+	DEBUG(print_debug();)
 	//VALIDATION (meaning)
 	//validate_input();
 	return ;
@@ -55,22 +55,25 @@ void	parse(char *line)
 **
 ** ⚠️ It also handles the special case of echo which only accepts '-n' or
 **	   '-nnnnnnnn' as a flag. The rest should be treated as text.
+**
 */
 
 void		get_tokens_types(t_token *tokens, int nb_tokens)
 {
 	int		i;
 	bool	cmd_is_echo;
+	int		first_word;
 
 	i = 0;
 	cmd_is_echo = false;
+	first_word = 0;
 	while (i < nb_tokens)
 	{
 		if (there_is_quote(tokens[i].text, DBL_QUOTE) ||
 				there_is_quote(tokens[i].text, SGL_QUOTE))
 			tokens[i].text = remove_quotes(tokens[i].text);
 		if (cmd_is_echo)
-			tokens[i].type = handle_special_case_echo(tokens, i);
+			tokens[i].type = handle_special_case_echo(tokens, i, &first_word);
 		else if (i == 0)
 		{
 			tokens[i].type = CMD;

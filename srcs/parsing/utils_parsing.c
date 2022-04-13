@@ -20,6 +20,16 @@
 **	of '-nnnnnnnnnnnnnn' flag. The rest will always be considered as an
 **	argument and printed - regardless of if it is a flag or else.
 **
+**	The folliwing lines will print:
+**		>echo -nnnnnnn This is world!
+**			This is world!>
+**		>echo -nnsa
+**			-nnsa>
+**		>echo -nn -nnn-nn-nn -nn -nn yo
+**			-nnn-nn-nn -nn -nn yo>
+**		>echo -nn -nnn -nn -nn -nn -nn yo -n
+**			yo -n>
+**
 ** 🌴🥥
 */
 
@@ -30,6 +40,8 @@ bool			is_not_exception(char letter, t_token_type type)
 	else if (type == ENV_VAR && letter == '$')
 		return (false);
 	else if (type == ENV_VAR && letter == DBL_QUOTE)
+		return (false);
+	else if (type == ENV_VAR && letter == SGL_QUOTE)
 		return (false);
 	else if (letter == '>')
 		return (false);
@@ -84,9 +96,11 @@ bool			text_is_all_n(char *text)
 	return (true);
 }
 
-t_token_type	handle_special_case_echo(t_token *tokens, int i)
+t_token_type	handle_special_case_echo(t_token *tokens, int i, int *first_word)
 {
-	if (i == 1 && (tokens[i].text[0] == '-' && text_is_all_n(tokens[i].text + 1)))
+	if (!(*first_word) && (tokens[i].text[0] == '-' && text_is_all_n(tokens[i].text + 1)))
 		return (FLAG);
+	else if (!(*first_word))
+		*first_word = 1;
 	return (WORD);
 }
