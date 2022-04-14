@@ -13,8 +13,6 @@ int	execute(t_minishell *minishell)
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
-		// if cmd_variable is NULL is creates a problem. Not sure if we should always allocate an empty string to CMD anyways if it's empty or handle it here.
-		// History should get the line not the cmd
 		if (!minishell->cmd_table[i].cmd_name)
 		{
 			i++;
