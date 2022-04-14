@@ -26,7 +26,7 @@ int	unset(t_cmd_table *cmd, t_minishell *minishell)
 {
     int		i;
     int		exit_code;
-    (void)minishell;
+    t_list  *to_unset;
 
     i = 0;
     exit_code = 0;
@@ -37,8 +37,9 @@ int	unset(t_cmd_table *cmd, t_minishell *minishell)
             error_message(INVALID_IDENTIFIER);
             exit_code = 1;
         }
-        // check if var exists
-        // if yes, remove it from list
+        to_unset = get_env_lst(cmd->cmd_args[i]);
+        if (to_unset)
+            delone_env_lst(to_unset, &minishell->env);
         i++;
     }
     return (exit_code);

@@ -10,6 +10,7 @@ t_env			*new_env_content(char *var);
 t_list			*init_env_lst(char **envp);
 t_list	        *copy_env_lst(t_list *original);
 void			del_env_content(void *env_var);
+void	        delone_env_lst(t_list *to_del, t_list **env);
 
 /* ENV List getters and setters */
 char			*get_env_lst_name(t_list *env_lst);

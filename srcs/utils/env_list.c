@@ -59,3 +59,28 @@ void	del_env_content(void *env_var)
 	free(((t_env *)env_var)->name);
 	free(((t_env *)env_var)->value);
 }
+
+void	delone_env_lst(t_list *to_del, t_list **env)
+{
+	t_list	*curr;
+
+	if (!to_del || !env)
+		return ;
+	if (*env == to_del)
+	{
+		*env = (*env)->next;
+		ft_lstdelone(to_del, &del_env_content);
+		return ;
+	}
+	curr = *env;
+	while (curr->next)
+	{
+		if (curr->next == to_del)
+		{
+			curr->next = to_del->next;
+			ft_lstdelone(to_del, &del_env_content);
+			return ;
+		}
+		curr = curr->next;
+	}
+}
