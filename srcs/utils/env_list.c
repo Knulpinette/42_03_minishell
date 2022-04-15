@@ -31,6 +31,11 @@ t_list	*init_env_lst(char **envp)
 		ft_lstadd_back(&env_lst, ft_lstnew((void *)env_var));
 		i++;
 	}
+	if (!get_env_lst("OLDPWD"))
+	{
+		env_var = new_env_content("OLDPWD");
+		ft_lstadd_back(&env_lst, ft_lstnew((void *)env_var));
+	}
 	return (env_lst);
 }
 
