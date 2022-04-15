@@ -61,8 +61,9 @@ int	cd(t_cmd_table *cmd)
 	set_env_value("PWD", cwd);
 	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
 		pwd(cmd);
-	else
-		write(cmd->fd_in, "", 0); // TODO test this once redirections are handled
+	//else
+	//	write(cmd->fd_in, "", 0);
+	// TODO test this once redirections are handled
 	DEBUG(printf("PWD: %s\n", get_env_value("PWD")));
 	DEBUG(printf("OLDPWD: %s\n", get_env_value("OLDPWD")));	
 	free(cwd);
