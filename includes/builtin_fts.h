@@ -2,7 +2,7 @@
 # define BUILTIN_FTS_H
 
 /* CD - Change Directory */
-int	cd(t_cmd_table *cmd, t_minishell *minishell);
+int	cd(t_cmd_table *cmd);
 
 /* PWD - Print Working Directory */
 int	pwd(t_cmd_table *cmd);
@@ -15,5 +15,8 @@ int	env(t_cmd_table *cmd, t_minishell *minishell);
 
 /* EXPORT */
 int	export(t_cmd_table *cmd, t_minishell *minishell);
+
+/* UNSET */
+int	unset(t_cmd_table *cmd, t_minishell *minishell);
 
 #endif

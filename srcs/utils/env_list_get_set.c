@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+/*
+ * Given a specific element from ENV list
+ */
 char	*get_env_lst_name(t_list *env_lst)
 {
 	return (((t_env *)env_lst->content)->name);
@@ -10,31 +13,40 @@ char	*get_env_lst_value(t_list *env_lst)
 	return (((t_env *)env_lst->content)->value);
 }
 
-t_list	*get_env_lst(t_list *env_lst, char *name)
+/*
+ * Using the whole ENV list (pointing at the beginning of it)
+ */
+t_list	*get_env_lst(char *name)
 {
-	int		name_len;
-	t_list	*to_get;
+	t_minishell	*minishell;
+	int			name_len;
+	t_list		*to_get;
 
+	minishell = get_minishell(NULL);
 	name_len = ft_strlen(name);
-	to_get = env_lst;
+	to_get = minishell->env;
 	while (to_get && ft_strncmp(get_env_lst_name(to_get), name, name_len))
 		to_get = to_get->next;
 	return (to_get);
 }
 
-char	*get_env_value(t_list *env_lst, char *name)
+char	*get_env_value(char *name)
 {
 	t_list	*to_get;
 
-	to_get = get_env_lst(env_lst, name);
+	to_get = get_env_lst(name);
+	if (!to_get)
+		return (NULL);
 	return (get_env_lst_value(to_get));
 }
 
-void	set_env_value(t_list *env_lst, char *name, char *value)
+void	set_env_value(char *name, char *value)
 {
 	t_list	*to_set;
 
-	to_set = get_env_lst(env_lst, name);
+	to_set = get_env_lst(name);
+	if (!to_set)
+		return ;
 	free(((t_env *)to_set->content)->value);
 	((t_env *)to_set->content)->value = ft_strdup(value);
 }

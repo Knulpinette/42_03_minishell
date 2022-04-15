@@ -24,11 +24,11 @@ void	error_message(t_error code)
 		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
 	else if (code == NO_OLDPWD)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
+	else if (code == INVALID_IDENTIFIER)
+		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
 	/* can you check the input:     > test       to see if you have leaks or a segfault ? */
 	else if (code == NO_CMD)
 		ft_putstr_fd("There is no command.\n", STDERR_FILENO);
-	/*else if (code == REDIR_SYNTAX_ERROR)
-		ft_putstr_fd("Syntax error with redirection.\n", STDERR_FILENO);*/
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);

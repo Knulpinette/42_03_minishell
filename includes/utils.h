@@ -8,16 +8,22 @@ t_minishell		*init_minishell(char **envp);
 /* ENV List */
 t_env			*new_env_content(char *var);
 t_list			*init_env_lst(char **envp);
+t_list	        *copy_env_lst(t_list *original);
 void			del_env_content(void *env_var);
+void	        delone_env_lst(t_list *to_del, t_list **env);
+
 /* ENV List getters and setters */
 char			*get_env_lst_name(t_list *env_lst);
 char			*get_env_lst_value(t_list *env_lst);
-t_list			*get_env_lst(t_list *env_lst, char *name);
-char			*get_env_value(t_list *env_lst, char *name);
-void			set_env_value(t_list *env_lst, char *name, char *value);
+t_list			*get_env_lst(char *name);
+char			*get_env_value(char *name);
+void			set_env_value(char *name, char *value);
 
 /* Array utils */
-int				get_array_len(char **split);
+int		        get_array_len(char **split);
+
+/* Merge Sort Linked Lists */
+void	        merge_sort(t_list **list);
 
 /* Free Memory utils */
 void			free_minishell(t_minishell *minishell);

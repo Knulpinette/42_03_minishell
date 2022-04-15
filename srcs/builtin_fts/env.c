@@ -20,10 +20,13 @@ int	env(t_cmd_table *cmd, t_minishell *minishell)
 	curr = minishell->env;
 	while (curr)
 	{
-		ft_putstr_fd(get_env_lst_name(curr), cmd->fd_in);
-		write(cmd->fd_in, "=", 1);
-		ft_putstr_fd(get_env_lst_value(curr), cmd->fd_in);
-		write(cmd->fd_in, "\n", 1);
+		if (get_env_lst_value(curr))
+		{
+			ft_putstr_fd(get_env_lst_name(curr), cmd->fd_in);
+			write(cmd->fd_in, "=", 1);
+			ft_putstr_fd(get_env_lst_value(curr), cmd->fd_in);
+			write(cmd->fd_in, "\n", 1);
+		}
 		curr = curr->next;
 	}
 	return (0);
