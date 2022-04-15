@@ -8,7 +8,7 @@ t_env	*new_env_content(char *var)
 	i = 0;
 	while (var[i] && var[i] != '=')
 		i++;
-	env_var = (t_env *)malloc(sizeof(t_env));
+	env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
 	env_var->name = ft_substr(var, 0, i);
 	if (var[i])
 		env_var->value = ft_strdup(var + i + 1);

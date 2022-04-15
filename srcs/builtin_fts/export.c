@@ -42,7 +42,7 @@ static int	add_env_list(char *arg, t_list *env)
 		i++;
 	if (arg[i] && arg[i] != '=')
 		return (1);
-	env_var = (t_env *)malloc(sizeof(t_env));
+	env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
 	env_var->name = ft_substr(arg, 0, i);
 	if (arg[i])
 		env_var->value = ft_strdup(arg + i + 1);
