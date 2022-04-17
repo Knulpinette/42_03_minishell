@@ -13,8 +13,9 @@ Sara
 
 ## TO FIGURE OUT
 
+* How (delimiters) << work
+* Heredoc
 * Have a working history (cf [add_history function](https://linux.die.net/man/3/history))
-* Get the PATH variable (cf [pipex](https://github.com/Knulpinette/Cursus42/blob/main/02-pipex/srcs/utils.c))
 * Handle multiple pipes
 
 
