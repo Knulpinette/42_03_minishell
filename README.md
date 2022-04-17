@@ -2,21 +2,16 @@
 # Minishell
 Write a simple version of a shell.
 
-## TO DO
+## TO DO LIST
 
 Ophélie
-* Break the parsing to do final debugs
+* Figure out delimiters and heredoc
+* Help on multiple pipe system
 
 Sara
-* Do the executor
-
-
-## TO FIGURE OUT
-
-* How (delimiters) << work
-* Heredoc
-* Have a working history (cf [add_history function](https://linux.die.net/man/3/history))
-* Handle multiple pipes
+* Handle the signals
+* Have a working history
+* Do the executor / multipipe system
 
 
 ## Parsing
