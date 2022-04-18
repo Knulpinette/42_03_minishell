@@ -25,38 +25,6 @@ See if it still segfaults when proper executor is built!
  *	  as it might be because the file doesn't exist (pretty common error)
  */
 
-int	exec_redirs(t_cmd_table cmd)
-{
-	int	i;
-
-	i = 0;
-	while (i < cmd.nb_redirs)
-	{
-		if (cmd.redirs[i].type == OP_REDIR_IN)
-		{
-			if (cmd.fd_in != 0 && close(cmd.fd_in) == -1)
-				error_and_exit(CLOSE_FAIL);
-			if ((cmd.fd_in = open(cmd.redirs[i].arg, O_RDWR, 00755)) == -1)
-				error_and_return(OPEN_FAIL, 1);
-		}
-		else if (cmd.redirs[i].type == OP_REDIR_OUT || cmd.redirs[i].type == OP_APPEND)
-		{
-			if (cmd.fd_out != 1 && close(cmd.fd_out) == -1)
-				error_and_exit(CLOSE_FAIL);
-			if (cmd.redirs[i].type == OP_APPEND)
-				cmd.fd_out = open(cmd.redirs[i].arg, O_RDWR | O_CREAT | O_APPEND, 00755);
-			else
-				cmd.fd_out = open(cmd.redirs[i].arg, O_RDWR | O_CREAT, 00755);
-			if (cmd.fd_out == -1)
-				error_and_return(OPEN_FAIL, 1);
-		}
-		// TODO delimiter
-		i++;
-	}
-	DEBUG(printf("Redir In: %d, Redir Out: %d\n", cmd.fd_in, cmd.fd_out));
-	return (0);
-}
-
 int	execute(t_minishell *minishell)
 {
 	int	i;
