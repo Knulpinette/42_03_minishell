@@ -6,24 +6,63 @@
 See if it still segfaults when proper executor is built! 
 */
 
-int	execute(t_minishell *minishell)
+
+/*
+ * 1. PIPES
+ *	If there's a next command, open the pipe
+ *	Update fd_out from current command and fd_in from next command
+ *
+ * X. CLOSING
+ *	if fd_in != stdin close it, if fd_out != stdout close it
+ *
+ * Z. ERROR HANDLING
+ *	- if pipe, open or close functions return an error, we exit
+ */
+
+void	execute_redirections(t_cmd_table *cmd)
 {
 	int	i;
 
 	i = 0;
+	while (i < cmd->nb_redirs)
+	{
+		if (cmd.redirs[i].type == OP_REDIR_IN)
+		{
+			if (cmd.fd_in != 0 && close(cmd.fd_in) == -1)
+				error_and_exit(CLOSE_FAIL);
+			cmd.fd_in = open_or_exit(cmd.redirs[i].arg, O_RDWR);
+		}
+		else if (cmd.redirs[i].type == OP_REDIR_OUT || cmd.redirs[i].type == OP_APPEND)
+		{
+			if (cmd.fd_out != 1 && close(cmd.fd_out) == -1)
+				error_and_exit(CLOSE_FAIL);
+			if (cmd.redirs[i].type == OP_APPEND)
+				cmd.fd_out = open_or_exit(cmd.redirs[i].arg, O_RDWR | O_CREAT | O_APPEND);
+			else
+				cmd.fd_out = open_or_exit(cmd.redirs[i].arg, O_RDWR | O_CREAT);
+		}
+		// TODO delimiter
+		i++;
+	}
+}
+
+int	execute(t_minishell *minishell)
+{
+	int	i;
+	int	fd[2];
+	int	j;
+
+	i = 0;
 	while (i < minishell->nb_cmds)
 	{
-		// if there's a next command
-		// open the pipe
-		// change fd_out and fd_int from next command
-		//
-		// if there's redirections
-		// loop over them (nb_redirs)
-		// close the previous if we opened one in the previous loop
-		// -- redir_in_open and redir_out_open booleans
-		// open the file - create it if non-existant and it's redir_out!
-		// change fd_in and/or fd_out accordingly
-		// the fuck about delimiter
+		if (i + 1 < minishell->nb_cmds)
+		{
+			if (pipe(fd) == -1)
+				error_and_exit(PIPE_FAIL); // TO THINK: does this make sense?
+			minishell->cmd_table[i].fd_out = fd[1];
+			minishell->cmd_table[i + 1].fd_in = fd[0];
+		}
+		execute_redirections(minishell->cmd_table[i]);
 		if (!minishell->cmd_table[i].cmd_name)
 		{
 			i++;
@@ -47,14 +86,19 @@ int	execute(t_minishell *minishell)
 		
 		// else if not built-in
 		// check if command exists and flags are appropriate with access (check discord)
-		// swap stdin/out with fd_in/out
+		// swap stdin/out with fd_in/out -> aftert the fork? we don't want to change stdout/in in main process...
 		// fork and call execve -> how to get exit code from it? (check goncalo tuto)
 
 		// error handling: if at some point something happens... still need to close stuff
 		// and update exit code
 
 		// close writing end of pipe and fd_out file if needed?
+		// close fd[1] and close fd[0] from previous command! how? fd_in! if fd_in != 0
 		// how to know if it's needed? has_pipe and has_redir booleans?
+		if (minishell->cmd_table[i].fd_in != 0)
+			close(minishell->cmd_table[i].fd_in);
+		if (minishell->cmd_table[i].fd_out != 1)
+			close(minishell->cmd_table[i].fd_out);
 		i++;
 	}
 	return (minishell->exit_code);

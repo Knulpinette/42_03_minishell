@@ -77,6 +77,8 @@ typedef enum e_error_codes
 	WRITE_FAIL,
 	INVALID_IDENTIFIER,
 	NO_CMD,
+	PIPE_FAIL,
+	CLOSE_FAIL
 }				t_error;
 
 typedef struct s_minishell
