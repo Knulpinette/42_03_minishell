@@ -62,9 +62,10 @@ int	execute(t_minishell *minishell)
 		if ((minishell->exit_code = exec_redirs(minishell->cmd_table[i]))
 			|| !minishell->cmd_table[i].cmd_name)
 		{
-			close_for_next_cmd(minishell->cmd_table[i])
+			close_for_next_cmd(minishell->cmd_table[i++]);
 			continue;
 		}
+
 		// if it's a builtin function -> aux function that returns which function it is?
 		// execute built-in function:
 		// can it be more elegant than this, or... not really?
