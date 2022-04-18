@@ -74,7 +74,23 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 **	2. Rewrite the instruction line without the redirections.
 **	3. Get the tokens with spaces as delimiter.
 **
+**	If redir->arg is empty, then treat it as a syntax error.
+**
 */
+
+static bool	is_empty(char *text)
+{
+	int	i;
+
+	i = 0;
+	while (text[i])
+	{
+		if (text[i] != SPACE)
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions)
 {
@@ -88,6 +104,8 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 		if (cmd_table[i].nb_redirs)
 		{
 			cmd_table[i].redirs = get_redirs(instructions[i], cmd_table[i].nb_redirs);
+			if (is_empty(cmd_table[i].redirs->arg))
+				error_and_exit(REDIR_NO_ARG);
 			temp = rewrite_instruction_without_redirs(instructions[i]);
 			free(instructions[i]);
 			instructions[i] = temp;
