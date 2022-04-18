@@ -12,62 +12,71 @@ See if it still segfaults when proper executor is built!
  *	If there's a next command, open the pipe
  *	Update fd_out from current command and fd_in from next command
  *
+ * 2. REDIRECTIONS
+ *	Closes previous fd_in/out if not stdin/out (so pipe and other redirection)
+ *
  * X. CLOSING
- *	if fd_in != stdin close it, if fd_out != stdout close it
+ *	If fd_in != stdin close it, if fd_out != stdout close it
+ *	Right now, no matter how many pipes or redirections we have, we never go above fd 5
  *
  * Z. ERROR HANDLING
- *	- if pipe, open or close functions return an error, we exit
+ *	- if pipe or close functions return an error, we exit
+ *	- if open function returns an error, we display message and go to next command
+ *	  as it might be because the file doesn't exist (pretty common error)
  */
 
-void	execute_redirections(t_cmd_table *cmd)
+int	exec_redirs(t_cmd_table cmd)
 {
 	int	i;
 
 	i = 0;
-	while (i < cmd->nb_redirs)
+	while (i < cmd.nb_redirs)
 	{
 		if (cmd.redirs[i].type == OP_REDIR_IN)
 		{
 			if (cmd.fd_in != 0 && close(cmd.fd_in) == -1)
 				error_and_exit(CLOSE_FAIL);
-			cmd.fd_in = open_or_exit(cmd.redirs[i].arg, O_RDWR);
+			if ((cmd.fd_in = open(cmd.redirs[i].arg, O_RDWR, 00755)) == -1)
+				error_and_return(OPEN_FAIL, 1);
 		}
 		else if (cmd.redirs[i].type == OP_REDIR_OUT || cmd.redirs[i].type == OP_APPEND)
 		{
 			if (cmd.fd_out != 1 && close(cmd.fd_out) == -1)
 				error_and_exit(CLOSE_FAIL);
 			if (cmd.redirs[i].type == OP_APPEND)
-				cmd.fd_out = open_or_exit(cmd.redirs[i].arg, O_RDWR | O_CREAT | O_APPEND);
+				cmd.fd_out = open(cmd.redirs[i].arg, O_RDWR | O_CREAT | O_APPEND, 00755);
 			else
-				cmd.fd_out = open_or_exit(cmd.redirs[i].arg, O_RDWR | O_CREAT);
+				cmd.fd_out = open(cmd.redirs[i].arg, O_RDWR | O_CREAT, 00755);
+			if (cmd.fd_out == -1)
+				error_and_return(OPEN_FAIL, 1);
 		}
 		// TODO delimiter
 		i++;
 	}
+	DEBUG(printf("Redir In: %d, Redir Out: %d\n", cmd.fd_in, cmd.fd_out));
+	return (0);
 }
 
 int	execute(t_minishell *minishell)
 {
 	int	i;
 	int	fd[2];
-	int	j;
 
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
+		minishell->exit_code = 0;
 		if (i + 1 < minishell->nb_cmds)
 		{
 			if (pipe(fd) == -1)
-				error_and_exit(PIPE_FAIL); // TO THINK: does this make sense?
+				error_and_exit(PIPE_FAIL);
 			minishell->cmd_table[i].fd_out = fd[1];
 			minishell->cmd_table[i + 1].fd_in = fd[0];
 		}
-		execute_redirections(minishell->cmd_table[i]);
-		if (!minishell->cmd_table[i].cmd_name)
-		{
-			i++;
+		if ((minishell->exit_code = exec_redirs(minishell->cmd_table[i])))
 			continue;
-		}
+		if (!minishell->cmd_table[i].cmd_name)
+			continue;
 		// if it's a builtin function -> aux function that returns which function it is?
 		// execute built-in function:
 		// can it be more elegant than this, or... not really?

@@ -15,6 +15,12 @@ int		error_and_exit(t_error code)
 	exit(EXIT_FAILURE);
 }
 
+int		error_and_return(t_error code, int exit_code)
+{
+	error_message(code);
+	return (exit_code);
+}
+
 void	error_message(t_error code)
 {
 	if (code == ERR_NO_PRINT)
