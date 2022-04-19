@@ -28,6 +28,7 @@
 # include "debug.h"
 # include "parsing.h"
 # include "builtin_fts.h"
+# include "executing.h"
 
 /* INTERFACE */
 char	*get_instructions_line(int interactive, int fd);
