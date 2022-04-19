@@ -1,10 +1,10 @@
 #include "minishell.h"
 
 /*
-** Handles do_something_and_exit functions.
+** Handles do_something_and_exit or handle_error functions.
 */
 
-int		error_and_exit(t_error code)
+t_error	error_and_exit(t_error code)
 {
 	t_minishell *minishell;
 
@@ -15,7 +15,7 @@ int		error_and_exit(t_error code)
 	exit(EXIT_FAILURE);
 }
 
-int		error_and_return(t_error code, int exit_code)
+t_error	error_and_return(t_error code, int exit_code)
 {
 	error_message(code);
 	return (exit_code);
@@ -32,8 +32,8 @@ void	error_message(t_error code)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
 	else if (code == INVALID_IDENTIFIER)
 		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
-	else if (code == NO_CMD)
-		ft_putstr_fd("There is no command.\n", STDERR_FILENO);
+	else if (code == REDIR_NO_ARG)
+		ft_putstr_fd("Syntax error next to a redirection (no argument).\n", STDERR_FILENO);
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
@@ -41,7 +41,7 @@ void	error_message(t_error code)
 	}
 }
 
-int	open_or_exit(char *file_path, mode_t mode)
+t_error	open_or_exit(char *file_path, mode_t mode)
 {
 	int	fd;
 

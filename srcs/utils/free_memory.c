@@ -38,10 +38,10 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmds)
 	int	i;
 
 	i = 0;
-	DEBUG(printf("total of cmd to delete = %i\n", nb_cmds);)
+	//DEBUG(printf("total of cmd to delete = %i\n", nb_cmds);)
 	while (i < nb_cmds)
 	{
-		DEBUG(printf("deleting tokens in cmd_table number %i\n", i);)
+		//DEBUG(printf("deleting tokens in cmd_table number %i\n", i);)
 		if (cmd_table[i].redirs)
 			free_redirs(cmd_table[i].redirs, cmd_table[i].nb_redirs); 
 		if (cmd_table[i].tokens)
@@ -64,11 +64,11 @@ void	free_tokens(t_token *tokens, int nb_tokens)
 	int	i;
 
 	i = 0;
-	DEBUG(printf("total of tokens to delete = %i\n", nb_tokens);)
+	//DEBUG(printf("total of tokens to delete = %i\n", nb_tokens);)
 	while (i < nb_tokens)
 	{
 		free(tokens[i].text);
-		DEBUG(printf("deleting tokens = %i\n", i);)
+		//DEBUG(printf("deleting tokens = %i\n", i);)
 		i++;
 	}
 	free(tokens);
@@ -79,11 +79,11 @@ void	free_redirs(t_redir *redirs, int nb_redirs)
 	int	i;
 
 	i = 0;
-	DEBUG(printf("total of redirs to delete = %i\n", nb_redirs);)
+	//DEBUG(printf("total of redirs to delete = %i\n", nb_redirs);)
 	while (i < nb_redirs)
 	{
 		free(redirs[i].arg);
-		DEBUG(printf("deleting redirs = %i\n", i);)
+		//DEBUG(printf("deleting redirs = %i\n", i);)
 		i++;
 	}
 	free(redirs);

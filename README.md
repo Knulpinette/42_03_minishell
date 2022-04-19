@@ -5,7 +5,7 @@ Write a simple version of a shell.
 ## TO DO LIST
 
 Ophélie
-* Figure out delimiters and heredoc
+* Figure out delimiters and heredoc -> [Bash Manual Section](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Redirections)
 * Help on multiple pipe system
 
 Sara
