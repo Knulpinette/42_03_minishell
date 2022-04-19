@@ -72,14 +72,15 @@ typedef enum e_error_codes
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
 	WRONG_ARGC,
+	STOP_EXECUTION,
 	OPEN_FAIL,
+	CLOSE_FAIL,
+	PIPE_FAIL,
+	WRITE_FAIL,
 	WRONG_DIR,
 	NO_OLDPWD,
-	WRITE_FAIL,
 	INVALID_IDENTIFIER,
 	REDIR_NO_ARG,
-	PIPE_FAIL,
-	CLOSE_FAIL
 }				t_error;
 
 typedef struct s_minishell

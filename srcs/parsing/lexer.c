@@ -13,15 +13,17 @@
 ** 🌴🥥
 */
 
-void	lexer(char *line)
+t_error	lexer(char *line)
 {
 	t_minishell	*minishell;
+	t_error		exit_code;
 
 	minishell = get_minishell(NULL);
 	minishell->instructions = get_instructions(line, PIPE);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
-	get_command_tables(minishell->cmd_table, minishell->nb_cmds, minishell->instructions);
+	exit_code = get_command_tables(minishell->cmd_table, minishell->nb_cmds, minishell->instructions);
+	return (exit_code);
 }
 
 t_cmd_table	*init_cmd_table(int nb_cmds)
@@ -99,7 +101,7 @@ static char	*rewrite(char **text, int type)
 	return (*text);
 }
 
-void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions)
+t_error	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions)
 {
 	int		i;
 	int		j;
@@ -115,7 +117,7 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 			while (j < cmd_table[i].nb_redirs)
 			{
 				if (is_empty(cmd_table[i].redirs[j].arg))
-					error_and_return(REDIR_NO_ARG, SYNTAX_ERROR);
+					return (error_and_return(REDIR_NO_ARG, STOP_EXECUTION));
 				if (ft_strchr(cmd_table[i].redirs[j].arg, '$') && cmd_table[i].redirs[j].type != OP_DELIMITER)
 					cmd_table[i].redirs[j].arg = rewrite(&cmd_table[i].redirs[j].arg, ENV_VAR);
 				j++;
@@ -130,4 +132,5 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 			get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
 		i++;
 	}
+	return (0);
 }

@@ -19,13 +19,16 @@
 ** 🌴🥥
 */
 
-void	parse(char *line)
+t_error	parse(char *line)
 {
 	t_minishell	*minishell;
+	t_error		exit_code;
 	int			i;
 
 	minishell = get_minishell(NULL);
-	lexer(line);
+	exit_code = lexer(line);
+	if (exit_code == STOP_EXECUTION) // or any other type of error we'll need to care about. Let's see as we go.
+		return (error_and_return(0, STOP_EXECUTION));
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
@@ -37,7 +40,7 @@ void	parse(char *line)
 	DEBUG(print_debug();)
 	//VALIDATION (meaning)
 	//validate_input();
-	return ;
+	return (exit_code);
 }
 
 /*

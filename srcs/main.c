@@ -30,9 +30,10 @@ int	main(int argc, char **argv, char **envp)
 		line = get_instructions_line(argc != 2, fd);
 		if (!line)
 			return (0);
-		parse(line);
+		exit_code = parse(line);
 		free(line);
-		exit_code = execute(minishell);
+		if (exit_code != STOP_EXECUTION)
+			exit_code = execute(minishell);
 	}
 	free_minishell(minishell);
 	return (exit_code);
