@@ -47,7 +47,7 @@ static int	get_len_instruction(char *instruction, char **env_var)
 	return (len);
 }
 
-static char	*write_env_var_to_temp(char *instruction, char **env_var, int	len_instruction)
+static char	*write_env_var_to_temp(char *instruction, char **env_var, int len_instruction)
 {
 	char	*temp;
 	char	quote;

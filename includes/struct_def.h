@@ -64,6 +64,7 @@ typedef struct s_command_table
  * https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/
  */
 # define EXIT_FILE_NOT_FOUND 127
+# define SYNTAX_ERROR 258
 
 /* error codes for personalised error messages */
 typedef enum e_error_codes
@@ -71,14 +72,15 @@ typedef enum e_error_codes
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
 	WRONG_ARGC,
+	STOP_EXECUTION,
 	OPEN_FAIL,
+	CLOSE_FAIL,
+	PIPE_FAIL,
+	WRITE_FAIL,
 	WRONG_DIR,
 	NO_OLDPWD,
-	WRITE_FAIL,
 	INVALID_IDENTIFIER,
-	NO_CMD,
-	PIPE_FAIL,
-	CLOSE_FAIL
+	REDIR_NO_ARG,
 }				t_error;
 
 typedef struct s_minishell

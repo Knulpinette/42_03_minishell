@@ -89,9 +89,7 @@ char	**get_instructions(const char *s, char c)
 	if (!s)
 		return (NULL);
 	words = nb_words(s, c);
-	split = (char **)malloc(sizeof(char *) * (words + 1));
-	if (!split)
-		return (NULL);
+	split = calloc_or_exit(sizeof(char *), words + 1);
 	fill_instructions(s, c, words, split);
 	return (split);
 }

@@ -18,13 +18,13 @@ char			*rewrite_instruction_with_env_var(char *instruction);
 char			*rewrite_instruction_without_redirs(char *instruction);
 
 /* LEXER */
-void			lexer(char *line);
+t_error			lexer(char *line);
 t_cmd_table		*init_cmd_table(int nb_cmds);
-void			get_command_tables(
+t_error			get_command_tables(
 					t_cmd_table *cmd_table, int nb_cmds, char **instructions);
 
 /* PARSER */
-void			parse(char *line);
+t_error			parse(char *line);
 void			get_tokens_types(t_token *tokens, int nb_tokens);
 
 /* QUOTES */
