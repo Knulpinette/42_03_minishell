@@ -59,13 +59,13 @@ int	execute(t_minishell *minishell)
 			minishell->cmd_table[i].fd_out = fd[1];
 			minishell->cmd_table[i + 1].fd_in = fd[0];
 		}
-		if ((minishell->exit_code = exec_redirs(minishell->cmd_table[i]))
+		if ((minishell->exit_code = exec_redirs(&minishell->cmd_table[i]))
 			|| !minishell->cmd_table[i].cmd_name)
 		{
 			close_for_next_cmd(minishell->cmd_table[i++]);
 			continue;
 		}
-
+		DEBUG(printf("Redir In: %d, Redir Out: %d\n", minishell->cmd_table[i].fd_in, minishell->cmd_table[i].fd_out));
 		// if it's a builtin function -> aux function that returns which function it is?
 		// execute built-in function:
 		// can it be more elegant than this, or... not really?
