@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+// I need to change something
+// ls | cd (or cd | ls) -> cd runs in a child process, even though it's built-in
+// thus we don't actually change dir - we do, in the child process
 int exec_builtin(t_minishell *minishell, t_cmd_table *cmd)
 {
     if (ft_strncmp(cmd->cmd_name, "cd", 2) == 0)
