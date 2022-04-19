@@ -8,7 +8,7 @@ static int  exec_redirs_out(t_cmd_table *cmd, int i)
         cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT | O_APPEND, 00755);
     else
 	{
-        cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT, 00755);
+        cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT | O_TRUNC, 00755);
 	}
     if (cmd->fd_out == -1)
         return (error_and_return(OPEN_FAIL, 1));
@@ -37,5 +37,6 @@ int	exec_redirs(t_cmd_table *cmd)
 		// TODO delimiter
 		i++;
 	}
+	DEBUG(printf("Redir In: %d, Redir Out: %d\n", cmd->fd_in, cmd->fd_out));
 	return (0);
 }
