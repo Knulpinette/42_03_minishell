@@ -32,13 +32,8 @@ void	error_message(t_error code)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
 	else if (code == INVALID_IDENTIFIER)
 		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
-<<<<<<< HEAD
 	else if (code == REDIR_NO_ARG)
 		ft_putstr_fd("Syntax error next to a redirection (no argument).\n", STDERR_FILENO);
-=======
-	else if (code == NO_CMD)
-		ft_putstr_fd("There is no command.\n", STDERR_FILENO);
->>>>>>> dd7e1864859e71a7760aac4e9d610783a84f1ccf
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
