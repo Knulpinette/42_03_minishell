@@ -55,6 +55,7 @@ void	print_debug(void)
 	printf("_____\n📝 instructions\n");
 	printf("🔢 %i\n", minishell->nb_cmds);
 	print_split(minishell->instructions);
+	printf("_____\n");
 	while (i < minishell->nb_cmds)
 	{
 		printf("\n"YELLOW"INSTRUCTION %i"END_COLOR"\n", i + 1);
@@ -79,6 +80,7 @@ void	print_debug(void)
 			print_split(minishell->cmd_table[i].cmd_args);
 		else
 			printf("NO_CMD_ARGUMENTS\n");
+		printf("_____\n");
 		i++;
 	}
 }
