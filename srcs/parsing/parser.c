@@ -34,7 +34,7 @@ t_error	parse(char *line)
 	minishell = get_minishell(NULL);
 	exit_code = lexer(line);
 	if (exit_code == STOP_EXECUTION)
-		return (error_and_return(0, STOP_EXECUTION));
+		return (STOP_EXECUTION);
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{

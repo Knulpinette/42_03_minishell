@@ -15,7 +15,7 @@ t_error	error_and_exit(t_error code)
 	exit(EXIT_FAILURE);
 }
 
-t_error	error_and_return(t_error code, int exit_code)
+int	error_and_return(t_error code, int exit_code)
 {
 	error_message(code);
 	return (exit_code);
