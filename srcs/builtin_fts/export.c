@@ -13,19 +13,19 @@
  * If one prompts an error, the next one is still added
  */
 
-static void	print_export(t_list *env, int fd_in)
+static void	print_export(t_list *env, int fd_out)
 {
 	while (env)
 	{
-		ft_putstr_fd("declare -x ", fd_in);
-		ft_putstr_fd(get_env_lst_name(env), fd_in);
+		ft_putstr_fd("declare -x ", fd_out);
+		ft_putstr_fd(get_env_lst_name(env), fd_out);
 		if (get_env_lst_value(env))
 		{
-			write(fd_in, "=\"", 2);
-			ft_putstr_fd(get_env_lst_value(env), fd_in);
-			write(fd_in, "\"", 1);
+			write(fd_out, "=\"", 2);
+			ft_putstr_fd(get_env_lst_value(env), fd_out);
+			write(fd_out, "\"", 1);
 		}
-		write(fd_in, "\n", 1);
+		write(fd_out, "\n", 1);
 		env = env->next;
 	}
 }
@@ -62,7 +62,7 @@ int	export(t_cmd_table *cmd, t_minishell *minishell)
 	{
 		sorted_env = copy_env_lst(minishell->env);
 		merge_sort(&sorted_env);
-		print_export(sorted_env, cmd->fd_in);
+		print_export(sorted_env, cmd->fd_out);
 		ft_lstclear(&sorted_env, &del_env_content);
 		return (0);
 	}

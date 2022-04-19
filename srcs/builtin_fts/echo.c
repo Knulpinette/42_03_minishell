@@ -23,14 +23,14 @@ int	echo(t_cmd_table *cmd)
     i = 0;
     while (cmd->cmd_args[i])
     {
-        ft_putstr_fd(cmd->cmd_args[i], cmd->fd_in);
-        bytes_written = write(cmd->fd_in, " ", 1);
+        ft_putstr_fd(cmd->cmd_args[i], cmd->fd_out);
+        bytes_written = write(cmd->fd_out, " ", 1);
         if (bytes_written == -1)
             return (exit_echo());
         i++;
     }
     if (!(cmd->flags[0] && cmd->flags[0][1] == 'n'))
-        bytes_written = write(cmd->fd_in, "\n", 1);
+        bytes_written = write(cmd->fd_out, "\n", 1);
     if (bytes_written == -1)
         return (exit_echo());
     return (0);
