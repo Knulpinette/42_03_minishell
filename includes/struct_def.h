@@ -64,6 +64,7 @@ typedef struct s_command_table
  * https://www.cyberciti.biz/faq/linux-bash-exit-status-set-exit-statusin-bash/
  */
 # define EXIT_FILE_NOT_FOUND 127
+# define SYNTAX_ERROR 258
 
 /* error codes for personalised error messages */
 typedef enum e_error_codes
