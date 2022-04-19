@@ -9,7 +9,7 @@ static int  exec_redirs_out(t_cmd_table cmd, int i)
     else
         cmd.fd_out = open(cmd.redirs[i].arg, O_RDWR | O_CREAT, 00755);
     if (cmd.fd_out == -1)
-        error_and_return(OPEN_FAIL, 1);
+        return (error_and_return(OPEN_FAIL, 1));
     return (0);
 }
 
@@ -25,7 +25,7 @@ int	exec_redirs(t_cmd_table cmd)
 			if (cmd.fd_in != 0 && close(cmd.fd_in) == -1)
 				error_and_exit(CLOSE_FAIL);
 			if ((cmd.fd_in = open(cmd.redirs[i].arg, O_RDWR, 00755)) == -1)
-				error_and_return(OPEN_FAIL, 1);
+				return (error_and_return(OPEN_FAIL, 1));
 		}
 		else if (cmd.redirs[i].type == OP_REDIR_OUT || cmd.redirs[i].type == OP_APPEND)
 		{
