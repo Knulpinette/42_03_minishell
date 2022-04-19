@@ -52,7 +52,7 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 }
 
 /*
-**	get_command_tables
+**	get_command_tables (& two helper functions)
 **
 **	1. Get the redirections ('>', '<', '>>', '<<' and
 **		their following argument).
@@ -64,7 +64,8 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 **		the real path of the environement variable.)
 **	4. Get the tokens with spaces as delimiter.
 **
-**	If redir->arg is empty, then treat it as a syntax error.
+**	If redir->arg is empty, then treat it as a syntax error that will interupt
+**	overall execution of the input line.
 **
 */
 

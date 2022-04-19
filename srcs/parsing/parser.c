@@ -16,6 +16,12 @@
 **		 					**flags
 **		 					**cmd_args
 **
+**	ERROR : If there is a NO_EXECUTION error (syntax error from no argument 
+**	after a redirection for example), we need to return before assigning tokens
+**	that won't have been parsed. (To avoid a segfault.)
+**	No need to send a code_message since it will have been handled beforehand
+**	in lexer, where the exit_code was defined.
+**
 ** 🌴🥥
 */
 
@@ -27,7 +33,7 @@ t_error	parse(char *line)
 
 	minishell = get_minishell(NULL);
 	exit_code = lexer(line);
-	if (exit_code == STOP_EXECUTION) // or any other type of error we'll need to care about. Let's see as we go.
+	if (exit_code == STOP_EXECUTION)
 		return (error_and_return(0, STOP_EXECUTION));
 	i = 0;
 	while (i < minishell->nb_cmds)
@@ -38,8 +44,6 @@ t_error	parse(char *line)
 		i++;
 	}
 	DEBUG(print_debug();)
-	//VALIDATION (meaning)
-	//validate_input();
 	return (exit_code);
 }
 
