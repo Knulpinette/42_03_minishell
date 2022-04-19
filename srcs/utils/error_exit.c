@@ -15,6 +15,12 @@ int		error_and_exit(t_error code)
 	exit(EXIT_FAILURE);
 }
 
+int		error_and_return(t_error code, int exit_code)
+{
+	error_message(code);
+	return (exit_code);
+}
+
 void	error_message(t_error code)
 {
 	if (code == ERR_NO_PRINT)
@@ -26,8 +32,13 @@ void	error_message(t_error code)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
 	else if (code == INVALID_IDENTIFIER)
 		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
+<<<<<<< HEAD
 	else if (code == REDIR_NO_ARG)
 		ft_putstr_fd("Syntax error next to a redirection (no argument).\n", STDERR_FILENO);
+=======
+	else if (code == NO_CMD)
+		ft_putstr_fd("There is no command.\n", STDERR_FILENO);
+>>>>>>> dd7e1864859e71a7760aac4e9d610783a84f1ccf
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
@@ -39,7 +50,7 @@ int	open_or_exit(char *file_path, mode_t mode)
 {
 	int	fd;
 
-	fd = open(file_path, mode);
+	fd = open(file_path, mode, 00755);
 	if (fd == -1)
 		error_and_exit(OPEN_FAIL);
 	return (fd);
