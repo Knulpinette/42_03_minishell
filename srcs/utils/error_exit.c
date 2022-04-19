@@ -1,10 +1,10 @@
 #include "minishell.h"
 
 /*
-** Handles do_something_and_exit functions.
+** Handles do_something_and_exit or handle_error functions.
 */
 
-int		error_and_exit(t_error code)
+t_error	error_and_exit(t_error code)
 {
 	t_minishell *minishell;
 
@@ -15,7 +15,7 @@ int		error_and_exit(t_error code)
 	exit(EXIT_FAILURE);
 }
 
-int		error_and_return(t_error code, int exit_code)
+t_error	error_and_return(t_error code, int exit_code)
 {
 	error_message(code);
 	return (exit_code);
@@ -41,7 +41,7 @@ void	error_message(t_error code)
 	}
 }
 
-int	open_or_exit(char *file_path, mode_t mode)
+t_error	open_or_exit(char *file_path, mode_t mode)
 {
 	int	fd;
 
