@@ -1,13 +1,8 @@
 #include "minishell.h"
 
 /*
-** Case to check later (no command) : 
-	> hello | ls -l
-See if it still segfaults when proper executor is built! 
-*/
-
-
-/*
+ * 🥥🌴 EXECUTOR - Step by step 🥥🌴
+ *
  * 1. PIPES
  *	If there's a next command, open the pipe
  *	Update fd_out from current command and fd_in from next command
