@@ -22,7 +22,8 @@ t_error	lexer(char *line)
 	minishell->instructions = get_instructions(line, PIPE);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
-	exit_code = get_command_tables(minishell->cmd_table, minishell->nb_cmds, minishell->instructions);
+	exit_code = get_command_tables(minishell->cmd_table,
+					minishell->nb_cmds, minishell->instructions);
 	return (exit_code);
 }
 
@@ -119,18 +120,19 @@ t_error	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructi
 			{
 				if (is_empty(cmd_table[i].redirs[j].arg))
 					return (error_and_return(REDIR_NO_ARG, STOP_EXECUTION));
-				if (ft_strchr(cmd_table[i].redirs[j].arg, '$') && cmd_table[i].redirs[j].type != OP_DELIMITER)
-					cmd_table[i].redirs[j].arg = rewrite(&cmd_table[i].redirs[j].arg, ENV_VAR);
+				if (ft_strchr(cmd_table[i].redirs[j].arg, '$') && 
+						cmd_table[i].redirs[j].type != OP_DELIMITER)
+					cmd_table[i].redirs[j].arg = rewrite(&cmd_table[i].redirs[j].arg,
+													ENV_VAR);
 				j++;
 			}
 			instructions[i] = rewrite(&instructions[i], REDIR);
 		}
 		if (ft_strchr(instructions[i], '$'))
 			instructions[i] = rewrite(&instructions[i], ENV_VAR);;
-		cmd_table[i].nb_tokens =
-			get_nb_tokens(instructions[i], SPACE);
-		cmd_table[i].tokens =
-			get_tokens(instructions[i], SPACE, cmd_table[i].nb_tokens);
+		cmd_table[i].nb_tokens = get_nb_tokens(instructions[i], SPACE);
+		cmd_table[i].tokens = get_tokens(instructions[i],
+								SPACE, cmd_table[i].nb_tokens);
 		i++;
 	}
 	return (0);
