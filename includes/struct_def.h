@@ -76,13 +76,9 @@ typedef enum e_error_codes
 	NO_OLDPWD,
 	WRITE_FAIL,
 	INVALID_IDENTIFIER,
-<<<<<<< HEAD
 	REDIR_NO_ARG
-=======
-	NO_CMD,
 	PIPE_FAIL,
 	CLOSE_FAIL
->>>>>>> dd7e1864859e71a7760aac4e9d610783a84f1ccf
 }				t_error;
 
 typedef struct s_minishell

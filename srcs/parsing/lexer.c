@@ -115,7 +115,7 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 			while (j < cmd_table[i].nb_redirs)
 			{
 				if (is_empty(cmd_table[i].redirs[j].arg))
-					error_and_exit(REDIR_NO_ARG);
+					error_and_return(REDIR_NO_ARG);
 				if (ft_strchr(cmd_table[i].redirs[j].arg, '$') && cmd_table[i].redirs[j].type != OP_DELIMITER)
 					cmd_table[i].redirs[j].arg = rewrite(&cmd_table[i].redirs[j].arg, ENV_VAR);
 				j++;
