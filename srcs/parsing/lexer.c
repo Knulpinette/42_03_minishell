@@ -80,11 +80,29 @@ static bool	is_empty(char *text)
 	return (true);
 }
 
+static char	*rewrite(char **text, int type)
+{
+	char	*temp;
+
+	if (type == ENV_VAR)
+	{
+		temp = rewrite_instruction_with_env_var(*text);
+		free(*text);
+		*text = temp;
+	}
+	else if (type == REDIR)
+	{
+		temp = rewrite_instruction_without_redirs(*text);
+		free(*text);
+		*text = temp;
+	}
+	return (*text);
+}
+
 void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions)
 {
 	int		i;
 	int		j;
-	char	*temp;
 
 	i = 0;
 	while (i < nb_cmds)
@@ -99,23 +117,13 @@ void	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructions
 				if (is_empty(cmd_table[i].redirs[j].arg))
 					error_and_exit(REDIR_NO_ARG);
 				if (ft_strchr(cmd_table[i].redirs[j].arg, '$') && cmd_table[i].redirs[j].type != OP_DELIMITER)
-				{
-					temp = rewrite_instruction_with_env_var(cmd_table[i].redirs[j].arg);
-					free(cmd_table[i].redirs[j].arg);
-					cmd_table[i].redirs[j].arg = temp;
-				}
+					cmd_table[i].redirs[j].arg = rewrite(&cmd_table[i].redirs[j].arg, ENV_VAR);
 				j++;
 			}
-			temp = rewrite_instruction_without_redirs(instructions[i]);
-			free(instructions[i]);
-			instructions[i] = temp;
+			instructions[i] = rewrite(&instructions[i], REDIR);
 		}
 		if (ft_strchr(instructions[i], '$'))
-		{
-			temp = rewrite_instruction_with_env_var(instructions[i]);
-			free(instructions[i]);
-			instructions[i] = temp;
-		}
+			instructions[i] = rewrite(&instructions[i], ENV_VAR);;
 		cmd_table[i].nb_tokens =
 			get_nb_tokens(instructions[i], SPACE);
 		cmd_table[i].tokens =
