@@ -76,7 +76,7 @@ typedef enum e_error_codes
 	NO_OLDPWD,
 	WRITE_FAIL,
 	INVALID_IDENTIFIER,
-	REDIR_NO_ARG
+	REDIR_NO_ARG,
 	PIPE_FAIL,
 	CLOSE_FAIL
 }				t_error;
