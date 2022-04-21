@@ -1,18 +1,13 @@
 #include "minishell.h"
 
 /*
-** Case to check later (no command) : 
-	> hello | ls -l
-See if it still segfaults when proper executor is built! 
-*/
-
-
-/*
+ * 🥥🌴 EXECUTOR - Step by step 🥥🌴
+ *
  * 1. PIPES
  *	If there's a next command, open the pipe
  *	Update fd_out from current command and fd_in from next command
  *
- * 2. REDIRECTIONS
+ * 2. REDIRECTIONS -> in exec_redirs.c
  *	Closes previous fd_in/out if not stdin/out (so pipe and other redirection)
  *	Opens the new one
  *	If something happens we're out with exit_code 1
@@ -20,10 +15,11 @@ See if it still segfaults when proper executor is built!
  * 3. NO CMD
  *	If there's no command, we're out with exit_code 0
  *
- * 4. BUILT-IN
+ * 4. BUILT-IN FUNCTION -> in exec_cmd.c
  *	If the function is built-in, call it and update exit_code
+ *	If it's not built-in, returns 0 and calls function to execute other commands
  *
- * 5. NON-BUILT-IN
+ * 5. SYSTEM FUNCTION / NON-BUILT-IN -> in exec_cmd.c
  *
  * X. CLOSING
  *	If fd_in != stdin close it, if fd_out != stdout close it
@@ -43,6 +39,22 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 		close(cmd.fd_out);
 }
 
+// child process:
+// close pipe's reading end? Which is in next cmd fd_in?
+// if (fd_in != 0)
+// {
+// 	dup2(fd_in, STDIN_FILENO);
+// 	close(fd_in);
+// }
+// if (fd_out != 1)
+// {
+// 	dup2(fd_out, STDOUT_FILENO);
+// 	close(fd_out);
+// }
+// if (valid_command(pipex, 1)) // look into this function
+// 	execve(pipex->cmd_path, pipex->command, pipex->envp); // look into pipex struct
+// error_message(WRONG_CMD); // need to add this
+
 int	execute(t_minishell *minishell)
 {
 	int	i;
@@ -59,37 +71,19 @@ int	execute(t_minishell *minishell)
 			minishell->cmd_table[i].fd_out = fd[1];
 			minishell->cmd_table[i + 1].fd_in = fd[0];
 		}
-		if ((minishell->exit_code = exec_redirs(minishell->cmd_table[i]))
+		if ((minishell->exit_code = exec_redirs(&minishell->cmd_table[i]))
 			|| !minishell->cmd_table[i].cmd_name)
 		{
 			close_for_next_cmd(minishell->cmd_table[i++]);
 			continue;
 		}
-
-		// if it's a builtin function -> aux function that returns which function it is?
-		// execute built-in function:
-		// can it be more elegant than this, or... not really?
-		if (ft_strncmp(minishell->cmd_table[i].cmd_name, "cd", 2) == 0)
-			minishell->exit_code = cd(&minishell->cmd_table[i]);
-		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "pwd", 3) == 0)
-			minishell->exit_code = pwd(&minishell->cmd_table[i]);
-		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "env", 3) == 0)
-			minishell->exit_code = env(&minishell->cmd_table[i], minishell);
-		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "echo", 4) == 0)
-			minishell->exit_code = echo(&minishell->cmd_table[i]);
-		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "export", 6) == 0)
-			minishell->exit_code = export(&minishell->cmd_table[i], minishell);
-		else if (ft_strncmp(minishell->cmd_table[i].cmd_name, "unset", 5) == 0)
-			minishell->exit_code = unset(&minishell->cmd_table[i], minishell);
-		
-		// else if not built-in
-		// check if command exists and flags are appropriate with access (check discord)
-		// swap stdin/out with fd_in/out -> aftert the fork? we don't want to change stdout/in in main process...
-		// fork and call execve -> how to get exit code from it? (check goncalo tuto)
-
-		// error handling: if at some point something happens... still need to close stuff
-		// and update exit code
-
+		// if built-in && nb_cmds == 1
+		// exec_builtin
+		// else fork
+		// exec as follows inside child process, after doing what's above
+		// parent just waits
+		if (!exec_builtin(minishell, &minishell->cmd_table[i]))
+			exec_system(minishell, &minishell->cmd_table[i]);
 		close_for_next_cmd(minishell->cmd_table[i]);
 		i++;
 	}
