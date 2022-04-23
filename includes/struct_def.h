@@ -81,7 +81,8 @@ typedef enum e_error_codes
 	NO_OLDPWD,
 	INVALID_IDENTIFIER,
 	REDIR_NO_ARG,
-	FORK_FAIL
+	FORK_FAIL,
+	WRONG_CMD
 }				t_error;
 
 typedef struct s_minishell
