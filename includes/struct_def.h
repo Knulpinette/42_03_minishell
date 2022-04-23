@@ -90,7 +90,7 @@ typedef struct s_minishell
 	int			nb_cmds;
 	char		**instructions;
 	t_list		*env;
-	char		**envp_paths;
+	char		**env_paths;
 	t_cmd_table	*cmd_table;
 	int			exit_code;
 }				t_minishell;
