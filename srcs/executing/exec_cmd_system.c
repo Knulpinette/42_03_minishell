@@ -86,7 +86,7 @@ void exec_system(t_minishell *minishell, t_cmd_table *cmd)
     	dup2(cmd->fd_out, STDOUT_FILENO);
     	close(cmd->fd_out);
     }
-    // get paths here
+    get_cmd_paths(minishell);
     if (valid_command(minishell, cmd))
     {
         execve_args = build_execve_args(cmd);
@@ -98,5 +98,7 @@ void exec_system(t_minishell *minishell, t_cmd_table *cmd)
         free_split(execve_args);
         free(envp);
     }
+    // get exit code from execve
+    // cmd not found -> exit code 127
     error_and_exit(WRONG_CMD);
 }

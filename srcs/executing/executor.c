@@ -74,6 +74,7 @@ int	execute(t_minishell *minishell)
 				if (exec_builtin(minishell, &minishell->cmd_table[i]))
 					exit(EXIT_SUCCESS); // no idea, should I use exit_code? does it matter?
 				exec_system(minishell, &minishell->cmd_table[i]);
+				// get exit code from there
 			}
 			else
 				waitpid(pid, NULL, 0); // synchronous, this is a problem
