@@ -59,15 +59,10 @@ int	get_env_var_len(char *text)
 
 static char	*get_exit_code(void)
 {
-	/*t_minishell	*minishell;
-	int			i;
+	t_minishell	*minishell;
 
 	minishell = get_minishell(NULL);
-	i = 0;
-	while (minishell->exit_code[i])
-		i++;
-	return (ft_itoa(minishell->exit_code[i]));*/
-	return (ft_itoa(100));
+	return (ft_itoa(minishell->exit_code));
 }
 
 /*
