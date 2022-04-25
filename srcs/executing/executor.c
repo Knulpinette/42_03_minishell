@@ -41,9 +41,11 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 
 int	execute(t_minishell *minishell)
 {
-	int	i;
-	int	fd[2];
+	int		i;
+	int		fd[2];
 	pid_t	pid;
+	//int		exit_pid;
+	int		status;
 
 	i = 0;
 	while (i < minishell->nb_cmds)
@@ -77,7 +79,11 @@ int	execute(t_minishell *minishell)
 				// get exit code from there
 			}
 			else
-				waitpid(pid, NULL, 0); // synchronous, this is a problem
+			{
+				//exit_pid = waitpid(pid, NULL, 0); // synchronous, this is a problem
+				wait(&status);
+				printf("wait result %d %d\n", status, WIFEXITED(status));
+			}
 		}
 		// have an array of exit_codes
 		close_for_next_cmd(minishell->cmd_table[i]);
