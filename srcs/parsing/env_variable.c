@@ -53,6 +53,19 @@ int	get_env_var_len(char *text)
 	return (env_var_len);
 }
 
+static char	*get_exit_code(void)
+{
+	/*t_minishell	*minishell;
+	int			i;
+
+	minishell = get_minishell(NULL);
+	i = 0;
+	while (minishell->exit_code[i])
+		i++;
+	return (ft_itoa(minishell->exit_code[i]));*/
+	return (ft_itoa(100));
+}
+
 /*
 ** i = 1 to handle the '$'
 */
@@ -69,10 +82,12 @@ char	*get_env_var(char *text, int env_var_len)
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
 	while (text[i] && is_not_exception(text[i], ENV_VAR))
 		env_var[j++] = text[i++];
-	if (get_env_value(env_var))
-		result = strdup(get_env_value(env_var));
+	if (*env_var == '?')
+		result = ft_strjoin(get_exit_code(), env_var + 1);
+	else if (get_env_value(env_var))
+		result = ft_strdup(get_env_value(env_var));
 	else
-		result = strdup("");
+		result = ft_strdup("");
 	free(env_var);
 	DEBUG(printf("env_var_real_path = %s\n", result);)
 	return (result);
