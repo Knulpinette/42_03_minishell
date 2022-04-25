@@ -26,7 +26,7 @@ void	get_cmd_paths(t_minishell *minishell)
 	char	**raw_paths;
 
 	if (minishell->env_paths)
-		free(minishell->env_paths);
+		free_split(minishell->env_paths);
 	path_value = get_env_value("PATH");
 	if (!path_value)
 	{
