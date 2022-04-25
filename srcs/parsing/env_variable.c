@@ -17,9 +17,12 @@
 **		result as an allocated string.
 **		If the env_var doesn't exist, we return an empty string.
 **
-**	Exception: if we are dealing with $?, we need to expand whatever is
-**				behind (for example $?hello might give 100hello). $? calls
-**				the last command's exit_code. 
+**	Exceptions: 
+**	1. 	if we are dealing with $?, we need to expand whatever is
+**		behind (for example $?hello might give 100hello). $? calls
+**		the last command's exit_code.
+**	2.	if there is only '$', we need to return $ unexpanded or modified. 
+**
 **
 ** 🌴🥥
 */
