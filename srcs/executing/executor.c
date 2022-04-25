@@ -20,6 +20,8 @@
  *	If it's not built-in, returns 0 and calls function to execute other commands
  *
  * 5. SYSTEM FUNCTION / NON-BUILT-IN -> in exec_cmd.c
+ * WIFEXITED(status) returns 1 if child terminated normally
+ * WEXITSTATUS(status) returns child's exit code
  *
  * X. CLOSING
  *	If fd_in != stdin close it, if fd_out != stdout close it
@@ -44,7 +46,6 @@ int	execute(t_minishell *minishell)
 	int		i;
 	int		fd[2];
 	pid_t	pid;
-	//int		exit_pid;
 	int		status;
 
 	i = 0;
@@ -65,7 +66,7 @@ int	execute(t_minishell *minishell)
 			continue;
 		}
 		if (is_builtin(minishell->cmd_table[i].cmd_name) && minishell->nb_cmds == 1)
-			exec_builtin(minishell, &minishell->cmd_table[i]);
+			minishell->exit_code = exec_builtin(minishell, &minishell->cmd_table[i]);
 		else
 		{
 			pid = fork();
@@ -73,16 +74,16 @@ int	execute(t_minishell *minishell)
 				error_and_exit(FORK_FAIL);
 			if (pid == 0)
 			{
-				if (exec_builtin(minishell, &minishell->cmd_table[i]))
-					exit(EXIT_SUCCESS); // no idea, should I use exit_code? does it matter?
+				if (is_builtin(minishell->cmd_table[i].cmd_name))
+					exit(exec_builtin(minishell, &minishell->cmd_table[i]));
 				exec_system(minishell, &minishell->cmd_table[i]);
-				// get exit code from there
 			}
 			else
 			{
-				//exit_pid = waitpid(pid, NULL, 0); // synchronous, this is a problem
-				wait(&status);
-				printf("wait result %d %d\n", status, WIFEXITED(status));
+				waitpid(pid, &status, 0); // synchronous, this is a problem
+				if (WIFEXITED(status))
+					minishell->exit_code = WEXITSTATUS(status);
+				DEBUG(printf("Exit code: %d\n", WEXITSTATUS(status)));
 			}
 		}
 		// have an array of exit_codes

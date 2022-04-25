@@ -12,6 +12,10 @@ t_error	error_and_exit(t_error code)
 	error_message(code);
 	if (minishell)
 		free_minishell(minishell);
+	if (code == REDIR_NO_ARG)
+		exit(SYNTAX_ERROR);
+	if (code == WRONG_CMD)
+		exit(EXIT_FILE_NOT_FOUND);
 	exit(EXIT_FAILURE);
 }
 

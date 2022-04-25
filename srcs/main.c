@@ -32,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		exit_code = parse(line);
 		free(line);
-		if (exit_code != STOP_EXECUTION)
+		if (exit_code != SYNTAX_ERROR)
 			exit_code = execute(minishell);
 	}
 	free_minishell(minishell);

@@ -72,7 +72,6 @@ typedef enum e_error_codes
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
 	WRONG_ARGC,
-	STOP_EXECUTION,
 	OPEN_FAIL,
 	CLOSE_FAIL,
 	PIPE_FAIL,
