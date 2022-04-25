@@ -17,6 +17,13 @@
 **		result as an allocated string.
 **		If the env_var doesn't exist, we return an empty string.
 **
+**	Exceptions: 
+**	1. 	if we are dealing with $?, we need to expand whatever is
+**		behind (for example $?hello might give 100hello). $? calls
+**		the last command's exit_code.
+**	2.	if there is only '$', we need to return $ unexpanded or modified. 
+**
+**
 ** 🌴🥥
 */
 
@@ -53,6 +60,14 @@ int	get_env_var_len(char *text)
 	return (env_var_len);
 }
 
+static char	*get_exit_code(void)
+{
+	t_minishell	*minishell;
+
+	minishell = get_minishell(NULL);
+	return (ft_itoa(minishell->exit_code));
+}
+
 /*
 ** i = 1 to handle the '$'
 */
@@ -69,12 +84,16 @@ char	*get_env_var(char *text, int env_var_len)
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
 	while (text[i] && is_not_exception(text[i], ENV_VAR))
 		env_var[j++] = text[i++];
-	if (get_env_value(env_var))
-		result = strdup(get_env_value(env_var));
+	if (!*env_var)
+		result = ft_strdup("$");
+	else if (*env_var == '?')
+		result = ft_strjoin(get_exit_code(), env_var + 1);
+	else if (get_env_value(env_var))
+		result = ft_strdup(get_env_value(env_var));
 	else
-		result = strdup("");
+		result = ft_strdup("");
 	free(env_var);
-	DEBUG(printf("env_var_real_path = %s\n", result);)
+	//DEBUG(printf("env_var_real_path = %s\n", result);)
 	return (result);
 }
 
