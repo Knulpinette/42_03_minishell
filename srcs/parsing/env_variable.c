@@ -17,6 +17,10 @@
 **		result as an allocated string.
 **		If the env_var doesn't exist, we return an empty string.
 **
+**	Exception: if we are dealing with $?, we need to expand whatever is
+**				behind (for example $?hello might give 100hello). $? calls
+**				the last command's exit_code. 
+**
 ** 🌴🥥
 */
 
@@ -89,7 +93,7 @@ char	*get_env_var(char *text, int env_var_len)
 	else
 		result = ft_strdup("");
 	free(env_var);
-	DEBUG(printf("env_var_real_path = %s\n", result);)
+	//DEBUG(printf("env_var_real_path = %s\n", result);)
 	return (result);
 }
 
