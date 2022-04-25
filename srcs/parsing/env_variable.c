@@ -81,7 +81,6 @@ char	*get_env_var(char *text, int env_var_len)
 	env_var = calloc_or_exit(sizeof(char), env_var_len + 1);
 	while (text[i] && is_not_exception(text[i], ENV_VAR))
 		env_var[j++] = text[i++];
-	DEBUG(printf("env_var = %s\n", env_var));
 	if (!*env_var)
 		result = ft_strdup("$");
 	else if (*env_var == '?')
@@ -91,7 +90,7 @@ char	*get_env_var(char *text, int env_var_len)
 	else
 		result = ft_strdup("");
 	free(env_var);
-	DEBUG(printf("env_var_real_path = %s\n", result);)
+	//DEBUG(printf("env_var_real_path = %s\n", result);)
 	return (result);
 }
 
