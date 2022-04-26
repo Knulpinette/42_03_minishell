@@ -19,6 +19,8 @@
 # include <limits.h>
 # include <string.h>
 # include <stdbool.h>
+# include <signal.h>
+# include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../42_00_libft/libft.h"
