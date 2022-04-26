@@ -23,6 +23,7 @@ t_error	lexer(char *line)
 	{
 		free_split(minishell->instructions);
 		free_table(minishell->cmd_table, minishell->nb_cmds);
+		free(minishell->child_pids);
 	}
 	minishell->instructions = get_instructions(line, PIPE);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
