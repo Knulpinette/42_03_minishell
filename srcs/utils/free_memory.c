@@ -13,8 +13,8 @@ void	free_minishell(t_minishell *minishell)
 		free_table(minishell->cmd_table, minishell->nb_cmds);
 	if (minishell->env)
 		ft_lstclear(&minishell->env, &del_env_content);
-	if (minishell->envp_paths)
-		free_split(minishell->envp_paths);
+	if (minishell->env_paths)
+		free_split(minishell->env_paths);
 	if (minishell)
 		free(minishell);
 	return ;

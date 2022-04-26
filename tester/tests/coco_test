@@ -1,1 +1,61 @@
-echo cocoshells
+echo "COCO TEST 🥥"
+
+echo RUNNING: '"hello""world" > a > b > c'
+echo "hello""world" > a > b > c
+echo
+
+echo RUNNING: ls
+ls
+echo
+
+echo RUNNING: cat c
+cat c
+echo
+
+echo RUNNING: rm a b c
+rm a b c
+echo
+
+echo RUNNING cd | ls
+cd | ls
+echo RUNNING pwd - should be the original one!
+pwd
+echo
+
+echo RUNNING export ?? - exit status should be 1
+export ??
+echo $?
+echo
+
+echo RUNNING las - exit status should be 127
+las
+echo $?
+echo
+
+echo "RUNNING cat > - exit status should be 258"
+cat >
+echo $?
+echo
+
+echo "RUNNING sleep 5 | ls - should print immediately"
+sleep 5 | ls
+echo
+
+echo "RUNNING sleep 5 | las - exit status should be 127"
+sleep 5 | las
+echo $?
+echo
+
+echo "RUNNING unset PWD"
+unset PWD
+echo "RUNNING pwd"
+pwd
+echo
+
+echo "RUNNING unset PATH"
+unset PATH
+echo "RUNNING ls | wc"
+ls | wc
+echo
+
+echo "THE END 🌴"

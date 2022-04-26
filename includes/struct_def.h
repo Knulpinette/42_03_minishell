@@ -72,7 +72,6 @@ typedef enum e_error_codes
 	ERR_NO_PRINT,
 	MEMORY_FAIL,
 	WRONG_ARGC,
-	STOP_EXECUTION,
 	OPEN_FAIL,
 	CLOSE_FAIL,
 	PIPE_FAIL,
@@ -81,6 +80,8 @@ typedef enum e_error_codes
 	NO_OLDPWD,
 	INVALID_IDENTIFIER,
 	REDIR_NO_ARG,
+	FORK_FAIL,
+	WRONG_CMD
 }				t_error;
 
 typedef struct s_minishell
@@ -88,7 +89,7 @@ typedef struct s_minishell
 	int			nb_cmds;
 	char		**instructions;
 	t_list		*env;
-	char		**envp_paths;
+	char		**env_paths;
 	t_cmd_table	*cmd_table;
 	int			exit_code;
 }				t_minishell;

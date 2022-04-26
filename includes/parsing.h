@@ -7,10 +7,6 @@ int				get_env_var_len(char *text);
 char			*get_env_var(char *text, int env_var_len);
 char			**get_env_var_split(char *instruction);
 
-/* ENVIRONEMENT PATHS */
-char			**get_cmd_paths(char **envp);
-char			**finish_paths_by_slash(char **raw_paths);
-
 /* INSTRUCTIONS */
 char			**get_instructions(const char *s, char c);
 /* rewrite instructions */

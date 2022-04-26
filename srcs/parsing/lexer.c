@@ -119,7 +119,7 @@ t_error	get_command_tables(t_cmd_table *cmd_table, int nb_cmds, char **instructi
 			while (j < cmd_table[i].nb_redirs)
 			{
 				if (is_empty(cmd_table[i].redirs[j].arg))
-					return (error_and_return(REDIR_NO_ARG, STOP_EXECUTION));
+					return (error_and_return(REDIR_NO_ARG, SYNTAX_ERROR));
 				if (ft_strchr(cmd_table[i].redirs[j].arg, '$') && 
 						cmd_table[i].redirs[j].type != OP_DELIMITER)
 					cmd_table[i].redirs[j].arg = rewrite(&cmd_table[i].redirs[j].arg,
