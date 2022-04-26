@@ -1,13 +1,6 @@
 #ifndef EXECUTING_H
 # define EXECUTING_H
 
-typedef enum e_process
-{
-	MAIN = 1,
-	PARENT_PROCESS,
-	CHILD_PROCESS
-}				t_process;
-
 /* EXECUTOR */
 int		execute(t_minishell *minishell);
 
