@@ -1,36 +1,41 @@
 #include "minishell.h"
 
 /*
- * 🥥🌴 EXECUTOR - Step by step 🥥🌴
+ * 🥥🌴 EXECUTOR 🥥🌴
  *
- * 1. PIPES
- *	If there's a next command, open the pipe
- *	Update fd_out from current command and fd_in from next command
+ * 1. Pipes and Redirections (more in exec_redirs.c)
+ * An fd which is not STDIN nor STDOUT will be closed as soon as it's not needed
+ * - if there are redirections, the pipe's writing end is closed
+ * - if there are multiple redirections, the previous file is closed before the
+ *   next is opened
+ * - in this way, no matter how many redirections and/or pipes there might be,
+ *	 the fd never goes above 5
+ * - if something happens we're out with exit_code 1
  *
- * 2. REDIRECTIONS -> in exec_redirs.c
- *	Closes previous fd_in/out if not stdin/out (so pipe and other redirection)
- *	Opens the new one
- *	If something happens we're out with exit_code 1
+ * 2. If there's no command, we're out with exit_code 0
+ * 
+ * 3. If it's a built-in function and a single instruction, the command is ran
+ * in the minishell process. The exit code is updated with what the command
+ * returns and that is returned to the main.
  *
- * 3. NO CMD
- *	If there's no command, we're out with exit_code 0
+ * 4. Executing in a Child Process
+ * We need to create a child process, which will execute the command. In the
+ * parent process, we wait for all the child processes to execute and return the
+ * right exit code.
+ * - a command needs to start executing before the previous one is finished
+ *	 for e.g: sleep 5 | ls -> result of ls is printed before sleep finishes
+ * - once a command finishes execution, we need to close the writing end of the
+ *	 pipe, else if the following command expects input (such as cat or bc) it
+ *	 will keep on waiting forever
+ * - we need to return the exit code from the last command in the line, not the
+ *	 latest to finish execution. for e.g: sleep 5 | las -> returns 127 as las
+ *	 does not exist, even though sleep 5 finishes executing later. For that we
+ *	 wait and store the exit codes in order.
  *
- * 4. BUILT-IN FUNCTION -> in exec_cmd.c
- *	If the function is built-in, call it and update exit_code
- *	If it's not built-in, returns 0 and calls function to execute other commands
- *
- * 5. SYSTEM FUNCTION / NON-BUILT-IN -> in exec_cmd.c
- * WIFEXITED(status) returns 1 if child terminated normally
- * WEXITSTATUS(status) returns child's exit code
- *
- * X. CLOSING
- *	If fd_in != stdin close it, if fd_out != stdout close it
- *	Right now, no matter how many pipes or redirections we have, we never go above fd 5
- *
- * Z. ERROR HANDLING
- *	- if pipe or close functions return an error, we exit
- *	- if open function returns an error, we display message and go to next command
- *	  as it might be because the file doesn't exist (pretty common error)
+ * Error Handling
+ * - if pipe returns an error, we exit
+ * - if open function returns an error, we display message and go to next command
+ *	 as it might be because the file doesn't exist (pretty common user error)
  */
 
 static void	open_pipe(t_minishell *minishell, int i)
