@@ -2,14 +2,14 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int			fd;
-	char		*line;
-	t_minishell	*minishell;
-	int			exit_code;
+	int					fd;
+	char				*line;
+	t_minishell			*minishell;
+	int					exit_code;
 
 	if (argc > 2)
 		error_and_exit(WRONG_ARGC);
-	// TODO assign signals to appropriate handlers
+	signals(MAIN);
 	fd = 0;
 	if (argc == 2)
 		fd = open_or_exit(argv[1], O_RDONLY);
