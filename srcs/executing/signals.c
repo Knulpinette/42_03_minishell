@@ -12,26 +12,19 @@ static void	signal_handler(int sig_num)
 	return ;
 }
 
-static void	child_signal_handler(int sig_num)
+void	set_signals(pid_t *child_processes)
 {
-	if (sig_num == SIGINT)
-		write(1, "\n", 3);
-	else if (sig_num == SIGQUIT)
-		write(1, "Quit: 3\n", 8);
-	else
-		return ;
-}
-
-void	signals(t_process process)
-{
-	if (process == CHILD_PROCESS)
+	int i;
+	
+	i = 0;
+	if (child_processes)
 	{
-		signal(SIGINT, child_signal_handler);
-		signal(SIGQUIT, child_signal_handler);
+		while (child_processes[i])
+		{
+			kill(child_processes[i], SIGTERM);
+			i++;
+		}
 	}
-	else
-	{
-		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, SIG_IGN);
-	}
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

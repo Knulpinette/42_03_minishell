@@ -9,7 +9,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc > 2)
 		error_and_exit(WRONG_ARGC);
-	signals(MAIN);
+	set_signals(NULL);
 	fd = 0;
 	if (argc == 2)
 		fd = open_or_exit(argv[1], O_RDONLY);
