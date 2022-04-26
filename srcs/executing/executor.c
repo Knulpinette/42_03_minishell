@@ -51,41 +51,25 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 		close(cmd.fd_out);
 }
 
-int	execute(t_minishell *minishell)
+static void	exec_in_child(t_minishell *minishell, int i)
 {
-	int		i;
-	int		status;
-	int		*exit_codes;
-
-	i = 0;
-	while (i < minishell->nb_cmds)
+	minishell->child_pids[i] = fork();
+	if (minishell->child_pids[i] == -1)
+		error_and_exit(FORK_FAIL);
+	if (minishell->child_pids[i] == 0)
 	{
-		minishell->exit_code = 0;
-		if (i + 1 < minishell->nb_cmds)
-			open_pipe(minishell, i);
-		if ((minishell->exit_code = exec_redirs(&minishell->cmd_table[i]))
-			|| !minishell->cmd_table[i].cmd_name)
-		{
-			close_for_next_cmd(minishell->cmd_table[i++]);
-			continue;
-		}
-		if (is_builtin(minishell->cmd_table[i].cmd_name) && minishell->nb_cmds == 1)
-		{
-			minishell->exit_code = exec_builtin(minishell, &minishell->cmd_table[i]);
-			return (minishell->exit_code);
-		}
-		minishell->child_pids[i] = fork();
-		if (minishell->child_pids[i] == -1)
-			error_and_exit(FORK_FAIL);
-		if (minishell->child_pids[i] == 0)
-		{
-			if (is_builtin(minishell->cmd_table[i].cmd_name))
-				exit(exec_builtin(minishell, &minishell->cmd_table[i]));
-			exec_system(minishell, &minishell->cmd_table[i]);
-		}
-		close_for_next_cmd(minishell->cmd_table[i]);
-		i++;
+		if (is_builtin(minishell->cmd_table[i].cmd_name))
+			exit(exec_builtin(minishell, &minishell->cmd_table[i]));
+		exec_system(minishell, &minishell->cmd_table[i]);
 	}
+}
+
+static void wait_and_get_exit_code(t_minishell *minishell)
+{
+	int	i;
+	int	*exit_codes;
+	int	status;
+
 	i = 0;
 	exit_codes = (int *)calloc_or_exit(sizeof(int), minishell->nb_cmds);
 	while (i < minishell->nb_cmds)
@@ -99,5 +83,31 @@ int	execute(t_minishell *minishell)
 	}
 	minishell->exit_code = exit_codes[minishell->nb_cmds - 1];
 	free(exit_codes);
+}
+
+int	execute(t_minishell *minishell)
+{
+	int	i;
+
+	i = 0;
+	while (i < minishell->nb_cmds)
+	{
+		minishell->exit_code = 0;
+		if (i + 1 < minishell->nb_cmds)
+			open_pipe(minishell, i);
+		if ((minishell->exit_code = exec_redirs(&minishell->cmd_table[i]))
+			|| !minishell->cmd_table[i].cmd_name)
+		{
+			close_for_next_cmd(minishell->cmd_table[i++]);
+			continue;
+		}
+		if (is_builtin(minishell->cmd_table[i].cmd_name)
+			&& minishell->nb_cmds == 1)
+			return (minishell->exit_code = exec_builtin(minishell,
+				&minishell->cmd_table[i]));
+		exec_in_child(minishell, i);
+		close_for_next_cmd(minishell->cmd_table[i++]);
+	}
+	wait_and_get_exit_code(minishell);
 	return (minishell->exit_code);
 }
