@@ -1,5 +1,23 @@
 #include "minishell.h"
 
+/*
+** 🦕🌴
+**
+**	set_signals
+**
+**	1. CTRL-C
+**		Interrupt the current processes in minishell but NOT exit minishell.
+**	2. CTRL-\
+**		Do nothing. "Quit: 3\n"
+**	3. CTRL-D (EOF)
+**		Already works. Nothing to do.
+**
+**	The way our executor is build, we need to kill all ongoing processes
+**	"manually".
+**
+** 🌴🥥
+*/
+
 static void	signal_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
@@ -8,23 +26,25 @@ static void	signal_handler(int sig_num)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		//see if it would work with ft_putstr_fd(STDIN_FILENO, "^C\n"); instead and deleting ongoing processes
+		//see if it would work with 
+		//ft_putstr_fd(STDIN_FILENO, "^C\n"); 
+		//instead and deleting ongoing processes
 	}
 	return ;
 }
 
-void	set_signals(pid_t *child_processes)
+void	set_signals(pid_t *processes)
 {
 	int i;
 	
 	i = 0;
-	if (child_processes)
+	if (processes)
 	{
-		while (child_processes[i])
+		while (processes[i])
 		{
-			kill(child_processes[i], SIGTERM);
+			kill(processes[i], SIGTERM);
 			i++;
-			DEBUG(write(STDIN_FILENO, "CHILD_PROCESS\n", 14);)
+			DEBUG(write(STDIN_FILENO, "PROCESS\n", 14);)
 		}
 	}
 	signal(SIGINT, signal_handler);
