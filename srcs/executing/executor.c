@@ -33,6 +33,16 @@
  *	  as it might be because the file doesn't exist (pretty common error)
  */
 
+static void	open_pipe(t_minishell *minishell, int i)
+{
+	int	fd[2];
+
+	if (pipe(fd) == -1)
+		error_and_exit(PIPE_FAIL);
+	minishell->cmd_table[i].fd_out = fd[1];
+	minishell->cmd_table[i + 1].fd_in = fd[0];
+}
+
 static void	close_for_next_cmd(t_cmd_table cmd)
 {
 	if (cmd.fd_in != 0)
@@ -44,7 +54,6 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 int	execute(t_minishell *minishell)
 {
 	int		i;
-	int		fd[2];
 	pid_t	pid;
 	int		status;
 
@@ -53,12 +62,7 @@ int	execute(t_minishell *minishell)
 	{
 		minishell->exit_code = 0;
 		if (i + 1 < minishell->nb_cmds)
-		{
-			if (pipe(fd) == -1)
-				error_and_exit(PIPE_FAIL);
-			minishell->cmd_table[i].fd_out = fd[1];
-			minishell->cmd_table[i + 1].fd_in = fd[0];
-		}
+			open_pipe(minishell, i);
 		if ((minishell->exit_code = exec_redirs(&minishell->cmd_table[i]))
 			|| !minishell->cmd_table[i].cmd_name)
 		{
