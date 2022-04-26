@@ -27,8 +27,7 @@ static void	signal_handler(int sig_num)
 		rl_on_new_line();
 		rl_redisplay();
 		//see if it would work with 
-		//ft_putstr_fd(STDIN_FILENO, "^C\n"); 
-		//instead and deleting ongoing processes
+		//ft_putstr_fd(STDIN_FILENO, "\n"); 
 	}
 	return ;
 }
