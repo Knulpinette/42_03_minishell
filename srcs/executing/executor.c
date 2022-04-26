@@ -54,7 +54,6 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 int	execute(t_minishell *minishell)
 {
 	int		i;
-	pid_t	pid;
 	int		status;
 
 	i = 0;
@@ -73,10 +72,10 @@ int	execute(t_minishell *minishell)
 			minishell->exit_code = exec_builtin(minishell, &minishell->cmd_table[i]);
 		else
 		{
-			pid = fork();
-			if (pid == -1)
+			minishell->child_pids[i] = fork();
+			if (minishell->child_pids[i] == -1)
 				error_and_exit(FORK_FAIL);
-			if (pid == 0)
+			if (minishell->child_pids[i] == 0)
 			{
 				if (is_builtin(minishell->cmd_table[i].cmd_name))
 					exit(exec_builtin(minishell, &minishell->cmd_table[i]));
@@ -84,7 +83,7 @@ int	execute(t_minishell *minishell)
 			}
 			else
 			{
-				waitpid(pid, &status, 0); // synchronous, this is a problem
+				waitpid(minishell->child_pids[i], &status, 0); // synchronous, this is a problem
 				if (WIFEXITED(status))
 					minishell->exit_code = WEXITSTATUS(status);
 				DEBUG(printf("Exit code: %d\n", WEXITSTATUS(status)));

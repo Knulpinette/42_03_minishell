@@ -22,6 +22,7 @@ t_error	lexer(char *line)
 	minishell->instructions = get_instructions(line, PIPE);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
+	minishell->child_pids = calloc_or_exit(sizeof(pid_t), minishell->nb_cmds);
 	exit_code = get_command_tables(minishell->cmd_table,
 					minishell->nb_cmds, minishell->instructions);
 	return (exit_code);
