@@ -19,6 +19,11 @@ t_error	lexer(char *line)
 	t_error		exit_code;
 
 	minishell = get_minishell(NULL);
+	if (minishell->nb_cmds)
+	{
+		free_split(minishell->instructions);
+		free_table(minishell->cmd_table, minishell->nb_cmds);
+	}
 	minishell->instructions = get_instructions(line, PIPE);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);

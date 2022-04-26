@@ -49,9 +49,9 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmds)
 		if (cmd_table[i].tokens)
 			free_tokens(cmd_table[i].tokens, cmd_table[i].nb_tokens);
 		if (cmd_table[i].flags)
-			free_split(cmd_table[i].flags);
+			free(cmd_table[i].flags);
 		if (cmd_table[i].cmd_args)
-			free_split(cmd_table[i].cmd_args);
+			free(cmd_table[i].cmd_args);
 		if (cmd_table[i].fd_in != 0)
 			close(cmd_table[i].fd_in);
 		if (cmd_table[i].fd_out != 1)

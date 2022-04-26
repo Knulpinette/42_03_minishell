@@ -60,17 +60,17 @@ We validate and verify the meaning of the result given by the parser.
 ## Useful Links
 
 > **General links**
->> [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
->> [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
+>> [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f) <br>
+>> [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/) <br>
 >> [Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
 
 > **Links from Maria**
->> [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c)
->> [Bash parser](https://vorpaljs.github.io/bash-parser-playground/)
+>> [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c) <br>
+>> [Bash parser](https://vorpaljs.github.io/bash-parser-playground/) <br>
 >> [Shell Command Langage Details](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_01)
 
 > **Links from Discord**
->> [AST viewer](https://ast-viewer.datacamp.com/editor?code=echo%20alo%20%3E%20aqui.txt%20bla%20bla%20%3E%3E%20alo.txt%20test%20%7C%20wc%20%7C%20ls%20%3E%20aqui.txt&start=NA&grammar=shell)
->> [Termcaps](https://github.com/Olbrien/42Lisboa-lvl_3_minishell/blob/main/extras/termcaps_history_explanation/termcaps.c)
+>> [AST viewer](https://ast-viewer.datacamp.com/editor?code=echo%20alo%20%3E%20aqui.txt%20bla%20bla%20%3E%3E%20alo.txt%20test%20%7C%20wc%20%7C%20ls%20%3E%20aqui.txt&start=NA&grammar=shell) <br>
+>> [Termcaps](https://github.com/Olbrien/42Lisboa-lvl_3_minishell/blob/main/extras/termcaps_history_explanation/termcaps.c) <br>
 >> [Pipes, forks & dups](https://www.rozmichelle.com/pipes-forks-dups/)
 

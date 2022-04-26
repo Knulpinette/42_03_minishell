@@ -63,6 +63,7 @@ void	del_env_content(void *env_var)
 {
 	free(((t_env *)env_var)->name);
 	free(((t_env *)env_var)->value);
+	free(env_var);
 }
 
 void	delone_env_lst(t_list *to_del, t_list **env)
