@@ -10,7 +10,6 @@ int	main(void)
 	pid_t	pid[NB_KIDS];
 	int		status;
 	int		exit_code[NB_KIDS];
-	int		j;
 
 	i = 0;
 	while (i < NB_KIDS)
@@ -27,17 +26,14 @@ int	main(void)
 			printf("Child process %d\n", i);
 			exit(i);
 		}
-		else if (i == NB_KIDS - 1)
-		{
-			j = 0;
-			while (j < NB_KIDS)
-			{
-				waitpid(pid[j], &status, 0);
-				if (WIFEXITED(status))
-					exit_code[j] = WEXITSTATUS(status);
-				j++;
-			}
-		}
+		i++;
+	}
+	i = 0;
+	while (i < NB_KIDS)
+	{
+		waitpid(pid[i], &status, 0);
+		if (WIFEXITED(status))
+			exit_code[i] = WEXITSTATUS(status);
 		i++;
 	}
 	i = 0;
