@@ -54,7 +54,9 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 int	execute(t_minishell *minishell)
 {
 	int		i;
+	int		j;
 	int		status;
+	int		*exit_codes;
 
 	i = 0;
 	while (i < minishell->nb_cmds)
@@ -81,18 +83,24 @@ int	execute(t_minishell *minishell)
 					exit(exec_builtin(minishell, &minishell->cmd_table[i]));
 				exec_system(minishell, &minishell->cmd_table[i]);
 			}
-			else
+			else if (i == minishell->nb_cmds - 1)
 			{
-				waitpid(minishell->child_pids[i], &status, 0); // synchronous, this is a problem
-				if (WIFEXITED(status))
-					minishell->exit_code = WEXITSTATUS(status);
-				DEBUG(printf("Exit code: %d\n", WEXITSTATUS(status)));
+				j = 0;
+				exit_codes = (int *)calloc_or_exit(sizeof(int), minishell->nb_cmds);
+				while (j < minishell->nb_cmds)
+				{
+					waitpid(minishell->child_pids[j], &status, 0);
+					if (WIFEXITED(status))
+						exit_codes[j] = WEXITSTATUS(status);
+					DEBUG(printf("Exit code cmd %d: %d\n", j + 1, exit_codes[j]));
+					close_for_next_cmd(minishell->cmd_table[j]);
+					j++;
+				}
+				minishell->exit_code = exit_codes[minishell->nb_cmds - 1];
+				free(exit_codes);
 			}
 		}
-		// have an array of exit_codes
-		close_for_next_cmd(minishell->cmd_table[i]);
 		i++;
 	}
-	// update exit_code with last one
 	return (minishell->exit_code);
 }
