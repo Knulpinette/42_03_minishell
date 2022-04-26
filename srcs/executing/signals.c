@@ -23,6 +23,7 @@ void	set_signals(pid_t *child_processes)
 		{
 			kill(child_processes[i], SIGTERM);
 			i++;
+			write(STDIN_FILENO, "CHILD_PROCESS\n", 14);
 		}
 	}
 	signal(SIGINT, signal_handler);
