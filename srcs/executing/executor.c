@@ -20,6 +20,8 @@
  *	If it's not built-in, returns 0 and calls function to execute other commands
  *
  * 5. SYSTEM FUNCTION / NON-BUILT-IN -> in exec_cmd.c
+ * WIFEXITED(status) returns 1 if child terminated normally
+ * WEXITSTATUS(status) returns child's exit code
  *
  * X. CLOSING
  *	If fd_in != stdin close it, if fd_out != stdout close it
@@ -39,26 +41,12 @@ static void	close_for_next_cmd(t_cmd_table cmd)
 		close(cmd.fd_out);
 }
 
-// child process:
-// close pipe's reading end? Which is in next cmd fd_in?
-// if (fd_in != 0)
-// {
-// 	dup2(fd_in, STDIN_FILENO);
-// 	close(fd_in);
-// }
-// if (fd_out != 1)
-// {
-// 	dup2(fd_out, STDOUT_FILENO);
-// 	close(fd_out);
-// }
-// if (valid_command(pipex, 1)) // look into this function
-// 	execve(pipex->cmd_path, pipex->command, pipex->envp); // look into pipex struct
-// error_message(WRONG_CMD); // need to add this
-
 int	execute(t_minishell *minishell)
 {
-	int	i;
-	int	fd[2];
+	int		i;
+	int		fd[2];
+	pid_t	pid;
+	int		status;
 
 	i = 0;
 	while (i < minishell->nb_cmds)
@@ -77,15 +65,31 @@ int	execute(t_minishell *minishell)
 			close_for_next_cmd(minishell->cmd_table[i++]);
 			continue;
 		}
-		// if built-in && nb_cmds == 1
-		// exec_builtin
-		// else fork
-		// exec as follows inside child process, after doing what's above
-		// parent just waits
-		if (!exec_builtin(minishell, &minishell->cmd_table[i]))
-			exec_system(minishell, &minishell->cmd_table[i]);
+		if (is_builtin(minishell->cmd_table[i].cmd_name) && minishell->nb_cmds == 1)
+			minishell->exit_code = exec_builtin(minishell, &minishell->cmd_table[i]);
+		else
+		{
+			pid = fork();
+			if (pid == -1)
+				error_and_exit(FORK_FAIL);
+			if (pid == 0)
+			{
+				if (is_builtin(minishell->cmd_table[i].cmd_name))
+					exit(exec_builtin(minishell, &minishell->cmd_table[i]));
+				exec_system(minishell, &minishell->cmd_table[i]);
+			}
+			else
+			{
+				waitpid(pid, &status, 0); // synchronous, this is a problem
+				if (WIFEXITED(status))
+					minishell->exit_code = WEXITSTATUS(status);
+				DEBUG(printf("Exit code: %d\n", WEXITSTATUS(status)));
+			}
+		}
+		// have an array of exit_codes
 		close_for_next_cmd(minishell->cmd_table[i]);
 		i++;
 	}
+	// update exit_code with last one
 	return (minishell->exit_code);
 }

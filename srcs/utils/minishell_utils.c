@@ -31,7 +31,7 @@ t_minishell		*init_minishell(char **envp)
 	minishell->nb_cmds = 0;
 	minishell->instructions = NULL;
 	minishell->env = init_env_lst(envp);
-	minishell->envp_paths = get_cmd_paths(envp);
+	minishell->env_paths = NULL;
 	minishell->cmd_table = NULL;
 	minishell->exit_code = 0;
 	return (minishell);

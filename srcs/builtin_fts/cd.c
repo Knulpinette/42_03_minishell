@@ -13,10 +13,6 @@
  * In zsh it says "cd: string not in pwd: <first_arg>"
  * In bash, the first time we open the terminal there is no OLDPWD yet,
  * thus calling cd - returns "bash: cd: OLDPWD not set"
- *
- * If we redirect the output from cd . (for e.g.) to a file (which is nothing)
- * it rewrites the file with nothing (if there was something there).
- * In order to obtain that effect, we write nothing (write(..., "", 0);)
  */
 
 static char	*update_cwd(char *cwd)
@@ -61,9 +57,6 @@ int	cd(t_cmd_table *cmd)
 	set_env_value("PWD", cwd);
 	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
 		pwd(cmd);
-	//else
-	//	write(cmd->fd_out, "", 0);
-	// TODO test this once redirections are handled
 	DEBUG(printf("PWD: %s\n", get_env_value("PWD")));
 	DEBUG(printf("OLDPWD: %s\n", get_env_value("OLDPWD")));	
 	free(cwd);

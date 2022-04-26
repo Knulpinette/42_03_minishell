@@ -35,7 +35,4 @@
 /* INTERFACE */
 char	*get_instructions_line(int interactive, int fd);
 
-/* EXECUTOR */
-int		execute(t_minishell *minishell);
-
 #endif

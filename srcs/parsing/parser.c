@@ -33,8 +33,11 @@ t_error	parse(char *line)
 
 	minishell = get_minishell(NULL);
 	exit_code = lexer(line);
-	if (exit_code == STOP_EXECUTION)
-		return (STOP_EXECUTION);
+	if (exit_code == SYNTAX_ERROR)
+	{
+		minishell->exit_code = SYNTAX_ERROR;
+		return (SYNTAX_ERROR);
+	}
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{

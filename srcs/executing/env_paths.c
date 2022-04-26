@@ -20,17 +20,23 @@
 ** 🌴🥥
 */
 
-char	**get_cmd_paths(char **envp)
+void	get_cmd_paths(t_minishell *minishell)
 {
+	char	*path_value;
 	char	**raw_paths;
-	char	**paths;
 
-	while (*envp && ft_strncmp(*envp, "PATH=", 5))
-		envp++;
-	raw_paths = ft_split((*envp + 5), ':');
-	paths = finish_paths_by_slash(raw_paths);
+	if (minishell->env_paths)
+		free_split(minishell->env_paths);
+	path_value = get_env_value("PATH");
+	if (!path_value)
+	{
+		minishell->env_paths = (char **)calloc_or_exit(sizeof(char *), 1);
+		minishell->env_paths[0] = 0;
+		return ;
+	}
+	raw_paths = ft_split(path_value, ':');
+	minishell->env_paths = finish_paths_by_slash(raw_paths);
 	free_split(raw_paths);
-	return (paths);
 }
 
 /*
