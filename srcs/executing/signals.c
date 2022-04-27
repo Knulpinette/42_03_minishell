@@ -22,10 +22,10 @@ static void	signal_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
-		rl_replace_line("", 0);
+		/*rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_redisplay();
+		rl_redisplay();*/
 		//see if it would work with 
 		//ft_putstr_fd(STDIN_FILENO, "\n"); 
 	}

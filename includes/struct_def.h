@@ -65,6 +65,8 @@ typedef struct s_command_table
  */
 # define EXIT_FILE_NOT_FOUND 127
 # define SYNTAX_ERROR 258
+# define EXIT_SIGINT 130
+# define EXIT_SIGQUIT 131
 
 /* error codes for personalised error messages */
 typedef enum e_error_codes
@@ -91,6 +93,7 @@ typedef struct s_minishell
 	t_list		*env;
 	char		**env_paths;
 	t_cmd_table	*cmd_table;
+	pid_t		*child_pids;
 	int			exit_code;
 }				t_minishell;
 

@@ -46,6 +46,14 @@ sleep 5 | las
 echo $?
 echo
 
+echo "RUNNING echo 2+2 | bc"
+echo 2+2 | bc
+echo
+
+echo "RUNNING echo coconut | cat"
+echo coconut | cat
+echo
+
 echo "RUNNING unset PWD"
 unset PWD
 echo "RUNNING pwd"

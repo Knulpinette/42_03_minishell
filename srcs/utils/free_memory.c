@@ -15,6 +15,8 @@ void	free_minishell(t_minishell *minishell)
 		ft_lstclear(&minishell->env, &del_env_content);
 	if (minishell->env_paths)
 		free_split(minishell->env_paths);
+	if (minishell->child_pids)
+		free(minishell->child_pids);
 	if (minishell)
 		free(minishell);
 	return ;

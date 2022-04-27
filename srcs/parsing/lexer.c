@@ -23,10 +23,13 @@ t_error	lexer(char *line)
 	{
 		free_split(minishell->instructions);
 		free_table(minishell->cmd_table, minishell->nb_cmds);
+		free(minishell->child_pids);
 	}
 	minishell->instructions = get_instructions(line, PIPE);
 	minishell->nb_cmds = get_array_len(minishell->instructions);
 	minishell->cmd_table = init_cmd_table(minishell->nb_cmds);
+	minishell->child_pids = (pid_t *)calloc_or_exit(sizeof(pid_t),
+								minishell->nb_cmds);
 	exit_code = get_command_tables(minishell->cmd_table,
 					minishell->nb_cmds, minishell->instructions);
 	return (exit_code);
