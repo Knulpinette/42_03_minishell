@@ -22,16 +22,17 @@ static void	signal_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{ 
-		rl_replace_line("", 0);
-		write(STDIN_FILENO, "\n", 1); 
-		rl_on_new_line();
-		rl_redisplay();
+		rl_replace_line("", 0); // you need to replace the line currently stored or else it will keep it in memory and display it again
+		write(STDIN_FILENO, "\n", 1); // as per the subject
+		rl_on_new_line(); // resetting rl for the new line you'll write
+		rl_redisplay(); // display > (I think)
 	}
 	return ;
 }
 
 void	set_signals(void)
 {
+	// SO, minishell->child_pids will always be null, turns out. Doesn't seem to be a problem though. And looking at other people's code, it seems like no one is killing the processes... not sure of why it isn't working when I try stuff. Maybe I'm trying wrong because I'm not sure what's going on. 
 	/*t_minishell	*minishell;
 	int 		i;
 	
