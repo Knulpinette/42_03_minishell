@@ -22,6 +22,7 @@ static void	signal_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{ 
+		// handle bug for ls -l | sleep 360 that displays ^C\n> >
 		rl_replace_line("", 0); // you need to replace the line currently stored or else it will keep it in memory and display it again
 		write(STDIN_FILENO, "\n", 1); // as per the subject
 		rl_on_new_line(); // resetting rl for the new line you'll write

@@ -79,7 +79,7 @@ static void wait_and_get_exit_code(t_minishell *minishell)
 	exit_codes = (int *)calloc_or_exit(sizeof(int), minishell->nb_cmds);
 	while (i < minishell->nb_cmds)
 	{
-		printf("Waiting for %d\n", minishell->child_pids[i]);
+		DEBUG(printf("Waiting for %d\n", minishell->child_pids[i]);)
 		waitpid(minishell->child_pids[i], &status, 0);
 		if (WIFEXITED(status))
 			exit_codes[i] = WEXITSTATUS(status);
