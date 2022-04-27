@@ -21,31 +21,31 @@
 static void	signal_handler(int sig_num)
 {
 	if (sig_num == SIGINT)
-	{
-		/*rl_replace_line("", 0);
-		write(1, "\n", 1);
+	{ 
+		rl_replace_line("", 0);
+		write(STDIN_FILENO, "\n", 1); 
 		rl_on_new_line();
-		rl_redisplay();*/
-		//see if it would work with 
-		//ft_putstr_fd(STDIN_FILENO, "\n"); 
+		rl_redisplay();
 	}
 	return ;
 }
 
-void	set_signals(pid_t *processes)
+void	set_signals(void)
 {
-	int i;
+	/*t_minishell	*minishell;
+	int 		i;
 	
+	minishell = get_minishell(NULL);
 	i = 0;
-	if (processes)
+	if (minishell->child_pids)
 	{
-		while (processes[i])
+		DEBUG(write(STDIN_FILENO, "PROCESS\n", 14);)
+		while (i < minishell->nb_cmds)
 		{
-			kill(processes[i], SIGTERM);
+			kill(minishell->child_pids[i], SIGTERM);
 			i++;
-			DEBUG(write(STDIN_FILENO, "PROCESS\n", 14);)
 		}
-	}
+	}*/
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
