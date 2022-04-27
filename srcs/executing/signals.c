@@ -32,7 +32,6 @@ static void	signal_handler(int sig_num)
 
 void	set_signals(void)
 {
-	// SO, minishell->child_pids will always be null, turns out. Doesn't seem to be a problem though. And looking at other people's code, it seems like no one is killing the processes... not sure of why it isn't working when I try stuff. Maybe I'm trying wrong because I'm not sure what's going on. 
 	/*t_minishell	*minishell;
 	int 		i;
 	
