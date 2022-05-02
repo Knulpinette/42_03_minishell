@@ -33,7 +33,7 @@
 ** 🌴🥥
 */
 
-bool			is_not_exception(char letter, t_token_type type)
+bool	is_not_exception(char letter, t_token_type type)
 {
 	if (letter == SPACE)
 		return (false);
@@ -51,7 +51,7 @@ bool			is_not_exception(char letter, t_token_type type)
 		return (true);
 }
 
-int				pass_space(char *text)
+int	pass_space(char *text)
 {
 	int	count;
 
@@ -61,7 +61,7 @@ int				pass_space(char *text)
 	return (count);
 }
 
-int				pass_redir(char *instruction)
+int	pass_redir(char *instruction)
 {
 	int		count;
 	char	redir;
@@ -73,8 +73,9 @@ int				pass_redir(char *instruction)
 	if (instruction[count] && instruction[count] == redir)
 		count++;
 	count += pass_space(instruction + count);
-	while (instruction[count] && ((!quote &&
-			is_not_exception(instruction[count], REDIR)) || quote))
+	while (instruction[count]
+		&& ((!quote && is_not_exception(instruction[count], REDIR))
+			|| quote))
 	{
 		quote = check_quote(instruction[count], quote);
 		count++;
@@ -82,7 +83,7 @@ int				pass_redir(char *instruction)
 	return (count);
 }
 
-bool			text_is_all_n(char *text)
+bool	text_is_all_n(char *text)
 {
 	int	i;
 
@@ -96,9 +97,11 @@ bool			text_is_all_n(char *text)
 	return (true);
 }
 
-t_token_type	handle_special_case_echo(t_token *tokens, int i, int *first_word)
+t_token_type	handle_special_case_echo(t_token *tokens,
+											int i, int *first_word)
 {
-	if (!(*first_word) && (tokens[i].text[0] == '-' && text_is_all_n(tokens[i].text + 1)))
+	if (!(*first_word) && (tokens[i].text[0] == '-'
+			&& text_is_all_n(tokens[i].text + 1)))
 		return (FLAG);
 	else if (!(*first_word))
 		*first_word = 1;

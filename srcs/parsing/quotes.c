@@ -22,8 +22,8 @@
 
 char	check_quote(char letter, char quote)
 {
-	if ((letter == DBL_QUOTE || letter == SGL_QUOTE) &&
-		(!quote || (quote && letter == quote)))
+	if ((letter == DBL_QUOTE || letter == SGL_QUOTE)
+		&& (!quote || (quote && letter == quote)))
 	{
 		if (quote)
 			quote = 0;
@@ -62,8 +62,8 @@ bool	there_is_quote(char *text, char quote)
 	i = 0;
 	while (text[i])
 	{
-		if (text[i] == quote &&	ft_strchr((text + i + 1), quote))
-				return (true);
+		if (text[i] == quote && ft_strchr((text + i + 1), quote))
+			return (true);
 		i++;
 	}
 	return (false);
@@ -80,7 +80,7 @@ bool	there_is_quote(char *text, char quote)
 **
 */
 
-int		get_nb_quotes(char *text)
+int	get_nb_quotes(char *text)
 {
 	int		count;
 	char	quote;
@@ -89,8 +89,8 @@ int		get_nb_quotes(char *text)
 	count = 0;
 	while (*text)
 	{
-		if ((*text == DBL_QUOTE || *text == SGL_QUOTE) &&
-		(!quote || (quote && *text == quote)))
+		if ((*text == DBL_QUOTE || *text == SGL_QUOTE)
+			&& (!quote || (quote && *text == quote)))
 		{
 			if (quote)
 			{
@@ -114,6 +114,8 @@ int		get_nb_quotes(char *text)
 **	to be used as a rewriting function.
 **
 */
+
+// FUCTION HAS MORE THAN 25 LINES !!
 
 char	*remove_quotes(char *text)
 {

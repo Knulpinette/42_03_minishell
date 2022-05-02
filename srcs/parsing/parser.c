@@ -68,7 +68,10 @@ t_error	parse(char *line)
 **
 */
 
-void		get_tokens_types(t_token *tokens, int nb_tokens)
+
+// THIS FUNCTION HAS MORE THAN 25 LINES !!
+
+void	get_tokens_types(t_token *tokens, int nb_tokens)
 {
 	int		i;
 	bool	cmd_is_echo;
@@ -79,8 +82,8 @@ void		get_tokens_types(t_token *tokens, int nb_tokens)
 	first_word = 0;
 	while (i < nb_tokens)
 	{
-		if (there_is_quote(tokens[i].text, DBL_QUOTE) ||
-				there_is_quote(tokens[i].text, SGL_QUOTE))
+		if (there_is_quote(tokens[i].text, DBL_QUOTE)
+			|| there_is_quote(tokens[i].text, SGL_QUOTE))
 			tokens[i].text = remove_quotes(tokens[i].text);
 		if (cmd_is_echo)
 			tokens[i].type = handle_special_case_echo(tokens, i, &first_word);
@@ -108,7 +111,7 @@ void		get_tokens_types(t_token *tokens, int nb_tokens)
 
 static int	get_type_count(t_token *tokens, int nb_tokens, t_token_type type)
 {
-	int count;
+	int	count;
 	int	i;
 
 	count = 0;
@@ -139,7 +142,7 @@ static char	**get_args(t_token *tokens, int nb_tokens, t_token_type arg_type)
 	i = 0;
 	j = 0;
 	nb_args = get_type_count(tokens, nb_tokens, arg_type);
-	args = calloc_or_exit(sizeof(char*), nb_args + 1);
+	args = calloc_or_exit(sizeof(char *), nb_args + 1);
 	while (i < nb_tokens)
 	{
 		if (tokens[i].type == arg_type)
@@ -158,19 +161,20 @@ static char	**get_args(t_token *tokens, int nb_tokens, t_token_type arg_type)
 ** ⚠️ It also removes the closed quotes from the redirections.
 */
 
-void		assign_tokens(t_cmd_table *cmd_table)
+void	assign_tokens(t_cmd_table *cmd_table)
 {
 	int	i;
 
 	i = 0;
 	while (i < cmd_table->nb_redirs)
 	{
-		if (there_is_quote(cmd_table->redirs[i].arg, DBL_QUOTE) ||
-				there_is_quote(cmd_table->redirs[i].arg, SGL_QUOTE))
+		if (there_is_quote(cmd_table->redirs[i].arg, DBL_QUOTE)
+			|| there_is_quote(cmd_table->redirs[i].arg, SGL_QUOTE))
 			cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
 		i++;
 	}
 	cmd_table->cmd_name = cmd_table->tokens[0].text;
 	cmd_table->flags = get_args(cmd_table->tokens, cmd_table->nb_tokens, FLAG);
-	cmd_table->cmd_args = get_args(cmd_table->tokens, cmd_table->nb_tokens, WORD);
+	cmd_table->cmd_args = get_args(
+			cmd_table->tokens, cmd_table->nb_tokens, WORD);
 }

@@ -6,7 +6,7 @@ int	main(int argc, char **argv, char **envp)
 	char				*line;
 	t_minishell			*minishell;
 	int					exit_code;
-	
+
 	set_termcaps();
 	if (argc > 2)
 		error_and_exit(WRONG_ARGC);
