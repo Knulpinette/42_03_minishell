@@ -74,10 +74,7 @@ static	char	**fill_instructions(
 		split[word] = calloc_or_exit(sizeof(char), letters + 1);
 		j = 0;
 		while (s[i] && j < letters)
-		{
 			split[word][j++] = s[i++];
-			DEBUG(printf("%c / ", split[word][j - 1]);)
-		}
 		split[word++][j] = 0;
 	}
 	split[word] = 0;
