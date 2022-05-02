@@ -85,6 +85,7 @@ typedef enum e_error_codes
 	FORK_FAIL,
 	WRONG_CMD,
 	TERMCAP_ERROR,
+	SIGNAL_ERROR,
 }				t_error;
 
 typedef enum e_status
