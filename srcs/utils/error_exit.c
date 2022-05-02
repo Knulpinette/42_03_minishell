@@ -14,8 +14,8 @@ t_error	error_and_exit(t_error code)
 		free_minishell(minishell);
 	if (code == REDIR_NO_ARG)
 		exit(SYNTAX_ERROR);
-	if (code == WRONG_CMD)
-		exit(EXIT_FILE_NOT_FOUND);
+	if (code == CMD_NOT_FOUND || code == FILE_NOT_FOUND)
+		exit(EXIT_NOT_FOUND);
 	exit(EXIT_FAILURE);
 }
 
@@ -38,6 +38,8 @@ void	error_message(t_error code)
 		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
 	else if (code == REDIR_NO_ARG)
 		ft_putstr_fd("Syntax error next to a redirection (no argument).\n", STDERR_FILENO);
+	else if (code == CMD_NOT_FOUND)
+		ft_putstr_fd("Command not found\n", STDERR_FILENO);
 	else
 	{
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
