@@ -17,7 +17,6 @@ int	valid_command(t_minishell *minishell, t_cmd_table *cmd)
 
 	if (ft_strchr(cmd->cmd_name, '/'))
 	{
-		printf("Relative path\n");
 		if (access(cmd->cmd_name, F_OK) == 0
 				&& access(cmd->cmd_name, X_OK) == 0)
 		{
