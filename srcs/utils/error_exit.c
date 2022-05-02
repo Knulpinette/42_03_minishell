@@ -34,6 +34,8 @@ void	error_message(t_error code)
 	ft_putstr_fd(""LIGHT_RED"Error \n"END_COLOR"", STDERR_FILENO);
 	if (code == WRONG_ARGC)
 		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
+	else if (code == TERMCAP_ERROR)
+		ft_putstr_fd("Termcaps have failed.\n", STDERR_FILENO);
 	else if (code == NO_OLDPWD)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
 	else if (code == INVALID_IDENTIFIER)

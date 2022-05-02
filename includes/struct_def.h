@@ -88,7 +88,7 @@ typedef enum e_error_codes
 	FILE_NOT_FOUND,
 	TOO_MANY_ARGS,
 	NON_NUM_ARG,
-	TERMCAPS_INPUT,
+	TERMCAP_ERROR,
 }				t_error;
 
 typedef enum e_status
