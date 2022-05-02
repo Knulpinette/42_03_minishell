@@ -41,15 +41,15 @@ static void	signal_handler_child(int sig_num)
 	return ;
 }
 
-void	set_signals(t_status status)
+void	set_signals(t_status status, t_mode	mode)
 {
-	if (status == CHILD_PROCESS)
+	if (status == CHILD_PROCESS && mode == INTERACTIVE)
 	{
 		DEBUG(printf("current_signal = %d\n", status);)
 		signal(SIGINT, signal_handler_child);
 		signal(SIGQUIT, signal_handler_child);
 	}
-	else
+	else if (mode == INTERACTIVE)
 	{
 		DEBUG(printf("current_signal = %d\n", status);)
 		signal(SIGINT, sigint_handler);

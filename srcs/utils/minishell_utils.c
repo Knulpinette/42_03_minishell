@@ -22,12 +22,16 @@ t_minishell		*get_minishell(t_minishell *minishell)
 	return (pointer_to_minishell);
 }
 
-t_minishell		*init_minishell(char **envp)
+t_minishell		*init_minishell(char **envp, int argc)
 {
 	t_minishell *minishell;
 
 	minishell = calloc_or_exit(sizeof(t_minishell), 1);
 	get_minishell(minishell);
+	if (argc != 2)
+		minishell->mode = INTERACTIVE;
+	else
+		minishell->mode = NON_INTERACTIVE;
 	minishell->nb_cmds = 0;
 	minishell->instructions = NULL;
 	minishell->env = init_env_lst(envp);

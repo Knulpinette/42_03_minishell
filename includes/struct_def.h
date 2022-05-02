@@ -93,8 +93,15 @@ typedef enum e_status
 	CHILD_PROCESS,
 }			t_status;
 
+typedef enum e_mode
+{
+	INTERACTIVE,
+	NON_INTERACTIVE,
+}			t_mode;
+
 typedef struct s_minishell
 {
+	t_mode		mode;
 	int			nb_cmds;
 	char		**instructions;
 	t_list		*env;
