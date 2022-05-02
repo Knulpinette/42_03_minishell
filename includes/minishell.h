@@ -12,6 +12,7 @@
 # endif
 
 # include <unistd.h>
+# include <term.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
