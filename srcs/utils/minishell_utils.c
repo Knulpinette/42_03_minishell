@@ -41,3 +41,25 @@ t_minishell		*init_minishell(char **envp, int argc)
 	minishell->exit_code = 0;
 	return (minishell);
 }
+
+/*
+**	Termcaps
+**
+**	ECHOCTL
+**            (not in POSIX) If ECHO is also set, terminal special
+**             characters other than TAB, NL, START, and STOP are echoed
+**             as ^X, where X is the character with ASCII code 0x40
+**             greater than the special character.  For example,
+**             character 0x08 (BS) is echoed as ^H.
+**	TCSANOW
+**             the change occurs immediately.
+*/
+
+void	set_termcaps(void)
+{
+	struct termios	termcaps;
+
+	tcgetattr(0, &termcaps);
+	termcaps.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &termcaps);
+}
