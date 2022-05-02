@@ -33,6 +33,7 @@ t_minishell		*init_minishell(char **envp)
 	minishell->env = init_env_lst(envp);
 	minishell->env_paths = NULL;
 	minishell->cmd_table = NULL;
+	minishell->is_child_process = false;
 	minishell->child_pids = NULL;
 	minishell->exit_code = 0;
 	return (minishell);

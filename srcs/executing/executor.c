@@ -63,6 +63,7 @@ static void	exec_in_child(t_minishell *minishell, int i)
 		error_and_exit(FORK_FAIL);
 	if (minishell->child_pids[i] == 0)
 	{
+		minishell->is_child_process = true;
 		if (is_builtin(minishell->cmd_table[i].cmd_name))
 			exit(exec_builtin(minishell, &minishell->cmd_table[i]));
 		exec_system(minishell, &minishell->cmd_table[i]);

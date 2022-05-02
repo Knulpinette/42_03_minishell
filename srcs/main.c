@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 			return (0); // shouldn't this be break? o.O what was I thinking?
 		exit_code = parse(line);
 		free(line);
-		if (exit_code != SYNTAX_ERROR)
+		if (exit_code != SYNTAX_ERROR && minishell->nb_cmds)
 			exit_code = execute(minishell);
 	}
 	free_minishell(minishell);
