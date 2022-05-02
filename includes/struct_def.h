@@ -86,6 +86,13 @@ typedef enum e_error_codes
 	WRONG_CMD
 }				t_error;
 
+typedef enum e_processes
+{
+	MAIN,
+	PARENT_PROCESS,
+	CHILD_PROCESS,
+}			t_processes;
+
 typedef struct s_minishell
 {
 	int			nb_cmds;
@@ -93,7 +100,6 @@ typedef struct s_minishell
 	t_list		*env;
 	char		**env_paths;
 	t_cmd_table	*cmd_table;
-	bool		is_child_process;
 	pid_t		*child_pids;
 	int			exit_code;
 }				t_minishell;

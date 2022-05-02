@@ -36,4 +36,7 @@
 /* INTERFACE */
 char	*get_instructions_line(int interactive, int fd);
 
+/* SIGNALS */
+void	set_signals(t_processes process);
+
 #endif

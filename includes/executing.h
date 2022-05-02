@@ -19,7 +19,4 @@ void    exec_system(t_minishell *minishell, t_cmd_table *cmd);
 void	get_cmd_paths(t_minishell *minishell);
 char	**finish_paths_by_slash(char **raw_paths);
 
-/* SIGNALS */
-void	set_signals(void);
-
 #endif
