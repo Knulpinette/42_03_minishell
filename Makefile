@@ -15,9 +15,10 @@ OBJS_SUB_DIR	:= $(shell find $(SRCS_DIR) -mindepth 1 -type d)
 OBJS_SUB_DIR	:= $(OBJS_SUB_DIR:$(SRCS_DIR)/%=$(OBJS_DIR)/%)
 
 LIBFT_DIR		= 42_00_libft
+READLINE_DIR	= ~/.brew/opt/readline
 
-INCLUDES		= -Iincludes
-LIBRARIES		= -L${LIBFT_DIR} -lft -lreadline
+INCLUDES		= -Iincludes -I ${READLINE_DIR}/include
+LIBRARIES		= -L${LIBFT_DIR} -lft -L ${READLINE_DIR}/lib -lreadline
 
 CC				= gcc
 RM				= rm -f
