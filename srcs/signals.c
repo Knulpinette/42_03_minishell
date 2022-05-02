@@ -7,7 +7,7 @@
 **
 **	1. CTRL-C
 **		Interrupt the current processes in minishell but NOT exit minishell.
-**		(in process, just newline)
+**		Will print a newline in main process and ^C\n in child process.
 **	2. CTRL-\
 **		Do nothing. (in process) "Quit: 3\n"
 **	3. CTRL-D (EOF)
