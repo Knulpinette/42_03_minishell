@@ -14,6 +14,11 @@ int	str_only_digits(char *str)
 	return (1);
 }
 
+/*
+ * Note: I know it's silly to return after exit
+ * but I kinda had to return something...
+ * better something that kinda makes sense
+ */
 int	exit_cocoshell(t_cmd_table *cmd, t_minishell *minishell)
 {
 	int	nb_args;
@@ -29,9 +34,8 @@ int	exit_cocoshell(t_cmd_table *cmd, t_minishell *minishell)
 		return (error_and_return(TOO_MANY_ARGS, 1));
 	if (nb_args == 1)
 		minishell->exit_code = ft_atoi(cmd->cmd_args[0]);
-	// 	convert int to unsigned char
 	exit_code = minishell->exit_code;
 	free_minishell(minishell);
 	exit(exit_code);
-	return (exit_code); //kinda stupid, but I need to return something...
+	return (exit_code);
 }
