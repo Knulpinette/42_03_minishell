@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 		if (exit_code != SYNTAX_ERROR && minishell->nb_cmds)
 			exit_code = execute(minishell);
 	}
+	rl_clear_history();
 	free_minishell(minishell);
 	return (exit_code);
 }
