@@ -9,11 +9,11 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc > 2)
 		error_and_exit(WRONG_ARGC);
-	set_signals(NULL);
 	fd = 0;
 	if (argc == 2)
 		fd = open_or_exit(argv[1], O_RDONLY);
 	minishell = init_minishell(envp);
+	set_signals(INIT);
 	while (1)
 	{
 		line = get_instructions_line(argc != 2, fd);
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 			return (0); // shouldn't this be break? o.O what was I thinking?
 		exit_code = parse(line);
 		free(line);
-		if (exit_code != SYNTAX_ERROR)
+		if (exit_code != SYNTAX_ERROR && minishell->nb_cmds)
 			exit_code = execute(minishell);
 	}
 	free_minishell(minishell);

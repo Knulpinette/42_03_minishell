@@ -86,6 +86,13 @@ typedef enum e_error_codes
 	WRONG_CMD
 }				t_error;
 
+typedef enum e_status
+{
+	INIT,
+	RESET,
+	CHILD_PROCESS,
+}			t_status;
+
 typedef struct s_minishell
 {
 	int			nb_cmds;

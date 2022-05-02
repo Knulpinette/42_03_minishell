@@ -1,6 +1,7 @@
 *.swp
 objs
 a.out
+out
 ./minishell
 minishell
 docs/git_instructions.txt
