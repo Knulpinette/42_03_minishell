@@ -1,12 +1,11 @@
-total 160
-drwxr-xr-x  54 osurcouf  2020_lisbon   1836 May  2 11:13 42_00_libft
--rw-r--r--   1 osurcouf  2020_lisbon   2643 May  2 11:07 Makefile
--rw-r--r--   1 osurcouf  2020_lisbon   3783 May  2 10:48 README.md
-drwxr-xr-x   3 osurcouf  2020_lisbon    102 Apr 11 11:51 docs
-drwxr-xr-x  10 osurcouf  2020_lisbon    340 May  2 10:49 includes
--rwxr-xr-x   1 osurcouf  2020_lisbon  73184 May  2 11:13 minishell
-drwxr-xr-x  10 osurcouf  2020_lisbon    340 May  2 11:13 objs
--rwxr-xr-x   1 osurcouf  2020_lisbon      0 May  2 11:14 out
-drwxr-xr-x  10 osurcouf  2020_lisbon    340 May  2 11:09 srcs
-drwxr-xr-x   8 osurcouf  2020_lisbon    272 May  2 10:48 tester
-drwxr-xr-x   6 osurcouf  2020_lisbon    204 May  2 10:48 z_playground
+42_00_libft
+Makefile
+README.md
+docs
+includes
+minishell
+objs
+out
+srcs
+tester
+z_playground
