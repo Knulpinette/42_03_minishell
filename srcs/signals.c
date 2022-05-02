@@ -7,7 +7,7 @@
 **
 **	1. CTRL-C
 **		Interrupt the current processes in minishell but NOT exit minishell.
-**		(in process, just newline)
+**		Will print a newline in main process and ^C\n in child process.
 **	2. CTRL-\
 **		Do nothing. (in process) "Quit: 3\n"
 **	3. CTRL-D (EOF)
@@ -45,13 +45,17 @@ void	set_signals(t_status status, t_mode	mode)
 {
 	if (status == CHILD_PROCESS && mode == INTERACTIVE)
 	{
-		signal(SIGINT, signal_handler_child);
-		signal(SIGQUIT, signal_handler_child);
+		if (signal(SIGINT, signal_handler_child) == SIG_ERR)
+			error_and_exit(SIGNAL_ERROR);
+		if (signal(SIGQUIT, signal_handler_child) == SIG_ERR)
+			error_and_exit(SIGNAL_ERROR);
 	}
 	else if (mode == INTERACTIVE)
 	{
-		signal(SIGINT, sigint_handler);
-		signal(SIGQUIT, SIG_IGN);
+		if (signal(SIGINT, sigint_handler) == SIG_ERR)
+			error_and_exit(SIGNAL_ERROR);
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			error_and_exit(SIGNAL_ERROR);
 	}
 }
 

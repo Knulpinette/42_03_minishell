@@ -89,6 +89,7 @@ typedef enum e_error_codes
 	TOO_MANY_ARGS,
 	NON_NUM_ARG,
 	TERMCAP_ERROR,
+	SIGNAL_ERROR,
 }				t_error;
 
 typedef enum e_status
