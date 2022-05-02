@@ -19,7 +19,7 @@
 ** 🌴🥥
 */
 
-int		get_nb_tokens(const char *s, char c)
+int	get_nb_tokens(const char *s, char c)
 {
 	int			i;
 	int			nb;
@@ -75,13 +75,13 @@ static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 	return (tokens);
 }
 
-t_token			*get_tokens(const char *s, char c, int words)
+t_token	*get_tokens(const char *s, char c, int words)
 {
 	t_token	*tokens;
 
 	if (!s)
 		return (NULL);
-	tokens = calloc_or_exit(sizeof(t_token), words + 1);		
+	tokens = calloc_or_exit(sizeof(t_token), words + 1);
 	fill_tokens(s, c, words, tokens);
 	return (tokens);
 }

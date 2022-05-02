@@ -72,7 +72,7 @@ static t_redir_type	get_redir_type(const char *instructions, int i)
 	return (redir_type);
 }
 
-static char			*save_next_word_as_arg(const char *instructions, int i)
+static char	*save_next_word_as_arg(const char *instructions, int i)
 {
 	char	*arg;
 	char	quote;
@@ -83,8 +83,9 @@ static char			*save_next_word_as_arg(const char *instructions, int i)
 	quote = 0;
 	while (instructions[i] == SPACE)
 		i++;
-	while (instructions[i + arg_len] && ((!quote &&
-			is_not_exception(instructions[i + arg_len], REDIR)) || quote))
+	while (instructions[i + arg_len]
+		&& ((!quote && is_not_exception(instructions[i + arg_len], REDIR))
+			|| quote))
 	{
 		quote = check_quote(instructions[i + arg_len], quote);
 		arg_len++;
@@ -97,7 +98,9 @@ static char			*save_next_word_as_arg(const char *instructions, int i)
 	return (arg);
 }
 
-t_redir				*get_redirs(const char *instructions, int nb_redirs)
+// THIS FUNCTION HAS MORE THAN 25 LINES !!
+
+t_redir	*get_redirs(const char *instructions, int nb_redirs)
 {
 	t_redir	*redirs;
 	int		i;
@@ -116,9 +119,11 @@ t_redir				*get_redirs(const char *instructions, int nb_redirs)
 		if ((instructions[i] == '<' || instructions[i] == '>') && !quote)
 		{
 			redirs[count].type = get_redir_type(instructions, i);
-			if (redirs[count].type == OP_REDIR_IN || redirs[count].type == OP_REDIR_OUT)
+			if (redirs[count].type == OP_REDIR_IN
+				|| redirs[count].type == OP_REDIR_OUT)
 				i += 1;
-			else if (redirs[count].type == OP_DELIMITER || redirs[count].type == OP_APPEND)
+			else if (redirs[count].type == OP_DELIMITER
+				|| redirs[count].type == OP_APPEND)
 				i += 2;
 			redirs[count].arg = save_next_word_as_arg(instructions, i);
 			i += ft_strlen(redirs[count].arg);

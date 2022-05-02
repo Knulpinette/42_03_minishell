@@ -84,6 +84,7 @@ typedef enum e_error_codes
 	REDIR_NO_ARG,
 	FORK_FAIL,
 	WRONG_CMD
+	TERMCAPS_INPUT,
 }				t_error;
 
 typedef enum e_status

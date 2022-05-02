@@ -17,16 +17,14 @@
 ** 🌴🥥
 */
 
-static int	get_len_instruction(char *instruction, char **env_var)
+static int	get_len_instruction(char *instruction, char **env_var, char quote)
 {
 	int		len;
 	int		i;
-	char	quote;
 	int		count;
 
 	len = 0;
 	i = 0;
-	quote = 0;
 	count = 0;
 	while (instruction[i])
 	{
@@ -47,7 +45,8 @@ static int	get_len_instruction(char *instruction, char **env_var)
 	return (len);
 }
 
-static char	*write_env_var_to_temp(char *instruction, char **env_var, int len_instruction)
+static char	*write_env_var_to_temp(char *instruction, char **env_var,
+										int len_instruction)
 {
 	char	*temp;
 	char	quote;
@@ -78,18 +77,20 @@ static char	*write_env_var_to_temp(char *instruction, char **env_var, int len_in
 	return (temp);
 }
 
-char		*rewrite_instruction_with_env_var(char *instruction)
+char	*rewrite_instruction_with_env_var(char *instruction)
 {
 	char	*temp;
 	char	**env_var;
 	int		len_instruction;
+	char	quote;
 
+	quote = 0;
 	env_var = get_env_var_split(instruction);
-	len_instruction = get_len_instruction(instruction, env_var);
+	len_instruction = get_len_instruction(instruction, env_var, quote);
 	//DEBUG(printf(">>> len_instruction = %i\n", len_instruction);)
 	temp = write_env_var_to_temp(instruction, env_var, len_instruction);
 	free_split(env_var);
-	return (temp); 
+	return (temp);
 }
 
 static char	*erase_redirs(char *instruction, int len)
@@ -114,7 +115,7 @@ static char	*erase_redirs(char *instruction, int len)
 	return (temp);
 }
 
-char		*rewrite_instruction_without_redirs(char *instruction)
+char	*rewrite_instruction_without_redirs(char *instruction)
 {
 	char	*temp;
 	char	quote;
@@ -127,7 +128,8 @@ char		*rewrite_instruction_without_redirs(char *instruction)
 	while (instruction[i + len])
 	{
 		quote = check_quote(instruction[i + len], quote);
-		if ((instruction[i + len] == '<' || instruction[i + len] == '>') && !quote)
+		if ((instruction[i + len] == '<' || instruction[i + len] == '>')
+			&& !quote)
 			i += pass_redir(instruction + i + len);
 		else
 			len++;

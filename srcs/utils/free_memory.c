@@ -7,6 +7,8 @@
 
 void	free_minishell(t_minishell *minishell)
 {
+	if (minishell->mode == INTERACTIVE)
+		rl_clear_history();
 	if (minishell->instructions)
 		free_split(minishell->instructions);
 	if (minishell->cmd_table)
