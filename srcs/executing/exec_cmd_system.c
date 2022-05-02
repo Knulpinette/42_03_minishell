@@ -23,12 +23,12 @@ int	valid_command(t_minishell *minishell, t_cmd_table *cmd)
 	i = 0;
 	while (minishell->env_paths[i])
 	{
-		if (cmd->cmd_path)
-			free(cmd->cmd_path);
 		cmd->cmd_path = ft_strjoin(minishell->env_paths[i], cmd->cmd_name);
 		if (access(cmd->cmd_path, F_OK) == 0
 			&& access(cmd->cmd_path, X_OK) == 0)
 			return (1);
+		if (cmd->cmd_path)
+			free(cmd->cmd_path);
 		i++;
 	}
 	return (0);
