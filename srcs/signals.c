@@ -45,13 +45,11 @@ void	set_signals(t_status status, t_mode	mode)
 {
 	if (status == CHILD_PROCESS && mode == INTERACTIVE)
 	{
-		DEBUG(printf("current_signal = %d\n", status);)
 		signal(SIGINT, signal_handler_child);
 		signal(SIGQUIT, signal_handler_child);
 	}
 	else if (mode == INTERACTIVE)
 	{
-		DEBUG(printf("current_signal = %d\n", status);)
 		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
