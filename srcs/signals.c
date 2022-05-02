@@ -13,8 +13,9 @@
 **	3. CTRL-D (EOF)
 **		Already works. Nothing to do.
 **
-**	The way our executor is build, we need to kill all ongoing processes
-**	"manually".
+**	Since signals react differently in the main/parent process nand in the child
+**	process, we need to handle both case by resetting constantly the signals
+**	according to where we are in the processes.
 **
 ** 🌴🥥
 */

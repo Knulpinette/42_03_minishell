@@ -35,7 +35,7 @@ int				get_nb_redirs(char *instructions);
 t_redir			*get_redirs(const char *instructions, int nb_redirs);
 
 /* TOKENS */
-int				get_nb_tokens(const char *s, char c);
+//int				get_nb_tokens(const char *s, char c);
 t_token			*get_tokens(const char *s, char c, int words);
 
 /* VALIDATION */
