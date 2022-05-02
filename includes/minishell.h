@@ -12,6 +12,7 @@
 # endif
 
 # include <unistd.h>
+# include <termios.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -34,6 +35,9 @@
 # include "executing.h"
 
 /* INTERFACE */
-char	*get_instructions_line(int interactive, int fd);
+char	*get_instructions_line(t_mode mode, int fd);
+
+/* SIGNALS */
+void	set_signals(t_status status, t_mode mode);
 
 #endif

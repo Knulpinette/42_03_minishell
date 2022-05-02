@@ -87,11 +87,26 @@ typedef enum e_error_codes
 	CMD_NOT_FOUND,
 	FILE_NOT_FOUND,
 	TOO_MANY_ARGS,
-	NON_NUM_ARG
+	NON_NUM_ARG,
+	TERMCAPS_INPUT,
 }				t_error;
+
+typedef enum e_status
+{
+	INIT,
+	RESET,
+	CHILD_PROCESS,
+}			t_status;
+
+typedef enum e_mode
+{
+	INTERACTIVE,
+	NON_INTERACTIVE,
+}			t_mode;
 
 typedef struct s_minishell
 {
+	t_mode		mode;
 	int			nb_cmds;
 	char		**instructions;
 	t_list		*env;

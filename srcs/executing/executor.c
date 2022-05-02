@@ -61,6 +61,7 @@ static void	exec_in_child(t_minishell *minishell, int i)
 	minishell->child_pids[i] = fork();
 	if (minishell->child_pids[i] == -1)
 		error_and_exit(FORK_FAIL);
+	set_signals(CHILD_PROCESS, minishell->mode);
 	if (minishell->child_pids[i] == 0)
 	{
 		if (is_builtin(minishell->cmd_table[i].cmd_name))
@@ -79,7 +80,7 @@ static void wait_and_get_exit_code(t_minishell *minishell)
 	exit_codes = (int *)calloc_or_exit(sizeof(int), minishell->nb_cmds);
 	while (i < minishell->nb_cmds)
 	{
-		printf("Waiting for %d\n", minishell->child_pids[i]);
+		DEBUG(printf("Waiting for %d\n", minishell->child_pids[i]);)
 		waitpid(minishell->child_pids[i], &status, 0);
 		if (WIFEXITED(status))
 			exit_codes[i] = WEXITSTATUS(status);
@@ -97,7 +98,6 @@ int	execute(t_minishell *minishell)
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
-		//minishell->exit_code = 0;
 		if (i + 1 < minishell->nb_cmds)
 			open_pipe(minishell, i);
 		if ((exec_redirs(minishell, &minishell->cmd_table[i]))
@@ -114,5 +114,6 @@ int	execute(t_minishell *minishell)
 		close_for_next_cmd(minishell->cmd_table[i++]);
 	}
 	wait_and_get_exit_code(minishell);
+	set_signals(RESET, minishell->mode);
 	return (minishell->exit_code);
 }

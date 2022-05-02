@@ -41,14 +41,12 @@ static	int	nb_words(const char *s, char c)
 	return (nb);
 }
 
-static int	get_nb_letters(const char *s, int i, char c)
+static int	get_nb_letters(const char *s, int i, char c, char quote)
 {
 	int		letters;
-	char	quote;
 
 	letters = 0;
-	quote = 0;
-	while (s[i + letters] && (s[i + letters] != c && (!quote || quote)))
+	while (s[i + letters] && ((s[i + letters] != c && !quote) || quote))
 	{
 		quote = check_quote(s[i + letters], quote);
 		letters++;
@@ -63,14 +61,16 @@ static	char	**fill_instructions(
 	int		j;
 	int		word;
 	int		letters;
+	char	quote;
 
 	i = 0;
 	word = 0;
+	quote = 0;
 	while (word < words)
 	{
 		while (s[i] && s[i] == c)
 			i++;
-		letters = get_nb_letters(s, i, c);
+		letters = get_nb_letters(s, i, c, quote);
 		split[word] = calloc_or_exit(sizeof(char), letters + 1);
 		j = 0;
 		while (s[i] && j < letters)
