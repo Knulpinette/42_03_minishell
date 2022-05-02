@@ -3,7 +3,7 @@
 char	*get_instructions_line(t_mode mode, int fd)
 {
 	char	*line;
-	int		ret;
+	int		nb_bits_read;
 
 	if (mode == INTERACTIVE)
 	{
@@ -12,8 +12,8 @@ char	*get_instructions_line(t_mode mode, int fd)
 			add_history(line);
 	}
 	else
-		ret = get_next_line(fd, &line);
-	if (!line || (NON_INTERACTIVE && ret <= 0))
+		nb_bits_read = get_next_line(fd, &line);
+	if (!line || (NON_INTERACTIVE && nb_bits_read <= 0))
 	{
 		free(line);
 		return (NULL);
