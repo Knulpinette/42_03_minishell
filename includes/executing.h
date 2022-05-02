@@ -5,7 +5,7 @@
 int		execute(t_minishell *minishell);
 
 /* EXECUTE REDIRECTIONS */
-int		exec_redirs(t_cmd_table *cmd);
+int		exec_redirs(t_minishell *minishell, t_cmd_table *cmd);
 
 /* EXECUTE BUILTIN COMMANDS */
 int		is_builtin(char *cmd_name);

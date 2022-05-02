@@ -28,9 +28,6 @@ int exec_builtin(t_minishell *minishell, t_cmd_table *cmd)
     if (ft_strncmp(cmd->cmd_name, "unset", 5) == 0)
         return (unset(cmd, minishell));
     if (ft_strncmp(cmd->cmd_name, "exit", 4) == 0)
-    {
-        printf("EXIT is still not done 😅\n");
-        return (0);
-    }
+        return(exit_cocoshell(cmd, minishell));
     return (-1);
 }

@@ -1,5 +1,14 @@
 #include "minishell.h"
 
+static int	exec_redirs_in(t_cmd_table *cmd, int i)
+{
+	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
+		error_and_exit(CLOSE_FAIL);
+	if ((cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755)) == -1)
+		return (error_and_return(OPEN_FAIL, 1));
+	return (0);
+}
+
 static int  exec_redirs_out(t_cmd_table *cmd, int i)
 {
     if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
@@ -15,7 +24,7 @@ static int  exec_redirs_out(t_cmd_table *cmd, int i)
     return (0);
 }
 
-int	exec_redirs(t_cmd_table *cmd)
+int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 {
 	int	i;
 
@@ -24,15 +33,19 @@ int	exec_redirs(t_cmd_table *cmd)
 	{
 		if (cmd->redirs[i].type == OP_REDIR_IN)
 		{
-			if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
-				error_and_exit(CLOSE_FAIL);
-			if ((cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755)) == -1)
-				return (error_and_return(OPEN_FAIL, 1));
+			if (exec_redirs_in(cmd, i))
+			{
+				minishell->exit_code = 1;
+				return (1);
+			}
 		}
 		else if (cmd->redirs[i].type == OP_REDIR_OUT || cmd->redirs[i].type == OP_APPEND)
 		{
 			if (exec_redirs_out(cmd, i))
+			{
+				minishell->exit_code = 1;
                 return (1);
+			}
 		}
 		// TODO delimiter
 		i++;

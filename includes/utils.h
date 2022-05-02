@@ -36,7 +36,7 @@ void			free_redirs(t_redir *redirs, int nb_redirs);
 t_error			error_and_exit(t_error code);
 int 	        error_and_return(t_error code, int exit_code);
 void			error_message(t_error code);
-t_error			open_or_exit(char *file_path, mode_t mode);
+int				open_or_exit(char *file_path, mode_t mode);
 void			*calloc_or_exit(size_t size, int count);
 
 #endif

@@ -85,7 +85,9 @@ typedef enum e_error_codes
 	REDIR_NO_ARG,
 	FORK_FAIL,
 	CMD_NOT_FOUND,
-	FILE_NOT_FOUND
+	FILE_NOT_FOUND,
+	TOO_MANY_ARGS,
+	NON_NUM_ARG
 }				t_error;
 
 typedef struct s_minishell
