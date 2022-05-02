@@ -66,6 +66,7 @@ typedef struct s_command_table
 # define EXIT_NOT_FOUND 127
 # define EXIT_SIGINT 130
 # define EXIT_SIGQUIT 131
+# define EXIT_ERROR 255
 # define SYNTAX_ERROR 258
 
 /* error codes for personalised error messages */

@@ -97,7 +97,7 @@ int	execute(t_minishell *minishell)
 	i = 0;
 	while (i < minishell->nb_cmds)
 	{
-		minishell->exit_code = 0;
+		//minishell->exit_code = 0;
 		if (i + 1 < minishell->nb_cmds)
 			open_pipe(minishell, i);
 		if ((minishell->exit_code = exec_redirs(&minishell->cmd_table[i]))
