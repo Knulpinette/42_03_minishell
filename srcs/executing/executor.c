@@ -61,7 +61,7 @@ static void	exec_in_child(t_minishell *minishell, int i)
 	minishell->child_pids[i] = fork();
 	if (minishell->child_pids[i] == -1)
 		error_and_exit(FORK_FAIL);
-	//set_signals(CHILD_PROCESS);
+	set_signals(CHILD_PROCESS);
 	if (minishell->child_pids[i] == 0)
 	{
 		if (is_builtin(minishell->cmd_table[i].cmd_name))
@@ -113,8 +113,8 @@ int	execute(t_minishell *minishell)
 				&minishell->cmd_table[i]));
 		exec_in_child(minishell, i);
 		close_for_next_cmd(minishell->cmd_table[i++]);
-		//set_signals(PARENT_PROCESS);
 	}
 	wait_and_get_exit_code(minishell);
+	set_signals(RESET);
 	return (minishell->exit_code);
 }

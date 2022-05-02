@@ -36,24 +36,21 @@ static void	signal_handler_child(int sig_num)
 	if (sig_num == SIGINT)
 		ft_putstr_fd("\n", STDERR_FILENO);
 	if (sig_num == SIGQUIT)
-	{
-		printf("HELLO FROM SIGQUIT %d\n", sig_num);
 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-	}
 	return ;
 }
 
-void	set_signals(t_processes process)
+void	set_signals(t_status status)
 {
-	if (process == CHILD_PROCESS)
+	if (status == CHILD_PROCESS)
 	{
-		printf("current_signal = %d\n", process);
+		DEBUG(printf("current_signal = %d\n", status);)
 		signal(SIGINT, signal_handler_child);
 		signal(SIGQUIT, signal_handler_child);
 	}
 	else
 	{
-		printf("current_signal = %d\n", process);
+		DEBUG(printf("current_signal = %d\n", status);)
 		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}

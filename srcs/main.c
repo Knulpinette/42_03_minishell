@@ -13,7 +13,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 2)
 		fd = open_or_exit(argv[1], O_RDONLY);
 	minishell = init_minishell(envp);
-	set_signals(MAIN);
+	set_signals(INIT);
 	while (1)
 	{
 		line = get_instructions_line(argc != 2, fd);
