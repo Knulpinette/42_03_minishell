@@ -2,22 +2,36 @@
 
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
-	//char	*line;
+	char	*line;
+	int		line_len;
 
+	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
+	{
+		if (unlink("temp") == -1)
+			error_and_exit(UNLINK_FAIL);
+		cmd->is_infile_tmp = 0;
+	}
 	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
 		error_and_exit(CLOSE_FAIL);
-	if (cmd->redirs[i].type == OP_REDIR_IN)
-		cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755);
-	/*else
-	{
-		cmd->fd_in = open("temp", O_RDWR | O_TMPFILE | O_APPEND, 00755);
-		// do heredocs thingy
-		// call readline
-		// write result into file temp
-		// when do I close the file? close and remove it!
-	}*/
-	if (cmd->fd_in == -1)
+	if (cmd->redirs[i].type == OP_REDIR_IN
+		&& (cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755)) == -1)
 		return (error_and_return(OPEN_FAIL, 1));
+	else
+	{
+		cmd->fd_in = open("temp", O_RDWR | O_CREAT | O_APPEND, 00755);
+		if (cmd->fd_in == -1)
+			return (error_and_return(OPEN_FAIL, 1));
+		cmd->is_infile_tmp = 1;
+		while (1)
+		{
+			line = readline("> ");
+			line_len = ft_strlen(line);
+			if (!line || ft_strncmp(line, cmd->redirs[i].arg, line_len))
+				break;
+			write(cmd->fd_in, line, line_len);
+		}
+		free(line);
+	}
 	return (0);
 }
 
@@ -28,9 +42,7 @@ static int  exec_redirs_out(t_cmd_table *cmd, int i)
 	if (cmd->redirs[i].type == OP_APPEND)
 		cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT | O_APPEND, 00755);
 	else
-	{
 		cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT | O_TRUNC, 00755);
-	}
 	if (cmd->fd_out == -1)
 		return (error_and_return(OPEN_FAIL, 1));
 	return (0);
