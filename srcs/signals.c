@@ -53,9 +53,9 @@ void	set_signals(t_status status, t_mode	mode)
 	else if (mode == INTERACTIVE)
 	{
 		if (signal(SIGINT, sigint_handler) == SIG_ERR)
-			error_and_exit(SIGNAL_ERROR);
+			error_and_exit(EXIT_SIGINT);
 		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-			error_and_exit(SIGNAL_ERROR);
+			error_and_exit(EXIT_SIGQUIT);
 	}
 }
 

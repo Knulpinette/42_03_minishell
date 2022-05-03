@@ -13,7 +13,7 @@ char	*get_instructions_line(t_mode mode, int fd)
 	}
 	else
 		nb_bits_read = get_next_line(fd, &line);
-	if (!line || (NON_INTERACTIVE && nb_bits_read <= 0))
+	if (!line || (mode == NON_INTERACTIVE && nb_bits_read <= 0))
 	{
 		free(line);
 		return (NULL);
