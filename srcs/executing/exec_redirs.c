@@ -3,7 +3,6 @@
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	char	*line;
-	int		line_len;
 
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
@@ -16,7 +15,7 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 	if (cmd->redirs[i].type == OP_REDIR_IN
 		&& (cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755)) == -1)
 		return (error_and_return(OPEN_FAIL, 1));
-	else
+	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
 		cmd->fd_in = open("temp", O_RDWR | O_CREAT | O_APPEND, 00755);
 		if (cmd->fd_in == -1)
@@ -25,10 +24,10 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		while (1)
 		{
 			line = readline("> ");
-			line_len = ft_strlen(line);
-			if (!line || ft_strncmp(line, cmd->redirs[i].arg, line_len))
+			//printf("%s %d\n", line, line_len);
+			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
 				break;
-			write(cmd->fd_in, line, line_len);
+			write(cmd->fd_in, line, ft_strlen(line));
 		}
 		free(line);
 	}
