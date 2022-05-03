@@ -30,7 +30,6 @@ typedef struct s_token
 
 typedef enum e_redir_type
 {
-	OVERWRITE,
 	OP_REDIR_IN,
 	OP_REDIR_OUT,
 	OP_DELIMITER,
@@ -54,10 +53,7 @@ typedef struct s_command_table
 	char			**cmd_args;
 	char			*cmd_path;
 	int				fd_in;
-	char			*infile;
 	int				fd_out;
-	t_redir_type	write_mode;
-	char			*outfile;
 }				t_cmd_table;
 
 /* see
