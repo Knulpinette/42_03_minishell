@@ -87,7 +87,9 @@ static void wait_and_get_exit_code(t_minishell *minishell)
 		DEBUG(printf("Exit code cmd %d: %d\n", i + 1, exit_codes[i]));
 		i++;
 	}
-	minishell->exit_code = exit_codes[minishell->nb_cmds - 1];
+	if (minishell->exit_code != EXIT_SIGQUIT
+		&& minishell->exit_code != EXIT_SIGINT)
+		minishell->exit_code = exit_codes[minishell->nb_cmds - 1];
 	free(exit_codes);
 }
 

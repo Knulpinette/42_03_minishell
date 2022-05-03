@@ -22,22 +22,35 @@
 
 static void	sigint_handler(int sig_num)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell(NULL);
 	if (sig_num == SIGINT)
 	{
 		rl_replace_line("", 0);
 		write(STDIN_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
+		minishell->exit_code = 1;
 	}
 	return ;
 }
 
 static void	signal_handler_child(int sig_num)
 {
+	t_minishell	*minishell;
+
+	minishell = get_minishell(NULL);
 	if (sig_num == SIGINT)
+	{
+		minishell->exit_code = EXIT_SIGINT;
 		ft_putstr_fd("^C\n", STDERR_FILENO);
+	}
 	if (sig_num == SIGQUIT)
+	{
 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+		minishell->exit_code = EXIT_SIGINT;
+	}
 	return ;
 }
 
@@ -53,9 +66,9 @@ void	set_signals(t_status status, t_mode	mode)
 	else if (mode == INTERACTIVE)
 	{
 		if (signal(SIGINT, sigint_handler) == SIG_ERR)
-			error_and_exit(EXIT_SIGINT);
+			error_and_exit(SIGNAL_ERROR);
 		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-			error_and_exit(EXIT_SIGQUIT);
+			error_and_exit(SIGNAL_ERROR);
 	}
 }
 
