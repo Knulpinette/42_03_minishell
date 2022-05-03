@@ -2,7 +2,7 @@
 # define STRUCT_DEF_H
 
 /* PARSING MACROS */
-# define PROMPT "> "
+# define PROMPT "🥥🐚 > "
 # define SPACE ' '
 # define PIPE '|'
 # define SGL_QUOTE '\''
