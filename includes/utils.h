@@ -4,7 +4,6 @@
 /* Minishell utils */
 t_minishell		*get_minishell(t_minishell *minishell);
 t_minishell		*init_minishell(char **envp, int argc);
-void			set_termcaps(void);
 
 /* ENV List */
 t_env			*new_env_content(char *var);
