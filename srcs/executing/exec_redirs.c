@@ -7,6 +7,15 @@
  * After writing to the temporary file, we close it and open it again, so that
  * the offset goes back to the beginning of the file (else it's pointing at the
  * end of the file and it won't print anything!)
+ *
+ * What is the best strategy to create a temporary file?
+ * There are two problems I need to take into consideration:
+ * 1) There's a file with the same name and in the same directory as my
+ *    temporary file. Solution: Create it in a directory which is hard to find,
+ *    such as /tmp.
+ * 2) File needs to have a unique name, else if I run minishell twice at the
+ *    same time and call cat << . in both, it will be writing to the same file.
+ *    Solution: add tty name to the file name.
  */
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
@@ -25,6 +34,7 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		return (error_and_return(OPEN_FAIL, 1));
 	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
+		// TODO change the location and name of the temp file
 		cmd->fd_in = open("temp", O_RDWR | O_CREAT | O_APPEND, 00755);
 		if (cmd->fd_in == -1)
 			return (error_and_return(OPEN_FAIL, 1));
