@@ -17,6 +17,14 @@
  *    same time and call cat << . in both, it will be writing to the same file.
  *    Solution: add tty name to the file name.
  */
+
+static void	write_and_free_line(char **line, int fd_in)
+{
+	write(fd_in, *line, ft_strlen(*line));
+	write(fd_in, "\n", 1);
+	free(*line);
+}
+
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	char	*line;
@@ -44,18 +52,14 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 			line = readline("> ");
 			if (!ft_strlen(line)) // it's ugly code but that works. Not sure how to change it.
 			{
-				write(cmd->fd_in, line, ft_strlen(line));
-				write(cmd->fd_in, "\n", 1);
-				free(line);
+				write_and_free_line(&line, cmd->fd_in);
 				continue;
 			}
 			else if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
 				break;
 			if (!cmd->redirs[i].quote)
 				line = rewrite(&line, ENV_VAR);
-			write(cmd->fd_in, line, ft_strlen(line));
-			write(cmd->fd_in, "\n", 1);
-			free(line);
+			write_and_free_line(&line, cmd->fd_in);
 		}
 		free(line);
 		close(cmd->fd_in);
