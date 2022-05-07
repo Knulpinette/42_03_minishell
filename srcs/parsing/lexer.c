@@ -90,7 +90,7 @@ static bool	is_empty(char *text)
 	return (true);
 }
 
-static char	*rewrite(char **text, int type)
+char	*rewrite(char **text, int type)
 {
 	char	*temp;
 

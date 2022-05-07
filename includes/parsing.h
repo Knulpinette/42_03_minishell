@@ -18,6 +18,7 @@ t_error			lexer(char *line);
 t_cmd_table		*init_cmd_table(int nb_cmds);
 t_error			get_command_tables(
 					t_cmd_table *cmd_table, int nb_cmds, char **instructions);
+char			*rewrite(char **text, int type);
 
 /* PARSER */
 t_error			parse(char *line);

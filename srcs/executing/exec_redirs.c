@@ -43,13 +43,16 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		{
 			line = readline("> ");
 			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
+			{
+				free(line);
 				break;
+			}
 			if (!cmd->redirs[i].quote)
-				line = rewrite_instruction_with_env_var(line);
+				line = rewrite(&line, ENV_VAR);
 			write(cmd->fd_in, line, ft_strlen(line));
 			write(cmd->fd_in, "\n", 1);
+			free(line);
 		}
-		free(line);
 		close(cmd->fd_in);
 		cmd->fd_in = open("temp", O_RDWR, 00755);
 	}
