@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+/*
+ * Delimiters and Here docs:
+ * Create a temporary file and set is_infile_tmp to 1, so that we know we need
+ * to remove it when closing it.
+ * After writing to the temporary file, we close it and open it again, so that
+ * the offset goes back to the beginning of the file (else it's pointing at the
+ * end of the file and it won't print anything!)
+ */
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	char	*line;
@@ -24,12 +32,15 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		while (1)
 		{
 			line = readline("> ");
-			//printf("%s %d\n", line, line_len);
 			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
 				break;
+			// TODO treat line (expand env vars)
 			write(cmd->fd_in, line, ft_strlen(line));
+			write(cmd->fd_in, "\n", 1);
 		}
 		free(line);
+		close(cmd->fd_in);
+		cmd->fd_in = open("temp", O_RDWR, 00755);
 	}
 	return (0);
 }
