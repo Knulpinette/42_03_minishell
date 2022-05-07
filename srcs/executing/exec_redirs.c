@@ -55,7 +55,7 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 				write_and_free_line(&line, cmd->fd_in);
 				continue;
 			}
-			else if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
+			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
 				break;
 			if (!cmd->redirs[i].quote)
 				line = rewrite(&line, ENV_VAR);
