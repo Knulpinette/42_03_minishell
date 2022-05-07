@@ -21,7 +21,7 @@ t_error	lexer(char *line)
 	minishell = get_minishell(NULL);
 	if (minishell->instructions)
 		free_split(minishell->instructions);
-	if (minishell->child_pids)
+	if (minishell->cmd_table)
 		free_table(minishell->cmd_table, minishell->nb_cmds);
 	if (minishell->child_pids)
 		free(minishell->child_pids);
