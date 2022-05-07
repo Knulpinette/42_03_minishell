@@ -42,17 +42,20 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		while (1)
 		{
 			line = readline("> ");
-			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
+			if (!ft_strlen(line))
 			{
 				free(line);
-				break;
+				continue;
 			}
+			else if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
+				break;
 			if (!cmd->redirs[i].quote)
 				line = rewrite(&line, ENV_VAR);
 			write(cmd->fd_in, line, ft_strlen(line));
 			write(cmd->fd_in, "\n", 1);
 			free(line);
 		}
+		free(line);
 		close(cmd->fd_in);
 		cmd->fd_in = open("temp", O_RDWR, 00755);
 	}
