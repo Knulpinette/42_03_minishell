@@ -25,6 +25,11 @@ static void	write_and_free_line(char **line, int fd_in)
 	free(*line);
 }
 
+/*
+** If an environement variable is called inside a heredoc, it is expanded.
+**	/!\ Unless the delimiter is in between quotes. /!\
+*/
+
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	char	*line;
