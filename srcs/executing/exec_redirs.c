@@ -44,7 +44,8 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 			line = readline("> ");
 			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
 				break;
-			// TODO treat line (expand env vars)
+			//if (!cmd->redirs[i].quote)
+			//	TO_DO expend_variable
 			write(cmd->fd_in, line, ft_strlen(line));
 			write(cmd->fd_in, "\n", 1);
 		}
