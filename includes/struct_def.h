@@ -30,7 +30,6 @@ typedef struct s_token
 
 typedef enum e_redir_type
 {
-	OVERWRITE,
 	OP_REDIR_IN,
 	OP_REDIR_OUT,
 	OP_DELIMITER,
@@ -45,19 +44,17 @@ typedef struct s_redir
 
 typedef struct s_command_table
 {
-	int				nb_redirs;
-	t_redir			*redirs;
-	int				nb_tokens;
-	t_token			*tokens;
-	char			*cmd_name;
-	char			**flags;
-	char			**cmd_args;
-	char			*cmd_path;
-	int				fd_in;
-	char			*infile;
-	int				fd_out;
-	t_redir_type	write_mode;
-	char			*outfile;
+	int			nb_redirs;
+	t_redir		*redirs;
+	int			nb_tokens;
+	t_token		*tokens;
+	char		*cmd_name;
+	char		**flags;
+	char		**cmd_args;
+	char		*cmd_path;
+	int			fd_in;
+	int			is_infile_tmp;
+	int			fd_out;
 }				t_cmd_table;
 
 /* see
@@ -90,6 +87,7 @@ typedef enum e_error_codes
 	NON_NUM_ARG,
 	TERMCAP_ERROR,
 	SIGNAL_ERROR,
+	UNLINK_FAIL
 }				t_error;
 
 typedef enum e_status
