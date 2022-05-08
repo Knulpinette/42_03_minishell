@@ -35,10 +35,10 @@
 # include "executing.h"
 
 /* INTERFACE */
-char	*get_instructions_line(t_mode mode, int fd);
+char		*get_instructions_line(t_mode mode, int fd);
 
 /* SIGNALS */
-void	set_signals(t_status status, t_mode mode);
-void	set_termcaps(void);
+void		set_signals(t_status status, t_mode mode);
+void		set_termcaps(void);
 
 #endif
