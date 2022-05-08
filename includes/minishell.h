@@ -35,14 +35,14 @@
 # include "executing.h"
 
 /* INITIALIZER */
-t_cmd_table		*init_cmd_table(int nb_cmds);
-t_minishell		*init_minishell(char **envp, int argc);
+t_cmd_table	*init_cmd_table(int nb_cmds);
+t_minishell	*init_minishell(char **envp, int argc);
 
 /* INTERFACE */
-char	*get_instructions_line(t_mode mode, int fd);
+char		*get_instructions_line(t_mode mode, int fd);
 
 /* SIGNALS */
-void	set_signals(t_status status, t_mode mode);
-void	set_termcaps(void);
+void		set_signals(t_status status, t_mode mode);
+void		set_termcaps(void);
 
 #endif
