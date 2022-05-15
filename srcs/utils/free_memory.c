@@ -54,6 +54,8 @@ void	free_table(t_cmd_table *cmd_table, int nb_cmds)
 			free(cmd_table[i].cmd_args);
 		if (cmd_table[i].cmd_path)
 			free(cmd_table[i].cmd_path);
+		if (cmd_table[i].infile_tmp)
+			free(cmd_table[i].infile_tmp);
 		if (cmd_table[i].fd_in != 0)
 			close(cmd_table[i].fd_in);
 		if (cmd_table[i].fd_out != 1)
