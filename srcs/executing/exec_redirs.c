@@ -25,8 +25,8 @@
 static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 {
 	char	*line;
-	
-	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_", ft_strchr(ttyname(0), 't'));
+
+	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_",	ft_strrchr(ttyname(0), '/') + 1);
 	cmd->is_infile_tmp = 1;
 	cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
 	if (cmd->fd_in == -1)
@@ -53,8 +53,8 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
-		if (unlink(cmd->infile_tmp) == -1)
-			error_and_exit(UNLINK_FAIL);
+		//if (unlink(cmd->infile_tmp) == -1)
+		//	error_and_exit(UNLINK_FAIL);
 		free(cmd->infile_tmp);
 		cmd->infile_tmp = NULL;
 		cmd->is_infile_tmp = 0;
