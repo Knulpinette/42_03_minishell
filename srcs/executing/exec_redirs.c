@@ -15,25 +15,42 @@
  *    such as /tmp.
  * 2) File needs to have a unique name, else if I run minishell twice at the
  *    same time and call cat << . in both, it will be writing to the same file.
- *    Solution: add pid or tty name to the file name.
+ *    Solution: add tty name to the file name.
  */
-
-static void	write_and_free_line(char **line, int fd_in)
-{
-	write(fd_in, *line, ft_strlen(*line));
-	write(fd_in, "\n", 1);
-	free(*line);
-}
 
 /*
 ** If an environement variable is called inside a heredoc, it is expanded.
 **	/!\ Unless the delimiter is in between quotes. /!\
 */
+static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
+{
+	char	*line;
+	
+	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_", ft_strchr(ttyname(0), 't'));
+	cmd->is_infile_tmp = 1;
+	cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
+	if (cmd->fd_in == -1)
+		return (error_and_return(OPEN_FAIL, 1));
+	while (1)
+	{
+		line = readline("> ");
+		if (!(line && !ft_strlen(line)) && (!line
+			|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
+			break;
+		if (!cmd->redirs[i].quote)
+			line = rewrite(&line, ENV_VAR);
+		write(cmd->fd_in, line, ft_strlen(line));
+		write(cmd->fd_in, "\n", 1);
+		free(line);
+	}
+	free(line);
+	close(cmd->fd_in);
+	cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
+	return (0);
+}
 
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
-	char	*line;
-
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
 		if (unlink(cmd->infile_tmp) == -1)
@@ -49,25 +66,8 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		return (error_and_return(OPEN_FAIL, 1));
 	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
-		// TODO change the location and name of the temp file
-		cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_", ft_strchr(ttyname(0), 't'));
-		cmd->is_infile_tmp = 1;
-		cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
-		if (cmd->fd_in == -1)
-			return (error_and_return(OPEN_FAIL, 1));
-		while (1)
-		{
-			line = readline("> ");
-			if (!(line && !ft_strlen(line)) && (!line
-				|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
-				break;
-			if (!cmd->redirs[i].quote)
-				line = rewrite(&line, ENV_VAR);
-			write_and_free_line(&line, cmd->fd_in);
-		}
-		free(line);
-		close(cmd->fd_in);
-		cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
+		if (exec_redirs_heredoc(cmd, i))
+			return (1);
 	}
 	return (0);
 }
