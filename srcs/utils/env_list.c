@@ -10,7 +10,9 @@ t_env	*new_env_content(char *var)
 		i++;
 	env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
 	env_var->name = ft_substr(var, 0, i);
-	if (var[i])
+	if (ft_strncmp("SHLVL", env_var->name, 5) == 0)
+		env_var->value = ft_itoa(ft_atoi(var + i + 1) + 1);
+	else if (var[i])
 		env_var->value = ft_strdup(var + i + 1);
 	else
 		env_var->value = NULL;
