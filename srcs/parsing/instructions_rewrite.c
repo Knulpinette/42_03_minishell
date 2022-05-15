@@ -64,11 +64,9 @@ static char	*write_env_var_to_temp(char *instruction, char **env_var,
 		quote = check_quote(*instruction, quote);
 		if (instruction[i] == '$' && quote != SGL_QUOTE && env_var[count])
 		{
-			//DEBUG(printf("before\n> instruction[i] = %c\n>> i = %i\n>> j = %i\n", instruction[i], i, j);)
 			j += ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
 			i = i + get_env_var_len(instruction + i);
 			count++;
-			//DEBUG(printf("after \n> instruction[i] = %c\n>> i = %i\n>>j = %i\n", instruction[i], i, j);)
 		}
 		else
 			temp[j++] = instruction[i++];
@@ -87,7 +85,6 @@ char	*rewrite_instruction_with_env_var(char *instruction)
 	quote = 0;
 	env_var = get_env_var_split(instruction);
 	len_instruction = get_len_instruction(instruction, env_var, quote);
-	//DEBUG(printf(">>> len_instruction = %i\n", len_instruction);)
 	temp = write_env_var_to_temp(instruction, env_var, len_instruction);
 	free_split(env_var);
 	return (temp);
