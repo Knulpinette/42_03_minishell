@@ -58,11 +58,10 @@ static void	close_for_next_cmd(t_cmd_table *cmd)
 		cmd->infile_tmp = NULL;
 		cmd->is_infile_tmp = 0;
 	}
-	// TODO think about protecting these
-	if (cmd->fd_in != 0)
-		close(cmd->fd_in);
-	if (cmd->fd_out != 1)
-		close(cmd->fd_out);
+	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
+		error_and_exit(CLOSE_FAIL);
+	if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
+		error_and_exit(CLOSE_FAIL);
 }
 
 static void	exec_in_child(t_minishell *minishell, int i)
