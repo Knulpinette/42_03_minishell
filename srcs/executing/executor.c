@@ -52,8 +52,10 @@ static void	close_for_next_cmd(t_cmd_table *cmd)
 {
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
-		if (unlink("temp") == -1)
+		if (unlink(cmd->infile_tmp) == -1)
 			error_and_exit(UNLINK_FAIL);
+		free(cmd->infile_tmp);
+		cmd->infile_tmp = NULL;
 		cmd->is_infile_tmp = 0;
 	}
 	// TODO think about protecting these

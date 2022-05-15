@@ -37,6 +37,7 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 		cmd_table[i].cmd_path = NULL;
 		cmd_table[i].fd_in = STDIN_FILENO;
 		cmd_table[i].is_infile_tmp = 0;
+		cmd_table[i].infile_tmp = NULL;
 		cmd_table[i].fd_out = STDOUT_FILENO;
 		i++;
 	}

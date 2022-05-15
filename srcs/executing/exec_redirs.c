@@ -15,7 +15,7 @@
  *    such as /tmp.
  * 2) File needs to have a unique name, else if I run minishell twice at the
  *    same time and call cat << . in both, it will be writing to the same file.
- *    Solution: add tty name to the file name.
+ *    Solution: add pid or tty name to the file name.
  */
 
 static void	write_and_free_line(char **line, int fd_in)
@@ -36,8 +36,10 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
-		if (unlink("temp") == -1)
+		if (unlink(cmd->infile_tmp) == -1)
 			error_and_exit(UNLINK_FAIL);
+		free(cmd->infile_tmp);
+		cmd->infile_tmp = NULL;
 		cmd->is_infile_tmp = 0;
 	}
 	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
@@ -48,10 +50,11 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
 		// TODO change the location and name of the temp file
-		cmd->fd_in = open("temp", O_RDWR | O_CREAT | O_APPEND, 00755);
+		cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_", ft_strchr(ttyname(0), 't'));
+		cmd->is_infile_tmp = 1;
+		cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
 		if (cmd->fd_in == -1)
 			return (error_and_return(OPEN_FAIL, 1));
-		cmd->is_infile_tmp = 1;
 		while (1)
 		{
 			line = readline("> ");
@@ -64,7 +67,7 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		}
 		free(line);
 		close(cmd->fd_in);
-		cmd->fd_in = open("temp", O_RDWR, 00755);
+		cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
 	}
 	return (0);
 }
