@@ -69,7 +69,7 @@ t_error	parse(char *line)
 */
 
 
-// THIS FUNCTION HAS MORE THAN 25 LINES !!
+/* We hate this i = -1 too, but what can we do, we have to pass norminette.😭 */
 
 void	get_tokens_types(t_token *tokens, int nb_tokens)
 {
@@ -77,10 +77,10 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 	bool	cmd_is_echo;
 	int		first_word;
 
-	i = 0;
+	i = -1;
 	cmd_is_echo = false;
 	first_word = 0;
-	while (i < nb_tokens)
+	while (++i < nb_tokens)
 	{
 		if (there_is_quote(tokens[i].text, DBL_QUOTE)
 			|| there_is_quote(tokens[i].text, SGL_QUOTE))
@@ -97,9 +97,7 @@ void	get_tokens_types(t_token *tokens, int nb_tokens)
 			tokens[i].type = FLAG;
 		else
 			tokens[i].type = WORD;
-		i++;
 	}
-	return ;
 }
 
 /*

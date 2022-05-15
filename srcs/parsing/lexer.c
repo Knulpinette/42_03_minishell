@@ -88,7 +88,7 @@ char	*rewrite(char **text, int type)
 
 // FUNCTION HAS MORE THAN 25 LINES !
 
-t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
+static t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
 {
 	int	j;
 
@@ -108,7 +108,7 @@ t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
 	return (0);
 }
 
-static t_error	get_command_tables(t_cmd_table *cmd_table,
+t_error	get_command_tables(t_cmd_table *cmd_table,
 								int nb_cmds, char **instructions)
 {
 	int		i;
