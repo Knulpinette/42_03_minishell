@@ -13,10 +13,10 @@
 ** 🌴🥥
 */
 
-t_error	lexer(char *line)
+int	lexer(char *line)
 {
 	t_minishell	*minishell;
-	t_error		exit_code;
+	int			exit_code;
 
 	minishell = get_minishell(NULL);
 	if (minishell->instructions)
@@ -86,35 +86,40 @@ char	*rewrite(char **text, int type)
 	return (*text);
 }
 
-// FUNCTION HAS MORE THAN 25 LINES !
+static int	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
+{
+	int	j;
 
-t_error	get_command_tables(t_cmd_table *cmd_table,
+	cmd_table->redirs = get_redirs(*instruction, cmd_table->nb_redirs);
+	j = 0;
+	while (j < cmd_table->nb_redirs)
+	{
+		if (is_empty(cmd_table->redirs[j].arg))
+			return (error_and_return(REDIR_NO_ARG, SYNTAX_ERROR));
+		if (ft_strchr(cmd_table->redirs[j].arg, '$')
+			&& cmd_table->redirs[j].type != OP_DELIMITER)
+			cmd_table->redirs[j].arg
+				= rewrite(&cmd_table->redirs[j].arg, ENV_VAR);
+		j++;
+	}
+	*instruction = rewrite(instruction, REDIR);
+	return (0);
+}
+
+int	get_command_tables(t_cmd_table *cmd_table,
 								int nb_cmds, char **instructions)
 {
 	int		i;
-	int		j;
+	int	error;
 
 	i = 0;
+	error = 0;
 	while (i < nb_cmds)
 	{
 		cmd_table[i].nb_redirs = get_nb_redirs(instructions[i]);
 		if (cmd_table[i].nb_redirs)
-		{
-			cmd_table[i].redirs = get_redirs(instructions[i],
-					cmd_table[i].nb_redirs);
-			j = 0;
-			while (j < cmd_table[i].nb_redirs)
-			{
-				if (is_empty(cmd_table[i].redirs[j].arg))
-					return (error_and_return(REDIR_NO_ARG, SYNTAX_ERROR));
-				if (ft_strchr(cmd_table[i].redirs[j].arg, '$')
-					&& cmd_table[i].redirs[j].type != OP_DELIMITER)
-					cmd_table[i].redirs[j].arg
-						= rewrite(&cmd_table[i].redirs[j].arg, ENV_VAR);
-				j++;
-			}
-			instructions[i] = rewrite(&instructions[i], REDIR);
-		}
+			error = get_and_rewrite_redirections(
+					&cmd_table[i], &instructions[i]);
 		if (ft_strchr(instructions[i], '$'))
 			instructions[i] = rewrite(&instructions[i], ENV_VAR);
 		cmd_table[i].nb_tokens = get_nb_tokens(instructions[i], SPACE);
@@ -122,5 +127,5 @@ t_error	get_command_tables(t_cmd_table *cmd_table,
 				SPACE, cmd_table[i].nb_tokens);
 		i++;
 	}
-	return (0);
+	return (error);
 }
