@@ -22,6 +22,8 @@ t_list	*get_env_lst(char *name, t_list *env)
 	int			name_len;
 	t_list		*to_get;
 
+	if (!name)
+		return (NULL);
 	if (!env)
 	{
 		minishell = get_minishell(NULL);
@@ -49,9 +51,13 @@ void	set_env_value(char *name, char *value)
 {
 	t_list	*to_set;
 
+	if (!value)
+		return ;
 	to_set = get_env_lst(name, NULL);
 	if (!to_set)
 		return ;
-	free(((t_env *)to_set->content)->value);
+	if (((t_env *)to_set->content)->value)
+		free(((t_env *)to_set->content)->value);
+	((t_env *)to_set->content)->value = NULL;
 	((t_env *)to_set->content)->value = ft_strdup(value);
 }

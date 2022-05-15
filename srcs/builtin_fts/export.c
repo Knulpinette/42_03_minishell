@@ -30,9 +30,18 @@ static void	print_export(t_list *env, int fd_out)
 	}
 }
 
+/*
+ * - Check if the argument given is correct and while doing so make i point to
+ *   the = sign (or the end)
+ * - If there's already a variable with that name and a value is given,
+ *   update that variable's value
+ * - Else, create a new variable
+ */
 static int	add_env_list(char *arg, t_list *env)
 {
 	int		i;
+	char	*name;
+	char	*value;
 	t_env	*env_var;
 	
 	if (!ft_isalpha(arg[0]) && arg[0] != '_')
@@ -42,13 +51,19 @@ static int	add_env_list(char *arg, t_list *env)
 		i++;
 	if (arg[i] && arg[i] != '=')
 		return (1);
-	env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
-	env_var->name = ft_substr(arg, 0, i);
+	name = ft_substr(arg, 0, i);
+	value = NULL;
 	if (arg[i])
-		env_var->value = ft_strdup(arg + i + 1);
+		value = ft_strdup(arg + i + 1);
+	if (get_env_lst(name, env))
+		set_env_value(name, value);
 	else
-		env_var->value = NULL;
-	ft_lstadd_back(&env, ft_lstnew((void *)env_var));
+	{
+		env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
+		env_var->name = name;
+		env_var->value = value;
+		ft_lstadd_back(&env, ft_lstnew((void *)env_var));
+	}
 	return (0);
 }
 
