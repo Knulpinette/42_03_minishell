@@ -48,12 +48,20 @@ static void	open_pipe(t_minishell *minishell, int i)
 	minishell->cmd_table[i + 1].fd_in = fd[0];
 }
 
-static void	close_for_next_cmd(t_cmd_table cmd)
+static void	close_for_next_cmd(t_cmd_table *cmd)
 {
-	if (cmd.fd_in != 0)
-		close(cmd.fd_in);
-	if (cmd.fd_out != 1)
-		close(cmd.fd_out);
+	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
+	{
+		if (unlink(cmd->infile_tmp) == -1)
+			error_and_exit(UNLINK_FAIL);
+		free(cmd->infile_tmp);
+		cmd->infile_tmp = NULL;
+		cmd->is_infile_tmp = 0;
+	}
+	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
+		error_and_exit(CLOSE_FAIL);
+	if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
+		error_and_exit(CLOSE_FAIL);
 }
 
 static void	exec_in_child(t_minishell *minishell, int i)
@@ -105,7 +113,7 @@ int	execute(t_minishell *minishell)
 		if ((exec_redirs(minishell, &minishell->cmd_table[i]))
 			|| !minishell->cmd_table[i].cmd_name)
 		{
-			close_for_next_cmd(minishell->cmd_table[i++]);
+			close_for_next_cmd(&minishell->cmd_table[i++]);
 			continue;
 		}
 		if (is_builtin(minishell->cmd_table[i].cmd_name)
@@ -113,7 +121,7 @@ int	execute(t_minishell *minishell)
 			return (minishell->exit_code = exec_builtin(minishell,
 				&minishell->cmd_table[i]));
 		exec_in_child(minishell, i);
-		close_for_next_cmd(minishell->cmd_table[i++]);
+		close_for_next_cmd(&minishell->cmd_table[i++]);
 	}
 	wait_and_get_exit_code(minishell);
 	set_signals(RESET, minishell->mode);
