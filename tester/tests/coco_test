@@ -16,15 +16,28 @@ echo RUNNING: rm a b c
 rm a b c
 echo
 
-echo RUNNING cd | ls
+echo "RUNNING 'cd | ls' and 'pwd'- should be the original one!"
 cd | ls
-echo RUNNING pwd - should be the original one!
 pwd
 echo
 
 echo RUNNING export ?? - exit status should be 1
 export ??
 echo $?
+echo
+
+echo "RUNNING 'export a' and 'export a=hey' - at the end there should be only one a"
+export a
+export a=hey
+export
+unset a
+echo
+
+echo "RUNNING 'export a=hey' and 'export a' - at the end should be a=hey"
+export a=hey
+export a
+export
+unset a
 echo
 
 echo RUNNING las - exit status should be 127
@@ -35,6 +48,18 @@ echo
 echo "RUNNING cat > - exit status should be 258"
 cat >
 echo $?
+echo
+
+echo "RUNNING 'cat << EOF | xargs echo hello - write something!"
+cat << EOF | xargs echo hello
+echo
+
+echo "RUNNING 'cat << EOF' - write" '$HOME and "EOF", the variable should be expanded'
+cat << EOF
+echo
+
+echo "RUNNING 'cat <<" '"EOF" - write $HOME and "EOF", the variable should not be expanded'
+cat << "EOF"
 echo
 
 echo "RUNNING sleep 5 | ls - should print immediately"
@@ -54,15 +79,13 @@ echo "RUNNING echo coconut | cat"
 echo coconut | cat
 echo
 
-echo "RUNNING unset PWD"
+echo "RUNNING 'unset PWD' and 'pwd' - should still know cwd"
 unset PWD
-echo "RUNNING pwd"
 pwd
 echo
 
-echo "RUNNING unset PATH"
+echo "RUNNING 'unset PATH' and 'ls | wc' - should not be able to find them"
 unset PATH
-echo "RUNNING ls | wc"
 ls | wc
 echo
 
