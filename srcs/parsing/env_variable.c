@@ -76,6 +76,7 @@ char	*get_env_var(char *text, int env_var_len)
 {
 	char	*env_var;
 	char	*result;
+	char	*exit_code;
 	int		i;
 	int		j;
 
@@ -87,7 +88,11 @@ char	*get_env_var(char *text, int env_var_len)
 	if (!*env_var)
 		result = ft_strdup("$");
 	else if (*env_var == '?')
-		result = ft_strjoin(get_exit_code(), env_var + 1);
+	{
+		exit_code = get_exit_code();
+		result = ft_strjoin(exit_code, env_var + 1);
+		free(exit_code);
+	}
 	else if (get_env_value(env_var))
 		result = ft_strdup(get_env_value(env_var));
 	else

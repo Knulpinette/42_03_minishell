@@ -170,7 +170,10 @@ void	assign_tokens(t_cmd_table *cmd_table)
 	{
 		if (there_is_quote(cmd_table->redirs[i].arg, DBL_QUOTE)
 			|| there_is_quote(cmd_table->redirs[i].arg, SGL_QUOTE))
-			cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
+			{
+				cmd_table->redirs[i].quote = true;
+				cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
+			}
 		i++;
 	}
 	cmd_table->cmd_name = cmd_table->tokens[0].text;

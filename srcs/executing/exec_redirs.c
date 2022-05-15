@@ -17,6 +17,19 @@
  *    same time and call cat << . in both, it will be writing to the same file.
  *    Solution: add tty name to the file name.
  */
+
+static void	write_and_free_line(char **line, int fd_in)
+{
+	write(fd_in, *line, ft_strlen(*line));
+	write(fd_in, "\n", 1);
+	free(*line);
+}
+
+/*
+** If an environement variable is called inside a heredoc, it is expanded.
+**	/!\ Unless the delimiter is in between quotes. /!\
+*/
+
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	char	*line;
@@ -42,11 +55,12 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		while (1)
 		{
 			line = readline("> ");
-			if (!line || ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0)
+			if (!(line && !ft_strlen(line)) && (!line
+				|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
 				break;
-			// TODO treat line (expand env vars)
-			write(cmd->fd_in, line, ft_strlen(line));
-			write(cmd->fd_in, "\n", 1);
+			if (!cmd->redirs[i].quote)
+				line = rewrite(&line, ENV_VAR);
+			write_and_free_line(&line, cmd->fd_in);
 		}
 		free(line);
 		close(cmd->fd_in);
