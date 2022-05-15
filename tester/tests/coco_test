@@ -27,6 +27,20 @@ export ??
 echo $?
 echo
 
+echo "RUNNING 'export a' and 'export a=hey' - at the end there should be only one a"
+export a
+export a=hey
+export
+unset a
+echo
+
+echo "RUNNING 'export a=hey' and 'export a' - at the end should be a=hey"
+export a=hey
+export a
+export
+unset a
+echo
+
 echo RUNNING las - exit status should be 127
 las
 echo $?
