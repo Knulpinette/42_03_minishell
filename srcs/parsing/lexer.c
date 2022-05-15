@@ -88,11 +88,11 @@ char	*rewrite(char **text, int type)
 
 // FUNCTION HAS MORE THAN 25 LINES !
 
-t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instructions)
+t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
 {
 	int	j;
 
-	cmd_table->redirs = get_redirs(*instructions, cmd_table->nb_redirs);
+	cmd_table->redirs = get_redirs(*instruction, cmd_table->nb_redirs);
 	j = 0;
 	while (j < cmd_table->nb_redirs)
 	{
@@ -104,7 +104,7 @@ t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instructions
 				= rewrite(&cmd_table->redirs[j].arg, ENV_VAR);
 		j++;
 	}
-	*instructions = rewrite(instructions, REDIR);
+	*instruction = rewrite(instruction, REDIR);
 	return (0);
 }
 
