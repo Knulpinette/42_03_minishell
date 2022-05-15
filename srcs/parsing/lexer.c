@@ -13,10 +13,10 @@
 ** 🌴🥥
 */
 
-t_error	lexer(char *line)
+int	lexer(char *line)
 {
 	t_minishell	*minishell;
-	t_error		exit_code;
+	int			exit_code;
 
 	minishell = get_minishell(NULL);
 	if (minishell->instructions)
@@ -86,9 +86,7 @@ char	*rewrite(char **text, int type)
 	return (*text);
 }
 
-// FUNCTION HAS MORE THAN 25 LINES !
-
-static t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
+static int	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
 {
 	int	j;
 
@@ -108,11 +106,11 @@ static t_error	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instr
 	return (0);
 }
 
-t_error	get_command_tables(t_cmd_table *cmd_table,
+int	get_command_tables(t_cmd_table *cmd_table,
 								int nb_cmds, char **instructions)
 {
 	int		i;
-	t_error	error;
+	int	error;
 
 	i = 0;
 	error = 0;

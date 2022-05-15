@@ -98,8 +98,6 @@ static char	*save_next_word_as_arg(const char *instructions, int i)
 	return (arg);
 }
 
-// THIS FUNCTION HAS MORE THAN 25 LINES !!
-
 static int	parse_redir(t_redir *redirs, const char *instructions, int i)
 {
 	int	len_parse;

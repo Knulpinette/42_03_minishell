@@ -79,8 +79,6 @@ int	get_nb_quotes(char *text)
 **
 */
 
-// FUCTION HAS MORE THAN 25 LINES !!
-
 static void	remove_quotes_core(char *text, char **temp, char quote)
 {
 	int	i;

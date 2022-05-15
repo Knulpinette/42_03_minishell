@@ -25,10 +25,10 @@
 ** 🌴🥥
 */
 
-t_error	parse(char *line)
+int	parse(char *line)
 {
 	t_minishell	*minishell;
-	t_error		exit_code;
+	int		exit_code;
 	int			i;
 
 	minishell = get_minishell(NULL);
@@ -67,7 +67,6 @@ t_error	parse(char *line)
 **	   '-nnnnnnnn' as a flag. The rest should be treated as text.
 **
 */
-
 
 /* We hate this i = -1 too, but what can we do, we have to pass norminette.😭 */
 
