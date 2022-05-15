@@ -98,7 +98,22 @@ static char	*save_next_word_as_arg(const char *instructions, int i)
 	return (arg);
 }
 
-// THIS FUNCTION HAS MORE THAN 25 LINES !!
+static int	parse_redir(t_redir *redirs, const char *instructions, int i)
+{
+	int	len_parse;
+
+	len_parse = 0;
+	redirs->type = get_redir_type(instructions, i);
+	if (redirs->type == OP_REDIR_IN
+		|| redirs->type == OP_REDIR_OUT)
+		len_parse += 1;
+	else if (redirs->type == OP_DELIMITER
+		|| redirs->type == OP_APPEND)
+		len_parse += 2;
+	redirs->arg = save_next_word_as_arg(instructions, i + len_parse);
+	len_parse += ft_strlen(redirs->arg);
+	return (len_parse);
+}
 
 t_redir	*get_redirs(const char *instructions, int nb_redirs)
 {
@@ -118,15 +133,7 @@ t_redir	*get_redirs(const char *instructions, int nb_redirs)
 		quote = check_quote(instructions[i], quote);
 		if ((instructions[i] == '<' || instructions[i] == '>') && !quote)
 		{
-			redirs[count].type = get_redir_type(instructions, i);
-			if (redirs[count].type == OP_REDIR_IN
-				|| redirs[count].type == OP_REDIR_OUT)
-				i += 1;
-			else if (redirs[count].type == OP_DELIMITER
-				|| redirs[count].type == OP_APPEND)
-				i += 2;
-			redirs[count].arg = save_next_word_as_arg(instructions, i);
-			i += ft_strlen(redirs[count].arg);
+			i += parse_redir(&redirs[count], instructions, i);
 			count++;
 		}
 		else
