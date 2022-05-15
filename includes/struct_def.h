@@ -55,6 +55,7 @@ typedef struct s_command_table
 	char		*cmd_path;
 	int			fd_in;
 	int			is_infile_tmp;
+	char		*infile_tmp;
 	int			fd_out;
 }				t_cmd_table;
 
