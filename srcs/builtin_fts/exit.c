@@ -15,9 +15,11 @@ int	str_only_digits(char *str)
 }
 
 /*
- * Note: I know it's silly to return after exit
- * but I kinda had to return something...
- * better something that kinda makes sense
+ * Note: "exit" is not printed when inside pipes... as it shouldn't!
+ * Note2: I know it's silly to return after exit, but I kinda had to return
+ * something... better something that kinda makes sense.
+ * Note3: Negative numbers are considered as flags by the parsing
+ * TODO see what to do about it
  */
 int	exit_cocoshell(t_cmd_table *cmd, t_minishell *minishell)
 {
@@ -27,7 +29,7 @@ int	exit_cocoshell(t_cmd_table *cmd, t_minishell *minishell)
 	nb_args = 0;
 	while (cmd->cmd_args[nb_args])
 		nb_args++;
-	ft_putstr_fd("exit\n", cmd->fd_out); // doesn't show when in pipes
+	ft_putstr_fd("exit\n", cmd->fd_out);
 	if (nb_args >= 1 && !str_only_digits(cmd->cmd_args[0]))
 		error_and_exit(NON_NUM_ARG);
 	if (nb_args > 1)
