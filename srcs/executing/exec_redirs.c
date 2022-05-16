@@ -24,7 +24,7 @@
 */
 static int	exec_redirs_heredoc(t_cmd_table *cmd, int i, t_mode shell_mode)
 {
-	char	*line;
+	//char	*line;
 
 	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_",	ft_strrchr(ttyname(0), '/') + 1);
 	cmd->is_infile_tmp = 1;
@@ -32,25 +32,25 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i, t_mode shell_mode)
 	if (cmd->fd_in == -1)
 		return (error_and_return(OPEN_FAIL, 1));
 	set_signals(HEREDOC, shell_mode);
-	while (1 && !cmd->called_signal_heredoc)
+	while (1 && !cmd->called_signal_heredoc) //we don't need the one but I find the statement clearer with it
 	{
-		line = readline("> ");
-		if (!(line && !ft_strlen(line)) && (!line
-			|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
+		cmd->line = readline("> ");
+		if (!(cmd->line && !ft_strlen(cmd->line)) && (!cmd->line
+			|| ft_strncmp(cmd->line, cmd->redirs[i].arg, ft_strlen(cmd->line)) == 0))
 			break;
 		if (!cmd->redirs[i].quote)
-			line = rewrite(&line, ENV_VAR);
-		write(cmd->fd_in, line, ft_strlen(line));
+			cmd->line = rewrite(&cmd->line, ENV_VAR);
+		write(cmd->fd_in, cmd->line, ft_strlen(cmd->line));
 		write(cmd->fd_in, "\n", 1);
-		free(line);
-		line = NULL;
+		free(cmd->line);
+		cmd->line = NULL;
 	}
-	free(line);
-	close(cmd->fd_in);
-	if (cmd->called_signal_heredoc)
-		cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_TRUNC, 00755);
-	else
+	if (!cmd->called_signal_heredoc)
+	{
+		free(cmd->line);
+		close(cmd->fd_in);
 		cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
+	}
 	return (0);
 }
 

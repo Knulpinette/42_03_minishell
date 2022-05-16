@@ -46,6 +46,7 @@ typedef struct s_redir
 typedef struct s_command_table
 {
 	bool		called_signal_heredoc;
+	char		*line;
 	int			nb_redirs;
 	t_redir		*redirs;
 	int			nb_tokens;
