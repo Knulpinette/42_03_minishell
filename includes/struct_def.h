@@ -116,7 +116,7 @@ typedef struct s_minishell
 	char		**env_paths;
 	t_cmd_table	*cmd_table;
 	pid_t		*child_pids;
-	int			index_for_signal_heredoc;
+	t_cmd_table	*pointer_for_signal_heredoc;
 	int			exit_code;
 }				t_minishell;
 
