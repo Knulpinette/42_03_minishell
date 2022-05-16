@@ -55,7 +55,6 @@ static void	sigint_heredoc_handler(int sig_num)
 		//depending on if we manage to actually exit this function without pressing enter
 		if (cmd->line)
 			free(cmd->line);
-		cmd->line = NULL;
 		close(cmd->fd_in);
 		cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_TRUNC, 00755); //the fact it doesn't exit right away has probably to do with this.
 	}
