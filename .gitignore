@@ -2,6 +2,7 @@
 objs
 a.out
 out
+jose_minishell
 ./minishell
 minishell
 docs/git_instructions.txt

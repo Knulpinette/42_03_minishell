@@ -36,6 +36,23 @@ static void	sigint_handler(int sig_num)
 	return ;
 }
 
+static void	sigint_heredoc_handler(int sig_num)
+{
+	t_minishell	*minishell;
+	
+	minishell = get_minishell(NULL);
+	if (sig_num == SIGINT)
+	{
+		minishell->exit_code = 1;
+		minishell->cmd_table[0].called_signal_heredoc = true;
+		rl_replace_line("", 0);
+		write(STDIN_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	return ;
+}
+
 static void	signal_handler_child(int sig_num)
 {
 	t_minishell	*minishell;
@@ -63,6 +80,14 @@ void	set_signals(t_status status, t_mode	mode)
 		if (signal(SIGQUIT, signal_handler_child) == SIG_ERR)
 			error_and_exit(SIGNAL_ERROR);
 	}
+	else if (status == HEREDOC && mode == INTERACTIVE)
+	{
+		if (signal(SIGINT, sigint_heredoc_handler) == SIG_ERR)
+			error_and_exit(SIGNAL_ERROR);
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			error_and_exit(SIGNAL_ERROR);
+	}
+	
 	else if (mode == INTERACTIVE)
 	{
 		if (signal(SIGINT, sigint_handler) == SIG_ERR)

@@ -29,6 +29,7 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 	i = 0;
 	while (i < nb_cmds)
 	{
+		cmd_table[i].called_signal_heredoc = false;
 		cmd_table[i].redirs = NULL;
 		cmd_table[i].tokens = NULL;
 		cmd_table[i].cmd_name = NULL;

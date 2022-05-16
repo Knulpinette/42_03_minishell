@@ -45,6 +45,7 @@ typedef struct s_redir
 
 typedef struct s_command_table
 {
+	bool		called_signal_heredoc;
 	int			nb_redirs;
 	t_redir		*redirs;
 	int			nb_tokens;
@@ -97,6 +98,7 @@ typedef enum e_status
 	INIT,
 	RESET,
 	CHILD_PROCESS,
+	HEREDOC,
 }			t_status;
 
 typedef enum e_mode

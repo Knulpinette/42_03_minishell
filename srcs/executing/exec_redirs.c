@@ -22,7 +22,7 @@
 ** If an environement variable is called inside a heredoc, it is expanded.
 **	/!\ Unless the delimiter is in between quotes. /!\
 */
-static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
+static int	exec_redirs_heredoc(t_cmd_table *cmd, int i, t_mode shell_mode)
 {
 	char	*line;
 
@@ -31,8 +31,11 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 	cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
 	if (cmd->fd_in == -1)
 		return (error_and_return(OPEN_FAIL, 1));
+	set_signals(HEREDOC, shell_mode);
 	while (1)
 	{
+		if (cmd->called_signal_heredoc)
+			break;
 		line = readline("> ");
 		if (!(line && !ft_strlen(line)) && (!line
 			|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
@@ -42,14 +45,18 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 		write(cmd->fd_in, line, ft_strlen(line));
 		write(cmd->fd_in, "\n", 1);
 		free(line);
+		line = NULL;
 	}
 	free(line);
 	close(cmd->fd_in);
-	cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
+	if (cmd->called_signal_heredoc)
+		cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_TRUNC, 00755);
+	else
+		cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
 	return (0);
 }
 
-static int	exec_redirs_in(t_cmd_table *cmd, int i)
+static int	exec_redirs_in(t_cmd_table *cmd, int i, t_mode shell_mode)
 {
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
@@ -66,7 +73,7 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 		return (error_and_return(OPEN_FAIL, 1));
 	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
-		if (exec_redirs_heredoc(cmd, i))
+		if (exec_redirs_heredoc(cmd, i, shell_mode))
 			return (1);
 	}
 	return (0);
@@ -95,7 +102,7 @@ int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 		if (cmd->redirs[i].type == OP_REDIR_IN
 			|| cmd->redirs[i].type == OP_DELIMITER)
 		{
-			if (exec_redirs_in(cmd, i))
+			if (exec_redirs_in(cmd, i, minishell->mode))
 			{
 				minishell->exit_code = 1;
 				return (1);
