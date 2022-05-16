@@ -32,10 +32,8 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i, t_mode shell_mode)
 	if (cmd->fd_in == -1)
 		return (error_and_return(OPEN_FAIL, 1));
 	set_signals(HEREDOC, shell_mode);
-	while (1)
+	while (1 && !cmd->called_signal_heredoc)
 	{
-		if (cmd->called_signal_heredoc)
-			break;
 		line = readline("> ");
 		if (!(line && !ft_strlen(line)) && (!line
 			|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
