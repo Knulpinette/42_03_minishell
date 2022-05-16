@@ -50,6 +50,10 @@ cat >
 echo $?
 echo
 
+echo "RUNNING 'cat | grep i' - write something! only words with 'i' should be printed"
+cat | grep i
+echo
+
 echo "RUNNING 'cat << EOF | xargs echo hello - write something!"
 cat << EOF | xargs echo hello
 echo
@@ -77,6 +81,11 @@ echo
 
 echo "RUNNING echo coconut | cat"
 echo coconut | cat
+echo
+
+echo "RUNNING 'unset HOME' and 'cd' - should throw an error"
+unset HOME
+cd
 echo
 
 echo "RUNNING 'unset PWD' and 'pwd' - should still know cwd"
