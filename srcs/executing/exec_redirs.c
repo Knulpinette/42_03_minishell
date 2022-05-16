@@ -99,6 +99,7 @@ int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 	i = 0;
 	while (i < cmd->nb_redirs)
 	{
+		minishell->index_for_signal_heredoc = i;
 		if (cmd->redirs[i].type == OP_REDIR_IN
 			|| cmd->redirs[i].type == OP_DELIMITER)
 		{

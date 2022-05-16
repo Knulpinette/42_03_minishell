@@ -16,6 +16,7 @@ t_minishell		*init_minishell(char **envp, int argc)
 	minishell->env_paths = NULL;
 	minishell->cmd_table = NULL;
 	minishell->child_pids = NULL;
+	minishell->index_for_signal_heredoc = 0;
 	minishell->exit_code = 0;
 	return (minishell);
 }
