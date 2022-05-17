@@ -13,6 +13,7 @@
  * In zsh it says "cd: string not in pwd: <first_arg>"
  * In bash, the first time we open the terminal there is no OLDPWD yet,
  * thus calling cd - returns "bash: cd: OLDPWD not set"
+ * If we unset HOME and then run cd it returns "bash: cd: HOME not set"
  */
 
 static char	*update_cwd(char *cwd)
