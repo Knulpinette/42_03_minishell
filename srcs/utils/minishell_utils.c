@@ -13,7 +13,7 @@
 ** 🌴🥥
 */
 
-t_minishell		*get_minishell(t_minishell *minishell)
+t_minishell	*get_minishell(t_minishell *minishell)
 {
 	static t_minishell	*pointer_to_minishell = NULL;
 
