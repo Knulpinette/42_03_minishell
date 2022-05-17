@@ -19,7 +19,7 @@ char	*get_env_lst_value(t_list *env_lst)
 t_list	*get_env_lst(char *name, t_list *env)
 {
 	t_minishell	*minishell;
-	int			name_len;
+	size_t		name_len;
 	t_list		*to_get;
 
 	if (!name)
@@ -32,7 +32,8 @@ t_list	*get_env_lst(char *name, t_list *env)
 	else
 		to_get = env;
 	name_len = ft_strlen(name);
-	while (to_get && ft_strncmp(get_env_lst_name(to_get), name, name_len))
+	while (to_get && (ft_strlen(get_env_lst_name(to_get)) != name_len
+			|| ft_strncmp(get_env_lst_name(to_get), name, name_len)))
 		to_get = to_get->next;
 	return (to_get);
 }

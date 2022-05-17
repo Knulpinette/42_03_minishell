@@ -13,6 +13,7 @@
  * In zsh it says "cd: string not in pwd: <first_arg>"
  * In bash, the first time we open the terminal there is no OLDPWD yet,
  * thus calling cd - returns "bash: cd: OLDPWD not set"
+ * If we unset HOME and then run cd it returns "bash: cd: HOME not set"
  */
 
 static char	*update_cwd(char *cwd)
@@ -26,17 +27,36 @@ static char	*update_cwd(char *cwd)
 
 static char	*get_new_cwd(char *cmd_arg)
 {
+	char *new_cwd;
+
 	if (!cmd_arg)
-		return (get_env_value("HOME"));
-	if (ft_strncmp(cmd_arg, "-", 1) == 0)
-		return (get_env_value("OLDPWD"));
-	return (cmd_arg);
+	{
+		new_cwd = get_env_value("HOME");
+		if (!new_cwd)
+		{
+			error_message(NO_HOME);
+			return (NULL);
+		}
+	}
+	else if (ft_strncmp(cmd_arg, "-", 1) == 0)
+	{
+		new_cwd = get_env_value("OLDPWD");
+		if (!new_cwd)
+		{
+			error_message(NO_OLDPWD);
+			return (NULL);
+		}
+	}
+	else
+		new_cwd = cmd_arg;
+	return (new_cwd);
 }
 
 static int	exit_cd(char *cwd, int	error_code, int exit_code)
 {
 	free(cwd);
-	error_message(error_code);
+	if (error_code)
+		error_message(error_code);
 	return (exit_code);
 }
 
@@ -49,7 +69,7 @@ int	cd(t_cmd_table *cmd)
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
 	if ((new_cwd = get_new_cwd(cmd->cmd_args[0])) == NULL)
-		return (exit_cd(cwd, NO_OLDPWD, 1));
+		return (exit_cd(cwd, 0, 1));
 	if ((exit_code = chdir(new_cwd)) != 0) 
 		return (exit_cd(cwd, WRONG_DIR, exit_code));
 	set_env_value("OLDPWD", cwd);
@@ -57,8 +77,5 @@ int	cd(t_cmd_table *cmd)
 	set_env_value("PWD", cwd);
 	if (cmd->cmd_args[0] && ft_strncmp(cmd->cmd_args[0], "-", 1) == 0)
 		pwd(cmd);
-	DEBUG(printf("PWD: %s\n", get_env_value("PWD")));
-	DEBUG(printf("OLDPWD: %s\n", get_env_value("OLDPWD")));	
-	free(cwd);
-	return (0);
+	return (exit_cd(cwd, 0, 0));
 }
