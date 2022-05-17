@@ -18,7 +18,7 @@ int	valid_command(t_minishell *minishell, t_cmd_table *cmd)
 	if (ft_strchr(cmd->cmd_name, '/'))
 	{
 		if (access(cmd->cmd_name, F_OK) == 0
-				&& access(cmd->cmd_name, X_OK) == 0)
+			&& access(cmd->cmd_name, X_OK) == 0)
 		{
 			cmd->cmd_path = ft_strdup(cmd->cmd_name);
 			return (0);
@@ -40,7 +40,7 @@ int	valid_command(t_minishell *minishell, t_cmd_table *cmd)
 	return (CMD_NOT_FOUND);
 }
 
-static char **build_execve_args(t_cmd_table *cmd)
+static char	**build_execve_args(t_cmd_table *cmd)
 {
 	char	**execve_args;
 	int		i;
@@ -52,11 +52,13 @@ static char **build_execve_args(t_cmd_table *cmd)
 		execve_args[i] = ft_strdup(cmd->tokens[i].text);
 		i++;
 	}
-	 execve_args[i] = NULL;
-	 return (execve_args);
+	execve_args[i] = NULL;
+	return (execve_args);
 }
 
-static char **build_execve_envp(t_minishell *minishell)
+// FUNCTION HAS MORE THAN 25 LINES !
+
+static char	**build_execve_envp(t_minishell *minishell)
 {
 	char	**envp;
 	int		i;
@@ -64,7 +66,8 @@ static char **build_execve_envp(t_minishell *minishell)
 	int		len_name;
 	int		len_value;
 
-	envp = (char **)calloc_or_exit(sizeof(char *), ft_lstsize(minishell->env) + 1);
+	envp = (char **)calloc_or_exit(sizeof(char *),
+			ft_lstsize(minishell->env) + 1);
 	i = 0;
 	curr = minishell->env;
 	while (curr)
@@ -73,7 +76,8 @@ static char **build_execve_envp(t_minishell *minishell)
 		len_value = 0;
 		if (get_env_lst_value(curr))
 			len_value = ft_strlen(get_env_lst_value(curr));
-		envp[i] = (char *)calloc_or_exit(sizeof(char), len_name + len_value + 2);
+		envp[i] = (char *)calloc_or_exit(sizeof(char),
+				len_name + len_value + 2);
 		ft_strlcpy(envp[i], get_env_lst_name(curr), len_name + 1);
 		envp[i][len_name] = '=';
 		if (len_value != 0)
@@ -82,11 +86,11 @@ static char **build_execve_envp(t_minishell *minishell)
 		curr = curr->next;
 		i++;
 	}
-	 envp[i] = NULL;
-	 return (envp);
+	envp[i] = NULL;
+	return (envp);
 }
 
-void exec_system(t_minishell *minishell, t_cmd_table *cmd)
+void	exec_system(t_minishell *minishell, t_cmd_table *cmd)
 {
 	char	**execve_args;
 	char	**envp;
@@ -102,7 +106,8 @@ void exec_system(t_minishell *minishell, t_cmd_table *cmd)
 		dup2(cmd->fd_out, STDOUT_FILENO);
 		close(cmd->fd_out);
 	}
-	if ((exit_code = valid_command(minishell, cmd)) == 0)
+	exit_code = valid_command(minishell, cmd);
+	if (exit_code == 0)
 	{
 		execve_args = build_execve_args(cmd);
 		envp = build_execve_envp(minishell);

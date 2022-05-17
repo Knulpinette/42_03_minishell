@@ -74,7 +74,7 @@ static void	print_cmd_table(t_cmd_table *cmd_table, int i)
 void	print_debug(void)
 {
 	t_minishell	*minishell;
-	int	i;
+	int			i;
 
 	minishell = get_minishell(NULL);
 	i = 0;
