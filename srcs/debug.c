@@ -2,7 +2,7 @@
 
 void	print_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (split[i])
@@ -14,7 +14,7 @@ void	print_split(char **split)
 
 void	print_tokens(t_token *tokens, int words)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < words)
@@ -25,12 +25,12 @@ void	print_tokens(t_token *tokens, int words)
 		ft_putstr_fd("\n", 2);
 		i++;
 	}
-	return;
+	return ;
 }
 
 void	print_redirs(t_redir *redirs, int args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < args)
@@ -41,7 +41,34 @@ void	print_redirs(t_redir *redirs, int args)
 		ft_putstr_fd("\n", 2);
 		i++;
 	}
-	return;
+	return ;
+}
+
+static void	print_cmd_table(t_cmd_table *cmd_table, int i)
+{
+	printf("\n"YELLOW"INSTRUCTION %i"END_COLOR"\n", i + 1);
+	printf("_____\n🧭 redirections\n");
+	printf("🔢 %i\n", cmd_table->nb_redirs);
+	print_redirs(cmd_table->redirs, cmd_table->nb_redirs);
+	printf("_____\n🧾 tokens\n");
+	printf("🔢 %i\n", cmd_table->nb_tokens);
+	print_tokens(cmd_table->tokens, cmd_table->nb_tokens);
+	printf("_____\n🎛️ cmd\n");
+	if (cmd_table->cmd_name)
+		printf("%s\n", cmd_table->cmd_name);
+	else
+		printf("NO_COMMAND\n");
+	printf("_____\n🏳️‍🌈 flags\n");
+	if (cmd_table->flags)
+		print_split(cmd_table->flags);
+	else
+		printf("NO_FLAGS\n");
+	printf("_____\n📋 cmd_args\n");
+	if (cmd_table->cmd_args)
+		print_split(cmd_table->cmd_args);
+	else
+		printf("NO_CMD_ARGUMENTS\n");
+	printf("_____\n");
 }
 
 void	print_debug(void)
@@ -58,29 +85,7 @@ void	print_debug(void)
 	printf("_____\n");
 	while (i < minishell->nb_cmds)
 	{
-		printf("\n"YELLOW"INSTRUCTION %i"END_COLOR"\n", i + 1);
-		printf("_____\n🧭 redirections\n");
-		printf("🔢 %i\n", minishell->cmd_table[i].nb_redirs);
-		print_redirs(minishell->cmd_table[i].redirs, minishell->cmd_table[i].nb_redirs);
-		printf("_____\n🧾 tokens\n");
-		printf("🔢 %i\n", minishell->cmd_table[i].nb_tokens);
-		print_tokens(minishell->cmd_table[i].tokens, minishell->cmd_table[i].nb_tokens);
-		printf("_____\n🎛️ cmd\n");
-		if (minishell->cmd_table[i].cmd_name)
-			printf("%s\n", minishell->cmd_table[i].cmd_name);
-		else
-			printf("NO_COMMAND\n");
-		printf("_____\n🏳️‍🌈 flags\n");
-		if (minishell->cmd_table[i].flags)
-			print_split(minishell->cmd_table[i].flags);
-		else
-			printf("NO_FLAGS\n");
-		printf("_____\n📋 cmd_args\n");
-		if (minishell->cmd_table[i].cmd_args)
-			print_split(minishell->cmd_table[i].cmd_args);
-		else
-			printf("NO_CMD_ARGUMENTS\n");
-		printf("_____\n");
+		print_cmd_table(&minishell->cmd_table[i], i);
 		i++;
 	}
 }

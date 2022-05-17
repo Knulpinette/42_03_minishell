@@ -107,7 +107,6 @@ void exec_system(t_minishell *minishell, t_cmd_table *cmd)
 		execve_args = build_execve_args(cmd);
 		envp = build_execve_envp(minishell);
 		execve(cmd->cmd_path, execve_args, envp);
-		DEBUG(printf("execve failed\n"));
 		free_split(execve_args);
 		free(envp);
 	}

@@ -113,6 +113,5 @@ int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 		}
 		i++;
 	}
-	DEBUG(printf("Redir In: %d, Redir Out: %d\n", cmd->fd_in, cmd->fd_out));
 	return (0);
 }
