@@ -97,7 +97,6 @@ typedef enum e_status
 	INIT,
 	RESET,
 	CHILD_PROCESS,
-	HEREDOC,
 }			t_status;
 
 typedef enum e_mode
