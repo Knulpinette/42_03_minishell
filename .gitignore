@@ -12,5 +12,5 @@ docs/git_instructions.txt
 **/test-*
 **/objs/*
 minishell.dSYM
-tester/bugged_test/
+tester/bugged_test/*
 tester/remove_r_bug.sh
