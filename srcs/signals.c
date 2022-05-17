@@ -36,31 +36,6 @@ static void	sigint_handler(int sig_num)
 	return ;
 }
 
-static void	sigint_heredoc_handler(int sig_num)
-{
-	t_minishell	*minishell;
-	t_cmd_table	*cmd;
-	
-	minishell = get_minishell(NULL);
-	cmd = minishell->pointer_for_signal_heredoc;
-	if (sig_num == SIGINT)
-	{
-		minishell->exit_code = 1;
-		cmd->called_signal_heredoc = true;
-		//those four lines are to keep or get rid of
-		rl_replace_line("", 0);
-		write(STDIN_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		//depending on if we manage to actually exit this function without pressing enter
-		if (cmd->line)
-			free(cmd->line);
-		close(cmd->fd_in);
-		cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_TRUNC, 00755); //the fact it doesn't exit right away has probably to do with this.
-	}
-	return ;
-}
-
 static void	signal_handler_child(int sig_num)
 {
 	t_minishell	*minishell;
@@ -86,13 +61,6 @@ void	set_signals(t_status status, t_mode	mode)
 		if (signal(SIGINT, signal_handler_child) == SIG_ERR)
 			error_and_exit(SIGNAL_ERROR);
 		if (signal(SIGQUIT, signal_handler_child) == SIG_ERR)
-			error_and_exit(SIGNAL_ERROR);
-	}
-	else if (status == HEREDOC && mode == INTERACTIVE)
-	{
-		if (signal(SIGINT, sigint_heredoc_handler) == SIG_ERR)
-			error_and_exit(SIGNAL_ERROR);
-		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 			error_and_exit(SIGNAL_ERROR);
 	}
 	else if (mode == INTERACTIVE)

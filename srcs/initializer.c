@@ -16,7 +16,6 @@ t_minishell		*init_minishell(char **envp, int argc)
 	minishell->env_paths = NULL;
 	minishell->cmd_table = NULL;
 	minishell->child_pids = NULL;
-	minishell->pointer_for_signal_heredoc = NULL;
 	minishell->exit_code = 0;
 	return (minishell);
 }
@@ -30,8 +29,6 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 	i = 0;
 	while (i < nb_cmds)
 	{
-		cmd_table[i].called_signal_heredoc = false;
-		cmd_table[i].line = NULL;
 		cmd_table[i].redirs = NULL;
 		cmd_table[i].tokens = NULL;
 		cmd_table[i].cmd_name = NULL;

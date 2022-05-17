@@ -45,8 +45,6 @@ typedef struct s_redir
 
 typedef struct s_command_table
 {
-	bool		called_signal_heredoc;
-	char		*line;
 	int			nb_redirs;
 	t_redir		*redirs;
 	int			nb_tokens;
@@ -117,7 +115,6 @@ typedef struct s_minishell
 	char		**env_paths;
 	t_cmd_table	*cmd_table;
 	pid_t		*child_pids;
-	t_cmd_table	*pointer_for_signal_heredoc;
 	int			exit_code;
 }				t_minishell;
 

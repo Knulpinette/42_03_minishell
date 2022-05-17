@@ -22,39 +22,35 @@
 ** If an environement variable is called inside a heredoc, it is expanded.
 **	/!\ Unless the delimiter is in between quotes. /!\
 */
-static int	exec_redirs_heredoc(t_cmd_table *cmd, int i, t_mode shell_mode)
+static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 {
-	//char	*line;
+	char	*line;
 
 	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_",	ft_strrchr(ttyname(0), '/') + 1);
 	cmd->is_infile_tmp = 1;
 	cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
 	if (cmd->fd_in == -1)
 		return (error_and_return(OPEN_FAIL, 1));
-	set_signals(HEREDOC, shell_mode);
-	while (1 && !cmd->called_signal_heredoc) //we don't need the one but I find the statement clearer with it
+	while (1)
 	{
-		cmd->line = readline("> ");
-		if (!(cmd->line && !ft_strlen(cmd->line)) && (!cmd->line
-			|| ft_strncmp(cmd->line, cmd->redirs[i].arg, ft_strlen(cmd->line)) == 0))
+		line = readline("> ");
+		if (!(line && !ft_strlen(line)) && (!line
+			|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
 			break;
 		if (!cmd->redirs[i].quote)
-			cmd->line = rewrite(&cmd->line, ENV_VAR);
-		write(cmd->fd_in, cmd->line, ft_strlen(cmd->line));
+			line = rewrite(&line, ENV_VAR);
+		write(cmd->fd_in, line, ft_strlen(line));
 		write(cmd->fd_in, "\n", 1);
-		free(cmd->line);
-		cmd->line = NULL;
+		free(line);
+		line = NULL;
 	}
-	if (!cmd->called_signal_heredoc)
-	{
-		free(cmd->line);
-		close(cmd->fd_in);
-		cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
-	}
+	free(line);
+	close(cmd->fd_in);
+	cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
 	return (0);
 }
 
-static int	exec_redirs_in(t_cmd_table *cmd, int i, t_mode shell_mode)
+static int	exec_redirs_in(t_cmd_table *cmd, int i)
 {
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
 	{
@@ -71,7 +67,7 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i, t_mode shell_mode)
 		return (error_and_return(OPEN_FAIL, 1));
 	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
-		if (exec_redirs_heredoc(cmd, i, shell_mode))
+		if (exec_redirs_heredoc(cmd, i))
 			return (1);
 	}
 	return (0);
@@ -97,11 +93,10 @@ int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 	i = 0;
 	while (i < cmd->nb_redirs)
 	{
-		minishell->pointer_for_signal_heredoc = cmd;
 		if (cmd->redirs[i].type == OP_REDIR_IN
 			|| cmd->redirs[i].type == OP_DELIMITER)
 		{
-			if (exec_redirs_in(cmd, i, minishell->mode))
+			if (exec_redirs_in(cmd, i))
 			{
 				minishell->exit_code = 1;
 				return (1);
