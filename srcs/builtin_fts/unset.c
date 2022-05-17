@@ -37,7 +37,7 @@ int	unset(t_cmd_table *cmd, t_minishell *minishell)
             error_message(INVALID_IDENTIFIER);
             exit_code = 1;
         }
-        to_unset = get_env_lst(cmd->cmd_args[i]);
+        to_unset = get_env_lst(cmd->cmd_args[i], minishell->env);
         if (to_unset)
             delone_env_lst(to_unset, &minishell->env);
         i++;

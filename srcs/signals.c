@@ -74,7 +74,7 @@ static void	signal_handler_child(int sig_num)
 	if (sig_num == SIGQUIT)
 	{
 		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-		minishell->exit_code = EXIT_SIGINT;
+		minishell->exit_code = EXIT_SIGQUIT;
 	}
 	return ;
 }

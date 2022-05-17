@@ -73,8 +73,7 @@ typedef struct s_command_table
 /* error codes for personalised error messages */
 typedef enum e_error_codes
 {
-	ERR_NO_PRINT,
-	MEMORY_FAIL,
+	MEMORY_FAIL = 1,
 	WRONG_ARGC,
 	OPEN_FAIL,
 	CLOSE_FAIL,
@@ -82,6 +81,7 @@ typedef enum e_error_codes
 	WRITE_FAIL,
 	WRONG_DIR,
 	NO_OLDPWD,
+	NO_HOME,
 	INVALID_IDENTIFIER,
 	REDIR_NO_ARG,
 	FORK_FAIL,

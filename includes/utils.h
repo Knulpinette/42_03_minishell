@@ -14,7 +14,7 @@ void			delone_env_lst(t_list *to_del, t_list **env);
 /* ENV List getters and setters */
 char			*get_env_lst_name(t_list *env_lst);
 char			*get_env_lst_value(t_list *env_lst);
-t_list			*get_env_lst(char *name);
+t_list			*get_env_lst(char *name, t_list *env);
 char			*get_env_value(char *name);
 void			set_env_value(char *name, char *value);
 

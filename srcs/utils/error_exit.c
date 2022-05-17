@@ -29,15 +29,15 @@ int	error_and_return(t_error code, int exit_code)
 
 void	error_message(t_error code)
 {
-	if (code == ERR_NO_PRINT)
-		return ;
-	ft_putstr_fd(""LIGHT_RED"Error \n"END_COLOR"", STDERR_FILENO);
+	ft_putstr_fd(""LIGHT_RED"Error: "END_COLOR"", STDERR_FILENO);
 	if (code == WRONG_ARGC)
 		ft_putstr_fd("Wrong number of arguments.\n", STDERR_FILENO);
 	else if (code == TERMCAP_ERROR)
 		ft_putstr_fd("Termcaps have failed.\n", STDERR_FILENO);
 	else if (code == NO_OLDPWD)
 		ft_putstr_fd("OLDPWD not set.\n", STDERR_FILENO);
+	else if (code == NO_HOME)
+		ft_putstr_fd("HOME not set.\n", STDERR_FILENO);
 	else if (code == INVALID_IDENTIFIER)
 		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
 	else if (code == REDIR_NO_ARG)

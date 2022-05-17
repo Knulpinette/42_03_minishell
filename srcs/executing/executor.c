@@ -48,6 +48,10 @@ static void	open_pipe(t_minishell *minishell, int i)
 	minishell->cmd_table[i + 1].fd_in = fd[0];
 }
 
+/*
+ * If someone tried to open a file that doesn't exist, fd_in = -1
+ * That is a common error so we do not want to exit
+ */
 static void	close_for_next_cmd(t_cmd_table *cmd)
 {
 	if (cmd->fd_in != 0 && cmd->is_infile_tmp)
@@ -58,10 +62,10 @@ static void	close_for_next_cmd(t_cmd_table *cmd)
 		cmd->infile_tmp = NULL;
 		cmd->is_infile_tmp = 0;
 	}
-	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
+	if (cmd->fd_in != 0 && cmd->fd_in != -1 && close(cmd->fd_in) == -1)
 		error_and_exit(CLOSE_FAIL);
 	if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
-		error_and_exit(CLOSE_FAIL);
+	 	error_and_exit(CLOSE_FAIL);
 }
 
 static void	exec_in_child(t_minishell *minishell, int i)
