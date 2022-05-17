@@ -27,7 +27,7 @@ static char	*update_cwd(char *cwd)
 
 static char	*get_new_cwd(char *cmd_arg)
 {
-	char *new_cwd;
+	char	*new_cwd;
 
 	if (!cmd_arg)
 	{
@@ -52,7 +52,7 @@ static char	*get_new_cwd(char *cmd_arg)
 	return (new_cwd);
 }
 
-static int	exit_cd(char *cwd, int	error_code, int exit_code)
+static int	exit_cd(char *cwd, int error_code, int exit_code)
 {
 	free(cwd);
 	if (error_code)
@@ -68,9 +68,11 @@ int	cd(t_cmd_table *cmd)
 
 	cwd = NULL;
 	cwd = getcwd(cwd, 0);
-	if ((new_cwd = get_new_cwd(cmd->cmd_args[0])) == NULL)
+	new_cwd = get_new_cwd(cmd->cmd_args[0]);
+	if (new_cwd == NULL)
 		return (exit_cd(cwd, 0, 1));
-	if ((exit_code = chdir(new_cwd)) != 0) 
+	exit_code = chdir(new_cwd);
+	if (exit_code != 0)
 		return (exit_cd(cwd, WRONG_DIR, exit_code));
 	set_env_value("OLDPWD", cwd);
 	cwd = update_cwd(cwd);

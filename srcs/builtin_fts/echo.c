@@ -9,29 +9,29 @@
  * inside ft_putstr_fd (since it returns void... who thought of that? 42...)
  */
 
-static int  exit_echo(void)
+static int	exit_echo(void)
 {
-    error_message(WRITE_FAIL);
-    return (-1);
+	error_message(WRITE_FAIL);
+	return (-1);
 }
 
 int	echo(t_cmd_table *cmd)
 {
-    int i;
-    int bytes_written;
+	int	i;
+	int	bytes_written;
 
-    i = 0;
-    while (cmd->cmd_args[i])
-    {
-        ft_putstr_fd(cmd->cmd_args[i], cmd->fd_out);
-        bytes_written = write(cmd->fd_out, " ", 1);
-        if (bytes_written == -1)
-            return (exit_echo());
-        i++;
-    }
-    if (!(cmd->flags[0] && cmd->flags[0][1] == 'n'))
-        bytes_written = write(cmd->fd_out, "\n", 1);
-    if (bytes_written == -1)
-        return (exit_echo());
-    return (0);
+	i = 0;
+	while (cmd->cmd_args[i])
+	{
+		ft_putstr_fd(cmd->cmd_args[i], cmd->fd_out);
+		bytes_written = write(cmd->fd_out, " ", 1);
+		if (bytes_written == -1)
+			return (exit_echo());
+		i++;
+	}
+	if (!(cmd->flags[0] && cmd->flags[0][1] == 'n'))
+		bytes_written = write(cmd->fd_out, "\n", 1);
+	if (bytes_written == -1)
+		return (exit_echo());
+	return (0);
 }

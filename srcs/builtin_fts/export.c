@@ -2,10 +2,13 @@
 
 /*
  * Error handling
- * Export without options - thus it will ignore any flags and not throw out an error
+ * Export without options 
+ * 		- thus it will ignore any flags and not throw out an error
  * Starts with digit or with = : bash: export: `1test': not a valid identifier
- * Has a symbol (/ % * + , - . : ? [] {} ^ ~): bash: export: `/test': not a valid identifier
- * Some symbols are ignored or lead to special behaviour (# & $ ! ; and parsing stuff)
+ * Has a symbol (/ % * + , - . : ? [] {} ^ ~): 
+ * 		bash: export: `/test': not a valid identifier
+ * Some symbols are ignored or lead to special behaviour
+ * 		 (# & $ ! ; and parsing stuff)
  * Some symbols are accepted (_)
  *
  * Each argument leads to a new variable
@@ -37,13 +40,16 @@ static void	print_export(t_list *env, int fd_out)
  *   update that variable's value
  * - Else, create a new variable
  */
+
+// FUNCTION HAS MORE THAN 25 LINES
+
 static int	add_env_list(char *arg, t_list *env)
 {
 	int		i;
 	char	*name;
 	char	*value;
 	t_env	*env_var;
-	
+
 	if (!ft_isalpha(arg[0]) && arg[0] != '_')
 		return (1);
 	i = 1;
