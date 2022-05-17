@@ -50,23 +50,23 @@ static char	*write_env_var_to_temp(char *instruction, char **env_var,
 {
 	char	*temp;
 	char	quote;
-	int		count;
+	int		c;
 	int		i;
 	int		j;
 
 	temp = calloc_or_exit(sizeof(char), len_instruction + 1);
 	quote = 0;
-	count = 0;
+	c = 0;
 	i = 0;
 	j = 0;
 	while (instruction[i])
 	{
 		quote = check_quote(*instruction, quote);
-		if (instruction[i] == '$' && quote != SGL_QUOTE && env_var[count])
+		if (instruction[i] == '$' && quote != SGL_QUOTE && env_var[c])
 		{
-			j += ft_strlcpy(temp + j, env_var[count], ft_strlen(env_var[count]) + 1);
+			j += ft_strlcpy(temp + j, env_var[c], ft_strlen(env_var[c]) + 1);
 			i = i + get_env_var_len(instruction + i);
-			count++;
+			c++;
 		}
 		else
 			temp[j++] = instruction[i++];

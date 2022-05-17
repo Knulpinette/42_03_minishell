@@ -65,7 +65,7 @@ static void	close_for_next_cmd(t_cmd_table *cmd)
 	if (cmd->fd_in != 0 && cmd->fd_in != -1 && close(cmd->fd_in) == -1)
 		error_and_exit(CLOSE_FAIL);
 	if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
-	 	error_and_exit(CLOSE_FAIL);
+		error_and_exit(CLOSE_FAIL);
 }
 
 static void	exec_in_child(t_minishell *minishell, int i)
@@ -82,7 +82,7 @@ static void	exec_in_child(t_minishell *minishell, int i)
 	}
 }
 
-static void wait_and_get_exit_code(t_minishell *minishell)
+static void	wait_and_get_exit_code(t_minishell *minishell)
 {
 	int	i;
 	int	*exit_codes;
@@ -92,11 +92,9 @@ static void wait_and_get_exit_code(t_minishell *minishell)
 	exit_codes = (int *)calloc_or_exit(sizeof(int), minishell->nb_cmds);
 	while (i < minishell->nb_cmds)
 	{
-		DEBUG(printf("Waiting for %d\n", minishell->child_pids[i]);)
 		waitpid(minishell->child_pids[i], &status, 0);
 		if (WIFEXITED(status))
 			exit_codes[i] = WEXITSTATUS(status);
-		DEBUG(printf("Exit code cmd %d: %d\n", i + 1, exit_codes[i]));
 		i++;
 	}
 	if (minishell->exit_code != EXIT_SIGQUIT
@@ -118,12 +116,12 @@ int	execute(t_minishell *minishell)
 			|| !minishell->cmd_table[i].cmd_name)
 		{
 			close_for_next_cmd(&minishell->cmd_table[i++]);
-			continue;
+			continue ;
 		}
 		if (is_builtin(minishell->cmd_table[i].cmd_name)
 			&& minishell->nb_cmds == 1)
 			return (minishell->exit_code = exec_builtin(minishell,
-				&minishell->cmd_table[i]));
+					&minishell->cmd_table[i]));
 		exec_in_child(minishell, i);
 		close_for_next_cmd(&minishell->cmd_table[i++]);
 	}

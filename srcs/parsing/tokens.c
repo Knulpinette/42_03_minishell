@@ -38,27 +38,35 @@ int	get_nb_tokens(const char *s, char c)
 	return (nb);
 }
 
+static int	get_token_len(const char *s, int i, char c)
+{
+	int		letters;
+	char	quote;
+
+	quote = 0;
+	letters = 0;
+	while (s[i + letters] && ((s[i + letters] != c && !quote) || quote))
+	{
+		quote = check_quote(s[i + letters], quote);
+		letters++;
+	}
+	return (letters);
+}
+
 static t_token	*fill_tokens(const char *s, char c, int words, t_token *tokens)
 {
 	int		i;
 	int		j;
 	int		word;
 	int		letters;
-	char	quote;
 
 	i = 0;
 	word = 0;
-	quote = 0;
 	while (word < words && s[i])
 	{
 		while (s[i] && s[i] == c)
 			i++;
-		letters = 0;
-		while (s[i + letters] && ((s[i + letters] != c && !quote) || quote))
-		{
-			quote = check_quote(s[i + letters], quote);
-			letters++;
-		}
+		letters = get_token_len(s, i, c);
 		tokens[word].text = calloc_or_exit(sizeof(char), letters + 1);
 		j = 0;
 		while (s[i] && j < letters)

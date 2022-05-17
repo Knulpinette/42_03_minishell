@@ -4,11 +4,11 @@ t_list	*split_and_get_middle(t_list *list)
 {
 	int			i;
 	int			half_size;
-	t_list	*middle;
+	t_list		*middle;
 
 	i = 0;
 	half_size = ft_lstsize(list) / 2;
-	while (i < half_size -  1)
+	while (i < half_size - 1)
 	{
 		list = list->next;
 		i++;
@@ -21,13 +21,13 @@ t_list	*split_and_get_middle(t_list *list)
 t_list	*sort_and_merge(t_list *list1, t_list *list2)
 {
 	t_list	*to_be_added;
-	t_list	*merged_list = NULL;
+	t_list	*merged_list;
 
+	merged_list = NULL;
 	while (list1 || list2)
 	{
-		// why 100 you may ask? Cos I had to choose a number
 		if (list1 && (!list2 || ft_strncmp(get_env_lst_name(list1),
-			get_env_lst_name(list2), 100) <= 0))
+					get_env_lst_name(list2), 100) <= 0))
 		{
 			to_be_added = list1;
 			list1 = list1->next;

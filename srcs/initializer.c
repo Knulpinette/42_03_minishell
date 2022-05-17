@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-t_minishell		*init_minishell(char **envp, int argc)
+t_minishell	*init_minishell(char **envp, int argc)
 {
-	t_minishell *minishell;
+	t_minishell	*minishell;
 
 	minishell = calloc_or_exit(sizeof(t_minishell), 1);
 	get_minishell(minishell);
@@ -43,4 +43,3 @@ t_cmd_table	*init_cmd_table(int nb_cmds)
 	}
 	return (cmd_table);
 }
-

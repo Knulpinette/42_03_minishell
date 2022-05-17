@@ -16,9 +16,9 @@ OBJS_SUB_DIR	:= $(OBJS_SUB_DIR:$(SRCS_DIR)/%=$(OBJS_DIR)/%)
 
 LIBFT_DIR		= 42_00_libft
 # 42 COMPUTERS:
-#READLINE_DIR	= ~/.brew/opt/readline
+READLINE_DIR	= ~/.brew/opt/readline
 # NORMAL MAC:
-READLINE_DIR	= /opt/homebrew/Cellar/readline/8.1.2
+#READLINE_DIR	= /opt/homebrew/Cellar/readline/8.1.2
 
 INCLUDES		= -Iincludes -I ${READLINE_DIR}/include
 LIBRARIES		= -L${LIBFT_DIR} -lft -L ${READLINE_DIR}/lib -lreadline
@@ -113,9 +113,9 @@ fclean:			clean
 
 re:				fclean all
 
-debug:			INCLUDES += -DDEBUG_MODE
-debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-debug:			all
+#debug:			INCLUDES += -DDEBUG_MODE
+#debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+#debug:			all
 
 .PHONY:			all clean_no_libft clean fclean re debug
 

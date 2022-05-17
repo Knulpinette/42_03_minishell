@@ -6,7 +6,7 @@
 
 t_error	error_and_exit(t_error code)
 {
-	t_minishell *minishell;
+	t_minishell	*minishell;
 
 	minishell = get_minishell(NULL);
 	error_message(code);
@@ -41,7 +41,8 @@ void	error_message(t_error code)
 	else if (code == INVALID_IDENTIFIER)
 		ft_putstr_fd("Not a valid identifier\n", STDERR_FILENO);
 	else if (code == REDIR_NO_ARG)
-		ft_putstr_fd("Syntax error next to a redirection (no argument).\n", STDERR_FILENO);
+		ft_putstr_fd("Syntax error next to a redirection (no argument).\n",
+			STDERR_FILENO);
 	else if (code == CMD_NOT_FOUND)
 		ft_putstr_fd("Command not found\n", STDERR_FILENO);
 	else if (code == TOO_MANY_ARGS)

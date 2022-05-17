@@ -26,7 +26,8 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 {
 	char	*line;
 
-	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_",	ft_strrchr(ttyname(0), '/') + 1);
+	cmd->infile_tmp = ft_strjoin("/tmp/cocoshell_",
+			ft_strrchr(ttyname(0), '/') + 1);
 	cmd->is_infile_tmp = 1;
 	cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
 	if (cmd->fd_in == -1)
@@ -35,8 +36,8 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 	{
 		line = readline("> ");
 		if (!(line && !ft_strlen(line)) && (!line
-			|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
-			break;
+				|| ft_strncmp(line, cmd->redirs[i].arg, ft_strlen(line)) == 0))
+			break ;
 		if (!cmd->redirs[i].quote)
 			line = rewrite(&line, ENV_VAR);
 		write(cmd->fd_in, line, ft_strlen(line));
@@ -62,8 +63,8 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 	}
 	if (cmd->fd_in != 0 && close(cmd->fd_in) == -1)
 		error_and_exit(CLOSE_FAIL);
-	if (cmd->redirs[i].type == OP_REDIR_IN
-		&& (cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755)) == -1)
+	cmd->fd_in = open(cmd->redirs[i].arg, O_RDWR, 00755);
+	if (cmd->redirs[i].type == OP_REDIR_IN && cmd->fd_in == -1)
 		return (error_and_return(OPEN_FAIL, 1));
 	else if (cmd->redirs[i].type == OP_DELIMITER)
 	{
@@ -73,18 +74,22 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 	return (0);
 }
 
-static int  exec_redirs_out(t_cmd_table *cmd, int i)
+static int	exec_redirs_out(t_cmd_table *cmd, int i)
 {
 	if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
 		error_and_exit(CLOSE_FAIL);
 	if (cmd->redirs[i].type == OP_APPEND)
-		cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT | O_APPEND, 00755);
+		cmd->fd_out = open(cmd->redirs[i].arg,
+				O_RDWR | O_CREAT | O_APPEND, 00755);
 	else
-		cmd->fd_out = open(cmd->redirs[i].arg, O_RDWR | O_CREAT | O_TRUNC, 00755);
+		cmd->fd_out = open(cmd->redirs[i].arg,
+				O_RDWR | O_CREAT | O_TRUNC, 00755);
 	if (cmd->fd_out == -1)
 		return (error_and_return(OPEN_FAIL, 1));
 	return (0);
 }
+
+// FUNCTION HAS MORE THAN 25 LINES !
 
 int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 {
@@ -113,6 +118,5 @@ int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 		}
 		i++;
 	}
-	DEBUG(printf("Redir In: %d, Redir Out: %d\n", cmd->fd_in, cmd->fd_out));
 	return (0);
 }

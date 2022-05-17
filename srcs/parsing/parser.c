@@ -28,7 +28,7 @@
 int	parse(char *line)
 {
 	t_minishell	*minishell;
-	int		exit_code;
+	int			exit_code;
 	int			i;
 
 	minishell = get_minishell(NULL);
@@ -46,7 +46,7 @@ int	parse(char *line)
 		assign_tokens(&minishell->cmd_table[i]);
 		i++;
 	}
-	DEBUG(print_debug();)
+	//print_debug();
 	return (exit_code);
 }
 
@@ -167,10 +167,10 @@ void	assign_tokens(t_cmd_table *cmd_table)
 	{
 		if (there_is_quote(cmd_table->redirs[i].arg, DBL_QUOTE)
 			|| there_is_quote(cmd_table->redirs[i].arg, SGL_QUOTE))
-			{
-				cmd_table->redirs[i].quote = true;
-				cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
-			}
+		{
+			cmd_table->redirs[i].quote = true;
+			cmd_table->redirs[i].arg = remove_quotes(cmd_table->redirs[i].arg);
+		}
 		i++;
 	}
 	cmd_table->cmd_name = cmd_table->tokens[0].text;

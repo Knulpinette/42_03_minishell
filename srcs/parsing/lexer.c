@@ -86,7 +86,8 @@ char	*rewrite(char **text, int type)
 	return (*text);
 }
 
-static int	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instruction)
+static int	get_and_rewrite_redirections(t_cmd_table *cmd_table,
+											char **instruction)
 {
 	int	j;
 
@@ -109,7 +110,7 @@ static int	get_and_rewrite_redirections(t_cmd_table *cmd_table, char **instructi
 int	get_command_tables(t_cmd_table *cmd_table,
 								int nb_cmds, char **instructions)
 {
-	int		i;
+	int	i;
 	int	error;
 
 	i = 0;
