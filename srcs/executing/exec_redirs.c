@@ -42,6 +42,7 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 		write(cmd->fd_in, line, ft_strlen(line));
 		write(cmd->fd_in, "\n", 1);
 		free(line);
+		line = NULL;
 	}
 	free(line);
 	close(cmd->fd_in);

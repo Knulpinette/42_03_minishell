@@ -98,7 +98,6 @@ char	*get_env_var(char *text, int env_var_len)
 	else
 		result = ft_strdup("");
 	free(env_var);
-	//DEBUG(printf("env_var_real_path = %s\n", result);)
 	return (result);
 }
 
