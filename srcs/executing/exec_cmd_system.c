@@ -75,7 +75,7 @@ static char	**build_execve_envp(t_minishell *minishell)
 		na_len = ft_strlen(get_env_lst_name(minishell->env));
 		va_len = 0;
 		if (get_env_lst_value(minishell->env))
-			valen = ft_strlen(get_env_lst_value(minishell->env));
+			va_len = ft_strlen(get_env_lst_value(minishell->env));
 		envp[i] = (char *)calloc_or_exit(sizeof(char), na_len + va_len + 2);
 		ft_strlcpy(envp[i], get_env_lst_name(minishell->env), na_len + 1);
 		envp[i][na_len] = '=';
