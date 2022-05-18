@@ -56,34 +56,33 @@ static char	**build_execve_args(t_cmd_table *cmd)
 	return (execve_args);
 }
 
-// FUNCTION HAS MORE THAN 25 LINES !
-
+/*
+ * na_len = name_len , va_len = value_len
+ * I'm sorry for the cryptic names, but... norminette
+ */
 static char	**build_execve_envp(t_minishell *minishell)
 {
 	char	**envp;
 	int		i;
-	t_list	*curr;
-	int		len_name;
-	int		len_value;
+	int		na_len;
+	int		va_len;
 
 	envp = (char **)calloc_or_exit(sizeof(char *),
 			ft_lstsize(minishell->env) + 1);
 	i = 0;
-	curr = minishell->env;
-	while (curr)
+	while (minishell->env)
 	{
-		len_name = ft_strlen(get_env_lst_name(curr));
-		len_value = 0;
-		if (get_env_lst_value(curr))
-			len_value = ft_strlen(get_env_lst_value(curr));
-		envp[i] = (char *)calloc_or_exit(sizeof(char),
-				len_name + len_value + 2);
-		ft_strlcpy(envp[i], get_env_lst_name(curr), len_name + 1);
-		envp[i][len_name] = '=';
-		if (len_value != 0)
-			ft_strlcat(envp[i], get_env_lst_value(curr),
-				len_name + len_value + 2);
-		curr = curr->next;
+		na_len = ft_strlen(get_env_lst_name(minishell->env));
+		va_len = 0;
+		if (get_env_lst_value(minishell->env))
+			valen = ft_strlen(get_env_lst_value(minishell->env));
+		envp[i] = (char *)calloc_or_exit(sizeof(char), na_len + va_len + 2);
+		ft_strlcpy(envp[i], get_env_lst_name(minishell->env), na_len + 1);
+		envp[i][na_len] = '=';
+		if (va_len != 0)
+			ft_strlcat(envp[i], get_env_lst_value(minishell->env),
+				na_len + va_len + 2);
+		minishell->env = minishell->env->next;
 		i++;
 	}
 	envp[i] = NULL;
