@@ -39,16 +39,24 @@ static void	print_export(t_list *env, int fd_out)
  * - If there's already a variable with that name and a value is given,
  *   update that variable's value
  * - Else, create a new variable
+ * I should probably refactor the functions for creating new env content (in
+ * utils > env_list) and use it instead of creating this auxiliary function,
+ * but I'm lazy.
  */
+static void	create_and_add_env_list(char *name, char *value, t_list *env) {
+	t_env	*env_var;
 
-// FUNCTION HAS MORE THAN 25 LINES
+	env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
+	env_var->name = name;
+	env_var->value = value;
+	ft_lstadd_back(&env, ft_lstnew((void *)env_var));
+}
 
 static int	add_env_list(char *arg, t_list *env)
 {
 	int		i;
 	char	*name;
 	char	*value;
-	t_env	*env_var;
 
 	if (!ft_isalpha(arg[0]) && arg[0] != '_')
 		return (1);
@@ -64,12 +72,7 @@ static int	add_env_list(char *arg, t_list *env)
 	if (get_env_lst(name, env))
 		set_env_value(name, value);
 	else
-	{
-		env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
-		env_var->name = name;
-		env_var->value = value;
-		ft_lstadd_back(&env, ft_lstnew((void *)env_var));
-	}
+		create_and_add_env_list(name, value, env);
 	return (0);
 }
 

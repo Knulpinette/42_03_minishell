@@ -22,7 +22,7 @@
 ** If an environement variable is called inside a heredoc, it is expanded.
 **	/!\ Unless the delimiter is in between quotes. /!\
 */
-static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
+static void	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 {
 	char	*line;
 
@@ -31,7 +31,7 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 	cmd->is_infile_tmp = 1;
 	cmd->fd_in = open(cmd->infile_tmp, O_RDWR | O_CREAT | O_APPEND, 00755);
 	if (cmd->fd_in == -1)
-		return (error_and_return(OPEN_FAIL, 1));
+		error_and_exit(OPEN_FAIL);
 	while (1)
 	{
 		line = readline("> ");
@@ -48,7 +48,6 @@ static int	exec_redirs_heredoc(t_cmd_table *cmd, int i)
 	free(line);
 	close(cmd->fd_in);
 	cmd->fd_in = open(cmd->infile_tmp, O_RDWR, 00755);
-	return (0);
 }
 
 static int	exec_redirs_in(t_cmd_table *cmd, int i)
@@ -67,14 +66,11 @@ static int	exec_redirs_in(t_cmd_table *cmd, int i)
 	if (cmd->redirs[i].type == OP_REDIR_IN && cmd->fd_in == -1)
 		return (error_and_return(OPEN_FAIL, 1));
 	else if (cmd->redirs[i].type == OP_DELIMITER)
-	{
-		if (exec_redirs_heredoc(cmd, i))
-			return (1);
-	}
+		exec_redirs_heredoc(cmd, i);
 	return (0);
 }
 
-static int	exec_redirs_out(t_cmd_table *cmd, int i)
+static void	exec_redirs_out(t_cmd_table *cmd, int i)
 {
 	if (cmd->fd_out != 1 && close(cmd->fd_out) == -1)
 		error_and_exit(CLOSE_FAIL);
@@ -85,12 +81,18 @@ static int	exec_redirs_out(t_cmd_table *cmd, int i)
 		cmd->fd_out = open(cmd->redirs[i].arg,
 				O_RDWR | O_CREAT | O_TRUNC, 00755);
 	if (cmd->fd_out == -1)
-		return (error_and_return(OPEN_FAIL, 1));
-	return (0);
+		error_and_exit(OPEN_FAIL);
 }
 
-// FUNCTION HAS MORE THAN 25 LINES !
-
+/*
+ * Error Handling
+ * - if close returns an error, we exit
+ * - if open returns an error in a redirection out or in a here doc we exit,
+ *   since that means it somehow failed to create the file
+ * - if open returns an error in a redirection in, we display an error message
+ *   and return to go to next command, as it might be because the file doesn't
+ *   exist (pretty common user error)
+ */
 int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 {
 	int	i;
@@ -109,13 +111,7 @@ int	exec_redirs(t_minishell *minishell, t_cmd_table *cmd)
 		}
 		else if (cmd->redirs[i].type == OP_REDIR_OUT
 			|| cmd->redirs[i].type == OP_APPEND)
-		{
-			if (exec_redirs_out(cmd, i))
-			{
-				minishell->exit_code = 1;
-				return (1);
-			}
-		}
+			exec_redirs_out(cmd, i);
 		i++;
 	}
 	return (0);
