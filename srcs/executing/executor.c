@@ -7,7 +7,7 @@
  * An fd which is not STDIN nor STDOUT will be closed as soon as it's not needed
  * - if there are redirections, the pipe's writing end is closed
  * - if there are multiple redirections, the previous file is closed before the
- *   next is opened
+ *   next one is opened
  * - in this way, no matter how many redirections and/or pipes there might be,
  *	 the fd never goes above 5
  * - if something happens we're out with exit_code 1
@@ -31,13 +31,11 @@
  *	 latest to finish execution. for e.g: sleep 5 | las -> returns 127 as las
  *	 does not exist, even though sleep 5 finishes executing later. For that we
  *	 wait and store the exit codes in order.
- *
- * Error Handling
- * - if pipe returns an error, we exit
- * - if open function returns an error, we display message and go to next command
- *	 as it might be because the file doesn't exist (pretty common user error)
  */
 
+/*
+ * Error Handling: if pipe returns an error, we exit
+ */
 static void	open_pipe(t_minishell *minishell, int i)
 {
 	int	fd[2];
