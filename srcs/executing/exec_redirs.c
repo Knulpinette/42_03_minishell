@@ -84,7 +84,6 @@ static void	exec_redirs_out(t_cmd_table *cmd, int i)
 		error_and_exit(OPEN_FAIL);
 }
 
-// FUNCTION HAS MORE THAN 25 LINES !
 /*
  * Error Handling
  * - if close returns an error, we exit
