@@ -1,3 +1,6 @@
+echo "COCO ENV VAR TEST 🥥"
+echo
+
 echo 'RUNNING: echo "$HOME" && echo "$USER"'
 echo 'Should expand.'
 echo "> $HOME"
@@ -10,8 +13,8 @@ echo '>' $HOME
 echo '>' $USER
 echo 
 
-echo 'RUNNING: echo $HOME && echo $USER'
-echo 'Using ' so should NOT expand env_var'
+echo "RUNNING: echo '"'$HOME'"' && echo '"'$USER'"'"
+echo "Using ' so should NOT expand env_var"
 echo '> $HOME'
 echo '> $USER'
 echo 
@@ -28,11 +31,13 @@ cat << "EOF"
 echo 
 
 echo "RUNNING: cat << 'EOF'"
-echo 'TYPE in '$HOME. Should NOT expand.'
+echo 'TYPE in $HOME. Should NOT expand.'
 cat << 'EOF'
 echo 
 
 echo "RUNNING: cat << EOF"
 echo 'TYPE in $HOME. Should expand.'
 cat << EOF
-echo 
+echo
+
+echo "THE END 🌴"
