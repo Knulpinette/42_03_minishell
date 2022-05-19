@@ -1,3 +1,6 @@
+echo "COCO ENV VAR TEST 🥥"
+echo
+
 echo 'RUNNING: echo "$HOME" && echo "$USER"'
 echo 'Should expand.'
 echo "> $HOME"
@@ -35,4 +38,6 @@ echo
 echo "RUNNING: cat << EOF"
 echo 'TYPE in $HOME. Should expand.'
 cat << EOF
-echo 
+echo
+
+echo "THE END 🌴"
