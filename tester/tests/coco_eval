@@ -1,12 +1,30 @@
+echo "COCO EVALUATION TEST 🥥"
+echo
 
-echo 'Run cmds with absolute path'
+echo "🐚 SIMPLE COMMANDS"
+echo 'Run cmds with absolute path - running /bin/ls'
 /bin/ls
-
-export COCOSHELL=cocoshell
+echo
 
 echo ' Test with spaces or tabs'
                    
 echo
+
+echo "🦀 ARGUMENTS"
+echo 'Running /bin/ls -a'
+/bin/ls -a
+echo
+
+echo 'Writing into a file a and running cat -e a'
+echo "hello world" > a
+cat -e a
+echo
+
+echo "Running rm -f a"
+rm -f a
+echo
+
+echo "🐢 ECHO"
 echo - '>'
 echo
 echo -n '>'
@@ -19,52 +37,247 @@ echo -nncocoshell -n '>'
 echo
 echo -nnn -nncocoshell -n '>'
 echo
+export COCOSHELL=cocoshell
+echo "Environment variable should expand"
 echo $COCOSHELL 
 echo
+echo "Environment variable should expand"
 echo "$COCOSHELL" 
 echo
+echo "Environment variable should NOT expand"
 echo '$COCOSHELL'
 echo
 
-/bin/ls filenamedoesnotexist
+echo "👋 EXIT"
+echo "Running ls | exit - exit code should be 0"
+ls | exit
+echo $?
 echo
+
+echo "Running ls | exit 2 4 5 - exit code should be 1"
+ls | exit 2 4 5
+echo $?
+echo
+
+echo "Running ls | exit 2 4 s - exit code should be 1"
+ls | exit 2 4 s
+echo $?
+echo
+
+echo "Running ls | exit a 2 4 s - exit code should be 255"
+ls | exit a 2 4 s
+echo $?
+echo
+
+echo "Running ls | exit 258 - exit code should be 2"
+ls | exit 258
+echo $?
+echo
+
+echo "Running ls | exit -2 - exit code should be 254"
+ls | exit -2
+echo $?
+echo
+
+echo "🦕 RETURN VALUE OF A PROCESS"
+echo 'Running ls - exit could should be 0'
+ls
+echo $?
+echo
+
+echo 'Running ls filenamedoesnotexist - exit could should be 1'
+/bin/ls filenamedoesnotexist
+echo $?
+echo
+
+echo 'Running las - exit could should be 127'
+las
+echo $?
+echo
+
+echo 'Running $? + $? - $?cocoshell'
 echo $? + $? - $?cocoshell
 echo
 
+echo "🚨 SIGNALS - cannot be tested in non-interactive mode"
+echo
+
+echo "👯‍♀️ DOUBLE QUOTES"
+echo 'Running echo "cat lol.c | cat > lol.c"'
 echo "cat lol.c | cat > lol.c"
 echo
+
+echo 'Running ls "|" wc -l'
 ls "|" wc -l
 echo
 
-export BANANA="banana"
+echo "🙋‍♀️ SINGLE QUOTES"
+echo 'Running echo' "'"'cat lol.c | cat > lol.c'"'"
+echo 'cat lol.c | cat > lol.c'
+echo
+
+echo 'Running ls' "'"|"'" 'wc -l'
+ls '|' wc -l
+echo
+
+echo Running echo "'"'$USER'"'"
+echo '$USER'
+echo
+
+echo "🌍 ENV"
+echo 'Running env'
 env
-echo
-export
-echo
-export BANANA="apple"
-env
-echo
-unset BANANA
+
+echo "✈️ EXPORT"
+echo 'Running export banana="banana" and env'
+export banana="banana"
 env
 echo
 
-echo 'test CD'
+echo 'Running export banana and env'
+export banana
+env
 echo
-echo 'test PWD'
+
+echo 'Running export banana="apple" and env'
+export banana="apple"
+env
 echo
-echo 'test relative paths'
+
+echo "🗑 UNSET"
+echo 'Running unset banana'
+unset banana
+env
 echo
-ls > out
+
+echo 'Running unset ?fsd'
+unset ?fsd
 echo
-cat < out
+
+echo 'Running unset nonexistencevar'
+unset nonexistencevar
+echo
+
+echo '🛤 CD, PWD and RELATIVE PATHS'
+echo 'Running cd'
+cd
+pwd
+echo
+
+echo 'Running cd -'
+cd -
+echo
+
+echo 'Running cd srcs'
+cd srcs
+pwd
+echo
+
+echo 'Running cd ..'
+cd ..
+pwd
+echo
+
+echo 'Running cd .'
+cd .
+pwd
+echo
+
+echo "➡️ REDIRECTIONS"
+echo 'Running ls -l > out and cat < out'
 ls -l > out
-echo
 cat < out
 echo
 
+echo 'Running ls > out and cat < out'
+ls > out
+cat < out
+echo
+
+echo 'Running echo hey > a > b > c and ls and cat c'
+echo hey > a > b > c
+ls
+cat c
+echo
+
+echo 'Running echo there >> c and cat c'
+echo there >> c
+cat c
+echo
+
+echo 'Running cat << . - write something and exit with .'
+cat << .
+echo
+
+echo "🛢 PIPES"
+echo 'Running cat out | grep a'
 cat out | grep a
 echo
+
+echo 'Running cat out | grep a | wc -l'
 cat out | grep a | wc -l
 echo
 
+echo 'Running cat out | grep a | more - exit the more!'
+cat out | grep a | more
+echo
 
+echo "🤯 GO CRAZY"
+echo 'Running dsbksdgbksdghsd'
+dsbksdgbksdghsd
+echo
+
+echo 'Running cat | cat | ls - exit the cat!'
+cat | cat | ls
+echo
+
+echo 'Running ls | wc | echo hey | cd .. | pwd | echo buh | echo 2+2 | bc'
+ls | wc | echo hey | cd .. | pwd | echo buh | echo 2+2 | bc
+echo
+
+echo "🦖 HISTORY - cannot be tested in non-interactive mode"
+echo
+
+echo "🌸 ENVIRONMENT VARIABLES"
+echo 'Running echo "$HOME" && echo "$USER"'
+echo 'Should expand.'
+echo "$HOME"
+echo "$USER"
+echo 
+
+echo 'Running echo $HOME && echo $USER'
+echo 'Should expand.'
+echo $HOME
+echo $USER
+echo 
+
+echo "Running echo '"'$HOME'"' && echo '"'$USER'"'"
+echo "Using ' so should NOT expand env_var"
+echo '$HOME'
+echo '$USER'
+echo 
+
+echo 'Running echo $home && echo $user'
+echo 'Should be empty.'
+echo $home
+echo $user
+echo 
+
+echo "🌱 ENVIRONMENT PATH"
+echo 'Unset PATH and then run any non-built-in commands'
+unset PATH
+ls
+echo
+
+echo 'Running export PATH=/usr/bin:/bin'
+export PATH=/usr/bin:/bin
+echo $PATH
+ls
+echo
+
+echo '🧹 CLEAN UP'
+echo 'Removing a b c out'
+rm a b c out
+echo
+
+echo "THE END 🌴"
