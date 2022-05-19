@@ -87,6 +87,8 @@ bool	text_is_all_n(char *text)
 {
 	int	i;
 
+	if (!*text)
+		return (false);
 	i = 0;
 	while (text[i])
 	{

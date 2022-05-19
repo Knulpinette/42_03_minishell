@@ -1,5 +1,48 @@
 echo "COCO TEST 🥥"
 
+echo RUNNING: 'echo -'
+echo -
+echo
+
+echo RUNNING: 'echo -n'
+echo -n
+echo
+
+echo RUNNING: 'echo -nn'
+echo -nn
+echo
+
+echo RUNNING: 'echo -nn -n'
+echo -nn -n
+echo
+
+echo RUNNING: 'echo -nna -n'
+echo -nna -n
+echo
+
+echo RUNNING: 'sleep 2 | ls'
+sleep 2 | ls
+echo
+
+echo RUNNING: 'echo 4 | cat - should print 4 right away'
+echo 4 | cat
+echo
+
+echo RUNNING: 'mkdir testdir && chmod 111 testdir/ && ls'
+echo 'Result should be : Permission denied'
+mkdir testdir
+chmod 111 testdir/
+ls
+echo
+
+echo RUNNING: 'chmod 000 testdir/ && cd'
+echo 'Result should be : Permission denied'
+chmod 000 testdir/
+cd testdir/
+chmod 777 testdir/
+rm -rf testdir/
+echo
+
 echo RUNNING: '"hello""world" > a > b > c'
 echo "hello""world" > a > b > c
 echo

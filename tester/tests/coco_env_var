@@ -1,0 +1,38 @@
+echo 'RUNNING: echo "$HOME" && echo "$USER"'
+echo 'Should expand.'
+echo "> $HOME"
+echo "> $USER"
+echo 
+
+echo 'RUNNING: echo $HOME && echo $USER'
+echo 'Should expand.'
+echo '>' $HOME
+echo '>' $USER
+echo 
+
+echo 'RUNNING: echo $HOME && echo $USER'
+echo 'Using ' so should NOT expand env_var'
+echo '> $HOME'
+echo '> $USER'
+echo 
+
+echo 'RUNNING: echo $home && echo $user'
+echo 'Should be empty.'
+echo '>' $home
+echo '>' $user
+echo 
+
+echo 'RUNNING: cat << "EOF"'
+echo 'TYPE in $HOME. Should NOT expand.'
+cat << "EOF"
+echo 
+
+echo "RUNNING: cat << 'EOF'"
+echo 'TYPE in '$HOME. Should NOT expand.'
+cat << 'EOF'
+echo 
+
+echo "RUNNING: cat << EOF"
+echo 'TYPE in $HOME. Should expand.'
+cat << EOF
+echo 

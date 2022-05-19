@@ -1,0 +1,70 @@
+
+echo 'Run cmds with absolute path'
+/bin/ls
+
+export COCOSHELL=cocoshell
+
+echo ' Test with spaces or tabs'
+                   
+echo
+echo - '>'
+echo
+echo -n '>'
+echo
+echo -nnnnnnnnnnn '>'
+echo
+echo -nnn -nn -nn '>'
+echo
+echo -nncocoshell -n '>'
+echo
+echo -nnn -nncocoshell -n '>'
+echo
+echo $COCOSHELL 
+echo
+echo "$COCOSHELL" 
+echo
+echo '$COCOSHELL'
+echo
+
+/bin/ls filenamedoesnotexist
+echo
+echo $? + $? - $?cocoshell
+echo
+
+echo "cat lol.c | cat > lol.c"
+echo
+ls "|" wc -l
+echo
+
+export BANANA="banana"
+env
+echo
+export
+echo
+export BANANA="apple"
+env
+echo
+unset BANANA
+env
+echo
+
+echo 'test CD'
+echo
+echo 'test PWD'
+echo
+echo 'test relative paths'
+echo
+ls > out
+echo
+cat < out
+ls -l > out
+echo
+cat < out
+echo
+
+cat out | grep a
+echo
+cat out | grep a | wc -l
+echo
+
+
