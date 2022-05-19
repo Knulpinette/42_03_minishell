@@ -1,42 +1,40 @@
-echo "COCO TEST 🥥"
+echo "COCO EDGE CASES TEST 🥥"
 
-echo RUNNING: 'echo -'
+echo "RUNNING: 'echo -' - should print only one empty line"
 echo -
 echo
 
-echo RUNNING: 'echo -n'
+echo "RUNNING: 'echo -n' - should not print anything"
 echo -n
 echo
 
-echo RUNNING: 'echo -nn'
+echo "RUNNING: 'echo -nn' - should not print anything"
 echo -nn
 echo
 
-echo RUNNING: 'echo -nn -n'
+echo "RUNNING: 'echo -nn -n' - should not print anything"
 echo -nn -n
 echo
 
-echo RUNNING: 'echo -nna -n'
+echo "RUNNING: 'echo -nna -n'"
 echo -nna -n
 echo
 
-echo RUNNING: 'sleep 2 | ls'
-sleep 2 | ls
-echo
-
-echo RUNNING: 'echo 4 | cat - should print 4 right away'
+echo "RUNNING: 'echo 4 | cat'"
 echo 4 | cat
 echo
 
-echo RUNNING: 'mkdir testdir && chmod 111 testdir/ && ls'
+echo RUNNING: 'mkdir testdir && chmod 111 testdir/ && cd testdir/ && ls'
 echo 'Result should be : Permission denied'
 mkdir testdir
 chmod 111 testdir/
+cd testdir/
 ls
 echo
 
 echo RUNNING: 'chmod 000 testdir/ && cd'
 echo 'Result should be : Permission denied'
+cd ..
 chmod 000 testdir/
 cd testdir/
 chmod 777 testdir/
@@ -109,12 +107,12 @@ echo "RUNNING 'cat <<" '"EOF" - write $HOME and "EOF", the variable should not b
 cat << "EOF"
 echo
 
-echo "RUNNING sleep 5 | ls - should print immediately"
-sleep 5 | ls
+echo "RUNNING sleep 2 | ls - should print immediately"
+sleep 2 | ls
 echo
 
-echo "RUNNING sleep 5 | las - exit status should be 127"
-sleep 5 | las
+echo "RUNNING sleep 2 | las - exit status should be 127"
+sleep 2 | las
 echo $?
 echo
 
@@ -141,4 +139,5 @@ unset PATH
 ls | wc
 echo
 
-echo "THE END 🌴"
+echo "THE END 🌴 - exiting with code 2"
+exit 2

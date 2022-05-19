@@ -1,0 +1,17 @@
+echo "COCO FILES TEST 🥥"
+echo "Run this test from minishell's directory"
+echo
+
+wc -l tester/test_files/filein_big 
+echo
+
+tail tester/test_files/filein_medium 
+echo
+
+cat tester/test_files/filein_short 
+echo
+
+cat -e tester/test_files/filein_short tester/test_files/filein_big tester/test_files/filein_medium
+echo
+
+echo "THE END 🌴"
