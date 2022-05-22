@@ -6,7 +6,7 @@
 /*   By: svieira <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 22:37:16 by svieira           #+#    #+#             */
-/*   Updated: 2022/05/22 22:37:18 by svieira          ###   ########.fr       */
+/*   Updated: 2022/05/22 23:49:52 by svieira          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	echo(t_cmd_table *cmd)
 	int	bytes_written;
 
 	i = 0;
+	bytes_written = 0;
 	while (cmd->cmd_args[i])
 	{
 		ft_putstr_fd(cmd->cmd_args[i], cmd->fd_out);
