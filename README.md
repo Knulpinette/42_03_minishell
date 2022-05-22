@@ -52,10 +52,7 @@ We validate and verify the meaning of the result given by the parser.
 
 ## Executor
 
-### Interactive / Non-interactive mode
-* Interactive mode accepts input typed from the keyboard.
-* Non-interactive mode will execute commands read from a file.
-
+I shall write nice things about our executor. For now, here's a note on why I think valgrind doesn't like my cd: https://bugs.freedesktop.org/show_bug.cgi?id=112201
 
 ## Useful Links
 
