@@ -113,9 +113,10 @@ fclean:			clean
 
 re:				fclean all
 
+# Previously when we had the DEBUG macro:
 #debug:			INCLUDES += -DDEBUG_MODE
-#debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-#debug:			all
+debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+debug:			all
 
 .PHONY:			all clean_no_libft clean fclean re debug
 
