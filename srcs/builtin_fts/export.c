@@ -87,6 +87,7 @@ static int	add_env_list(char *arg, t_list *env)
 	{
 		set_env_value(name, value);
 		free(name);
+		free(value);
 	}
 	else
 		create_and_add_env_list(name, value, env);

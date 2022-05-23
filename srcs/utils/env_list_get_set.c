@@ -60,11 +60,6 @@ char	*get_env_value(char *name)
 	return (get_env_lst_value(to_get));
 }
 
-/* 
- * Both name and value were allocated
- * Name is freed in the other function
- * Value stays and is freed once this env var is destroyed
- */
 void	set_env_value(char *name, char *value)
 {
 	t_list	*to_set;
@@ -77,5 +72,5 @@ void	set_env_value(char *name, char *value)
 	if (((t_env *)to_set->content)->value)
 		free(((t_env *)to_set->content)->value);
 	((t_env *)to_set->content)->value = NULL;
-	((t_env *)to_set->content)->value = value;
+	((t_env *)to_set->content)->value = ft_strdup(value);
 }
