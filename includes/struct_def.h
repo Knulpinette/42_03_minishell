@@ -14,7 +14,8 @@
 # define STRUCT_DEF_H
 
 /* PARSING MACROS */
-# define PROMPT "🥥🐚 > "
+/* our "🥥🐚 > " prompt gets an error with CTRL+A sadly */
+# define PROMPT "cocoshell > "
 # define SPACE ' '
 # define PIPE '|'
 # define SGL_QUOTE '\''
