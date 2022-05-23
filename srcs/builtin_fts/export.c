@@ -55,7 +55,9 @@ static void	print_export(t_list *env, int fd_out)
  * utils > env_list) and use it instead of creating this auxiliary function,
  * but I'm lazy.
  */
-static void	create_and_add_env_list(char *name, char *value, t_list *env) {
+
+static void	create_and_add_env_list(char *name, char *value, t_list *env)
+{
 	t_env	*env_var;
 
 	env_var = (t_env *)calloc_or_exit(sizeof(t_env), 1);
