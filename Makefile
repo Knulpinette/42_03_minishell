@@ -15,9 +15,11 @@ OBJS_SUB_DIR	:= $(shell find $(SRCS_DIR) -mindepth 1 -type d)
 OBJS_SUB_DIR	:= $(OBJS_SUB_DIR:$(SRCS_DIR)/%=$(OBJS_DIR)/%)
 
 LIBFT_DIR		= 42_00_libft
-# 42 COMPUTERS:
+# 42 MAC/BREW:
 READLINE_DIR	= ~/.brew/opt/readline
-# NORMAL MAC:
+# OLD MAC/HOMEBREW:
+#READLINE_DIR	= /usr/local/opt/readline
+# NEW MAC/HOMEBREW:
 #READLINE_DIR	= /opt/homebrew/Cellar/readline/8.1.2
 
 INCLUDES		= -Iincludes -I ${READLINE_DIR}/include
@@ -113,9 +115,10 @@ fclean:			clean
 
 re:				fclean all
 
+# Previously when we had the DEBUG macro:
 #debug:			INCLUDES += -DDEBUG_MODE
-#debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
-#debug:			all
+debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+debug:			all
 
 .PHONY:			all clean_no_libft clean fclean re debug
 
