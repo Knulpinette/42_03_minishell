@@ -127,6 +127,7 @@ echo
 echo "🌍 ENV"
 echo 'Running env'
 env
+echo
 
 echo "✈️ EXPORT"
 echo 'Running export banana="banana" and env'
