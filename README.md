@@ -2,18 +2,6 @@
 # Minishell
 Write a simple version of a shell.
 
-## TO DO LIST
-
-Ophélie
-* Figure out delimiters and heredoc -> [Bash Manual Section](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Redirections)
-* Help on multiple pipe system
-
-Sara
-* Handle the signals
-* Have a working history
-* Do the executor / multipipe system
-
-
 ## Parsing
 
 Analyse the text and divide it into categories and sub-categories. 
