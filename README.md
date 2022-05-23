@@ -1,9 +1,8 @@
 
-# Minishell
-Write a simple version of a shell.
+# Cocoshell 🥥
+Meet our simple version of a shell.
 
-## Parsing
-
+## 🍴 Parsing
 Analyse the text and divide it into categories and sub-categories. 
 We went with a linear parsing since we are only dealing with pipes and redirections as operators. The parsing would need to be more abstract if we were dealing with `&&` or `||`, for example.
 
@@ -14,31 +13,32 @@ We went with a linear parsing since we are only dealing with pipes and redirecti
 > `'` `''` quotes <br>
 > `alphanumerical` text / commands / flags <br>
 
-* ⚠️ **Quotes** (`'` `''`) ⚠️ <br>
+### ⚠️ Quotes (`'` `''`) ⚠️
 Quotes are handled from the beginning and all throughout the the process. A boolean like function allows to know if we are at the beginning, the end or in the middle of a quote and will allow the stage we're at to treat that information accordingly. 
 
-* **Step 0. Instructions**  (`|`) <br>
+### Step 0. Instructions (`|`)
 We split the input line into an array** of instructions with pipes as the delimiter.
 
-* **Step 1. Translate**  (`$`) <br>
+### Step 1. Translate (`$`)
 Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). We do this when we handle redirections and in the lexer separately because of a few exceptions in the `<<` redirection. <br>
 **Careful**: if the environement variable is in between single quotes, it shouldn't be translated.
 
-* **Step 2. Redirections**  (`>` `<` `<<` `>>`) <br>
+### Step 2. Redirections (`>` `<` `<<` `>>`)
 The redirection operator type and the following argument are saved as redirections (in a dedicated struct). The instruction line is then rewritten without the redirections text.
 
-* **Step 3. Lexer**  (`tokenise`) <br>
+### Step 3. Lexer (`tokenise`)
 All words left are then separated into single elements (in little boxes let's say) using spaces as delimiters.
 
-* **Step 4. Parse**  (`grammar`) <br>
+### Step 4. Parse (`grammar`)
 The parsing stage gives the tokens their type : `command`, `flag` or `word` while handling a few exceptions and, more importantly, removing the closed quotes. Then it assigns those tokens to their rightful variable. 
 
-* **Step 5. Validation**  (`semantics`) <br>
+### Step 5. Validation (`semantics`)
 We validate and verify the meaning of the result given by the parser. 
 <i>That a given name IS a name `David` and not a name that doesn't exist `Philosopher`.</i>
 
+</br>
 
-## Executor
+## 🏃‍♂️ Executor
 
 I shall write nice things about our executor. For now, here's a note on why I think valgrind doesn't like my cd: https://bugs.freedesktop.org/show_bug.cgi?id=112201
 
