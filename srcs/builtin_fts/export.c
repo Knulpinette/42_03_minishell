@@ -84,7 +84,10 @@ static int	add_env_list(char *arg, t_list *env)
 	if (arg[i])
 		value = ft_strdup(arg + i + 1);
 	if (get_env_lst(name, env))
+	{
 		set_env_value(name, value);
+		free(name);
+	}
 	else
 		create_and_add_env_list(name, value, env);
 	return (0);
