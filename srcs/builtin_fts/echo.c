@@ -37,7 +37,8 @@ int	echo(t_cmd_table *cmd)
 	while (cmd->cmd_args[i])
 	{
 		ft_putstr_fd(cmd->cmd_args[i], cmd->fd_out);
-		bytes_written = write(cmd->fd_out, " ", 1);
+		if (cmd->cmd_args[i + 1])
+			bytes_written = write(cmd->fd_out, " ", 1);
 		if (bytes_written == -1)
 			return (exit_echo());
 		i++;
