@@ -21,7 +21,7 @@ Quotes are handled from the beginning and all throughout the the process. A bool
 We split the input line into an array** of instructions with pipes as the delimiter.
 
 * **Step 1. Translate**  (`$`) <br>
-Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). <br>
+Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). We do this when we handle redirections and in the lexer separately because of a few exceptions in the '<<' redirection. <br>
 **Careful**: if the environement variable is in between single quotes, it shouldn't be translated.
 
 * **Step 2. Redirections**  (`>` `<` `<<` `>>`) <br>
