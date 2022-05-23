@@ -76,7 +76,8 @@ t_list	*copy_env_lst(t_list *original)
 void	del_env_content(void *env_var)
 {
 	free(((t_env *)env_var)->name);
-	free(((t_env *)env_var)->value);
+	if (((t_env *)env_var)->value)
+		free(((t_env *)env_var)->value);
 	free(env_var);
 }
 
