@@ -5,7 +5,7 @@ Write a simple version of a shell.
 ## Parsing
 
 Analyse the text and divide it into categories and sub-categories. 
-We went with a linear parsing since we are only dealing with pipes and redirections as operators. (The parsing would need to be more abstract if we were dealing with && or ||, for example).
+We went with a linear parsing since we are only dealing with pipes and redirections as operators. The parsing would need to be more abstract if we were dealing with `&&` or `||`, for example.
 
 **Special characters that will need to be handled:**
 > `|` pipe <br>
@@ -21,7 +21,7 @@ Quotes are handled from the beginning and all throughout the the process. A bool
 We split the input line into an array** of instructions with pipes as the delimiter.
 
 * **Step 1. Translate**  (`$`) <br>
-Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). We do this when we handle redirections and in the lexer separately because of a few exceptions in the '<<' redirection. <br>
+Then we replace the environement variables (`$HOME`, `$CMD`, `$PWD`...) by they real value (`home/cocoshells`, `ls -l`, `home/cocoshells/minishell`...). We do this when we handle redirections and in the lexer separately because of a few exceptions in the `<<` redirection. <br>
 **Careful**: if the environement variable is in between single quotes, it shouldn't be translated.
 
 * **Step 2. Redirections**  (`>` `<` `<<` `>>`) <br>
