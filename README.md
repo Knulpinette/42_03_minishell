@@ -38,8 +38,12 @@ We validate and verify the meaning of the result given by the parser.
 
 </br>
 
-## 🏃‍♂️ Executor
+## 🌍 Environment Variables
+In order to make it easier for us to manipulate (as in, delete, add new ones, update...) our environment variables, a linked list is created at the beginning of our programme, where all environment variables are stored.
 
+</br>
+
+## 🏃‍♂️ Executor
 While looping over each command, I start by opening a pipe, if needed.
 In our command struct, we keep track of the file descriptor from which input will be read (fd_in) and the one on which the output will be written (fd_out).
 So as I open the pipe, I update the command's fd_out to the pipe's writting end, and the next command's fd_in to the pipe's reading end.
@@ -54,6 +58,19 @@ What is the best strategy to create a temporary file?
 There are two potential problems to take into consideration: if someone creates a file with the same name and in the same directory as the temporary file, things will go wrong; if the temporary file has always the same name, and a here doc is being processed in two different minishells launched simultaneously, something will go wrong.
 To deal with this, I created the temporary file inside the /tmp folder (where users usually don't go) and named it after the tty where the minishell is being launched from.
 Environment variables are expanded, unless the delimiter is in between quotes.
+
+If we are looking at a single command which is a built-in, we run it in the parent process.
+Else, we create a child process.
+
+As we create a new process with fork, we store all the child pids in an array - this will be useful later on.
+Inside the child process, we either run the built-in command and exit with what it returns, or we call execve, which will replace our child process for a new one where the command will be run.
+Before we do that, we need to do some changes to the files descriptor's table.
+We need to copy the file descriptor 0 and make it point, not to STDIN, but to where our fd_in points, using dup2.
+In this way, when the new process looks for information from fd 0, it will get the correct information.
+Simillarly, we need to copy the file descriptor 1 and make it point, not to STDOUT, but to where our fd_out points.
+After building the needed parameters for execve, we are ready to run it.
+
+Back to the parent process
 
 I shall write nice things about our executor. For now, here's a note on why I think valgrind doesn't like my cd: https://bugs.freedesktop.org/show_bug.cgi?id=112201
 
