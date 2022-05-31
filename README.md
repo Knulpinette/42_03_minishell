@@ -40,22 +40,48 @@ We validate and verify the meaning of the result given by the parser.
 
 ## 🏃‍♂️ Executor
 
+While looping over each command, I start by opening a pipe, if needed.
+In our command struct, we keep track of the file descriptor from which input will be read (fd_in) and the one on which the output will be written (fd_out).
+So as I open the pipe, I update the command's fd_out to the pipe's writting end, and the next command's fd_in to the pipe's reading end.
+
+The second step is to take care of redirections.
+I make sure to close any file descriptor in use before opening another one.
+In this way, no matter how many pipes nor how many redirections we have, the number of file descriptors in use never goes beyond 5.
+As we go through each redirection, each file is opened (and created if it doesn't exist and we're dealing with an output redirection), and then closed when it's no longer needed.
+
+We deal with here docs by creating a temporary file, where the user input is written until the delimiter is given.
+What is the best strategy to create a temporary file?
+There are two potential problems to take into consideration: if someone creates a file with the same name and in the same directory as the temporary file, things will go wrong; if the temporary file has always the same name, and a here doc is being processed in two different minishells launched simultaneously, something will go wrong.
+To deal with this, I created the temporary file inside the /tmp folder (where users usually don't go) and named it after the tty where the minishell is being launched from.
+Environment variables are expanded, unless the delimiter is in between quotes.
+
 I shall write nice things about our executor. For now, here's a note on why I think valgrind doesn't like my cd: https://bugs.freedesktop.org/show_bug.cgi?id=112201
 
-## Useful Links
+</br>
 
-> **General links**
->> [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f) <br>
->> [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/) <br>
->> [Dimitri's and Gonçalo's Tuto](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
+## 🌱 Built-in commands
 
-> **Links from Maria**
->> [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c) <br>
->> [Bash parser](https://vorpaljs.github.io/bash-parser-playground/) <br>
->> [Shell Command Langage Details](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_01)
+</br>
 
-> **Links from Discord**
->> [AST viewer](https://ast-viewer.datacamp.com/editor?code=echo%20alo%20%3E%20aqui.txt%20bla%20bla%20%3E%3E%20alo.txt%20test%20%7C%20wc%20%7C%20ls%20%3E%20aqui.txt&start=NA&grammar=shell) <br>
->> [Termcaps](https://github.com/Olbrien/42Lisboa-lvl_3_minishell/blob/main/extras/termcaps_history_explanation/termcaps.c) <br>
->> [Pipes, forks & dups](https://www.rozmichelle.com/pipes-forks-dups/)
+## 🚨 Signals
 
+</br>
+
+## 🔗 Useful Links
+
+* [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
+* [Dimitri's and Gonçalo's Tutorial](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
+* [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c)
+* [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
+* [Bash parser](https://vorpaljs.github.io/bash-parser-playground/)
+* [Shell Command Langage Details](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_01)
+* [AST viewer](https://ast-viewer.datacamp.com/editor?code=echo%20alo%20%3E%20aqui.txt%20bla%20bla%20%3E%3E%20alo.txt%20test%20%7C%20wc%20%7C%20ls%20%3E%20aqui.txt&start=NA&grammar=shell)
+* [Termcaps](https://github.com/Olbrien/42Lisboa-lvl_3_minishell/blob/main/extras/termcaps_history_explanation/termcaps.c)
+* [Pipes, forks & dups](https://www.rozmichelle.com/pipes-forks-dups/)
+
+<br/>
+
+## 🐚 The Cocoshells
+This project was made by [Knulpinette](https://github.com/Knulpinette) and [areivs](https://github.com/arieivs).
+
+Happy coding! 🦕
