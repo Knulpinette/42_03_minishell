@@ -44,10 +44,12 @@ In order to make it easier for us to manipulate (as in, delete, add new ones, up
 </br>
 
 ## 🏃‍♂️ Executor
+### 1. Opening the Pipe
 While looping over each command, I start by opening a pipe, if needed.
 In our command struct, we keep track of the file descriptor from which input will be read (fd_in) and the one on which the output will be written (fd_out).
 So as I open the pipe, I update the command's fd_out to the pipe's writting end, and the next command's fd_in to the pipe's reading end.
 
+### 2. Redirections and Here docs
 The second step is to take care of redirections.
 I make sure to close any file descriptor in use before opening another one.
 In this way, no matter how many pipes nor how many redirections we have, the number of file descriptors in use never goes beyond 5.
@@ -59,35 +61,57 @@ There are two potential problems to take into consideration: if someone creates 
 To deal with this, I created the temporary file inside the /tmp folder (where users usually don't go) and named it after the tty where the minishell is being launched from.
 Environment variables are expanded, unless the delimiter is in between quotes.
 
+### 3. Executing in a child process
 If we are looking at a single command which is a built-in, we run it in the parent process.
 Else, we create a child process.
 
-As we create a new process with fork, we store all the child pids in an array - this will be useful later on.
+As we create a new process with fork, we store all the child PIDs in an array - this will be useful later on.
 Inside the child process, we either run the built-in command and exit with what it returns, or we call execve, which will replace our child process for a new one where the command will be run.
 Before we do that, we need to do some changes to the files descriptor's table.
 We need to copy the file descriptor 0 and make it point, not to STDIN, but to where our fd_in points, using dup2.
 In this way, when the new process looks for information from fd 0, it will get the correct information.
 Simillarly, we need to copy the file descriptor 1 and make it point, not to STDOUT, but to where our fd_out points.
-After building the needed parameters for execve, we are ready to run it.
 
-Back to the parent process
+Then, we need to build the necessary parameters for execve.
+We need to find the absolute path to the command, with the help of PATH and access function.
+After preparing the arguments and envp for execve, we are ready to run it.
 
-I shall write nice things about our executor. For now, here's a note on why I think valgrind doesn't like my cd: https://bugs.freedesktop.org/show_bug.cgi?id=112201
+### 4. Waiting and exit codes
+Back to the parent process, we wait for each command to finish in the order they were called, so that we store the correct exit code from each command.
+Remember the array of PIDs?
+This is where they come in handy.
+Waiting in order is important to make sure we're returning the exit code from the last command to be called, and not from the last command to finish executing.
+In this way, even though the commands are called in a some-what "assynchronous" manner (meaning, we don't wait for the first one to finish before we call the second), we receive their exit status in a some-what "synchronous" manner.
+And how do we get the exit codes from the process created by execve?
+Using the macros WIFEXITED and WEXITSTATUS, with the status given by waitpid.
 
 </br>
 
 ## 🌱 Built-in commands
+Gonçalo documented well what needs to be taken into consideration for the differente built-in functions, so check [his ReadMe](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#51-builtin-functions) and test in bash.
 
 </br>
 
 ## 🚨 Signals
+Signals are handled in a different way whether there's a child process running or not.
+For that reason, we call a function to reset how signals are handled right before the child process is created and right after it finishes.
+
+</br>
+
+## 🧪 Testing and our Non-interactive mode
+At the beginning, we thought (I'm still not sure how or why) that we were supposed to make our minishell work both in interactive and non-interactive mode.
+The interactive mode being what you actually need to do, running minishell to open a shell and run commands in there; the non-interactive mode being passing a shell script to minishell, which would then execute it line by line.
+The non-interactive mode is NOT necessary.
+
+However, it came in handy for testing purposes.
+You can find a summary of some [edge cases we found here](https://github.com/Knulpinette/42_03_minishell/blob/master/tester/tests/coco_edge_cases), and a [preparation for the evaluation here](https://github.com/Knulpinette/42_03_minishell/blob/master/tester/tests/coco_eval).
 
 </br>
 
 ## 🔗 Useful Links
 
 * [Bash Manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#What-is-Bash_003f)
-* [Dimitri's and Gonçalo's Tutorial](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md#1-extracting-information) (⚠️ careful they did the old minishell)
+* [Dimitri's and Gonçalo's Tutorial](https://github.com/DimitriDaSilva/42_minishell/blob/master/README.md) (⚠️ careful they did the old minishell)
 * [Minishell Notions](https://www.notion.so/Minishell-Materials-7bbd45a806e04395ab578ca3f805806c)
 * [A Guide to Parsing](https://tomassetti.me/guide-parsing-algorithms-terminology/)
 * [Bash parser](https://vorpaljs.github.io/bash-parser-playground/)
