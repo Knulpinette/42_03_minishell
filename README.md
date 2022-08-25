@@ -1,4 +1,6 @@
 
+`42 School Project`
+
 # Cocoshell 🥥
 Meet our simple version of a shell.
 
