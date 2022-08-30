@@ -121,4 +121,3 @@ debug:			CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 debug:			all
 
 .PHONY:			all clean_no_libft clean fclean re debug
-
